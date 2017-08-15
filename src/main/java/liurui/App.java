@@ -1,5 +1,7 @@
 package liurui;
 
+import java.util.Base64;
+
 /**
  * Hello world!
  *
