@@ -1,4 +1,4 @@
-package liurui.sorter;
+package liurui.v1.sort;
 
 import org.junit.Test;
 
@@ -9,4 +9,5 @@ public class QuickSortTest {
     public void sort() throws Exception {
         assertArrayEquals(new int[]{1,1,3,5,5,6,7,9,9}, new QuickSort().sort(new int[]{5,9,1,9,5,3,7,6,1}));
     }
+
 }

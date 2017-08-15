@@ -1,12 +1,12 @@
-package liurui.sorter;
+package liurui.v1.sort;
 
-import java.util.Arrays;
-
-public class QuickSort {
+/***
+ * 快速排序
+ */
+public class QuickSort implements Sortable {
+    @Override
     public int[] sort(int[] data) {
         sort(data, 0, data.length - 1);
-
-        System.out.println(Arrays.toString(data));
         return data;
     }
 
@@ -17,28 +17,24 @@ public class QuickSort {
         int i = begin;
         int j = end;
 
+
         while (i < j) {
-            while (i < j && data[j] >= key) {
+            while (i < j && data[j] > key) {
                 j--;
             }
 
-            if (i == j) break;
-            data[i] = data[j];
-            i++;
+            if (i < j)
+                data[i++] = data[j];
 
             while (i < j && data[i] <= key) {
                 i++;
             }
 
-
-            if (i == j) break;
-            data[j] = data[i];
+            if (i < j)
+                data[j--] = data[i];
         }
-
         data[i] = key;
-
-
-        sort(data, begin, i - 1);
+        sort(data, 0, i -1);
         sort(data, i + 1, end);
     }
 }

@@ -1,6 +1,5 @@
-package liurui.v1.sorter;
+package liurui.v1.sort;
 
-import liurui.sorter.QuickSort;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
