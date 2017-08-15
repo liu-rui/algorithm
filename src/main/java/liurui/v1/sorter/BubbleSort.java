@@ -4,7 +4,7 @@ package liurui.v1.sorter;
 /***
  * 冒泡排序
  */
-public class BubbleSort implements SortBase {
+public class BubbleSort implements Sortable {
     @Override
     public int[] sort(int[] data) {
 

@@ -1,11 +1,9 @@
 package liurui.v1.sorter;
 
-import java.util.Arrays;
-
 /***
  * 希尔排序
  */
-public class ShellSort implements SortBase {
+public class ShellSort implements Sortable {
     @Override
     public int[] sort(int[] data) {
         for (int i = data.length / 2; i > 0; i /= 2) {
@@ -18,7 +16,6 @@ public class ShellSort implements SortBase {
                     }
                     data[k] = tmp;
                 }
-
             }
         }
         return data;

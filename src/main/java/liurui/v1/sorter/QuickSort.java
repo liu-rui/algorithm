@@ -5,7 +5,7 @@ import java.util.Arrays;
 /***
  * 快速排序
  */
-public class QuickSort implements SortBase {
+public class QuickSort implements Sortable {
     @Override
     public int[] sort(int[] data) {
         sort(data, 0, data.length - 1);

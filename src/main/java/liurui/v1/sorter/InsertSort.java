@@ -4,7 +4,7 @@ package liurui.v1.sorter;
 /***
  * 插入排序
  */
-public class InsertSort implements SortBase {
+public class InsertSort implements Sortable {
     @Override
     public int[] sort(int[] data) {
         for (int i = 1; i < data.length; i++) {

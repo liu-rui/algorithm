@@ -4,7 +4,7 @@ package liurui.v1.sorter;
 /***
  * 桶排序
  */
-public class BucketSort implements SortBase {
+public class BucketSort implements Sortable {
 
 
     @Override
