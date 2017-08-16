@@ -46,6 +46,32 @@ public class MyHashtable {
             entry._next = new Entry(key, value);
             _count++;
         }
+
+        resize();
+    }
+
+    private void resize() {
+        if (_count < _ary.length * 0.75) return;
+        Entry[] newAry = new Entry[_ary.length * 2];
+
+        for (int i = 0; i < _ary.length; i++) {
+            Entry tmp = _ary[i];
+
+            if (tmp == null || tmp._next == null) continue;
+            Entry item = tmp._next;
+
+            while (item != null) {
+                int newIndex = item._key % newAry.length;
+
+                if (newAry[newIndex] == null) {
+                    newAry[newIndex] = new Entry(-1, null, new Entry(item._key, item._data));
+                } else {
+                    newAry[newIndex]._next = new Entry(item._key, item._data, newAry[newIndex]._next);
+                }
+                item = item._next;
+            }
+        }
+        _ary = newAry;
     }
 
     public void remove(int key) {
@@ -90,6 +116,10 @@ public class MyHashtable {
 
     public int getCount() {
         return _count;
+    }
+
+    public int getSize() {
+        return _ary.length;
     }
 
     private int hashKey(int key) {
