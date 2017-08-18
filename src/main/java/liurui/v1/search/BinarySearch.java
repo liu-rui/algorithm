@@ -7,7 +7,7 @@ public class BinarySearch {
         int cur;
 
         while (begin < end) {
-            cur = begin + (end - begin) / 2;
+            cur = (begin + end) / 2;
             if (data[cur] == item)
                 return cur;
             else if (data[cur] > item)
