@@ -1,5 +1,7 @@
 package liurui.v1.structure;
 
+import javafx.beans.binding.StringBinding;
+
 public class BinaryTree {
     private Node root;
 
@@ -116,17 +118,72 @@ public class BinaryTree {
         if (parent == null) return false;
         if (parent == node) return true;
 
-        return exists(parent.getLeftChild()) ? true : exists(parent.getRightNode());
+        return exists(parent.getLeftChild(), node) ? true : exists(parent.getRightNode(), node);
     }
 
 
-    private void print(OrderType orderType) {
+    public String print(OrderType orderType) {
+        switch (orderType) {
+            case Pre_Order:
+                return preOrder();
+            case In_Order:
+                return inOrder();
+            case Post_Order:
+                return postOrder();
+        }
 
+        return null;
     }
 
 
-    private void preOrder(){
+    private String preOrder() {
+        StringBuilder sb = new StringBuilder();
 
+
+        preOrder(sb, root);
+        return sb.toString();
+    }
+
+    private void preOrder(StringBuilder sb, Node node) {
+        if (node == null) return;
+
+
+        sb.append(node.data);
+        preOrder(sb, node.getLeftChild());
+        preOrder(sb, node.getRightNode());
+    }
+
+    private String inOrder() {
+        StringBuilder sb = new StringBuilder();
+
+
+        inOrder(sb, root);
+        return sb.toString();
+    }
+
+    private void inOrder(StringBuilder sb, Node node) {
+        if (node == null) return;
+
+        inOrder(sb, node.getLeftChild());
+        sb.append(node.data);
+        inOrder(sb, node.getRightNode());
+    }
+
+
+    private String postOrder() {
+        StringBuilder sb = new StringBuilder();
+
+        postOrder(sb, root);
+        return sb.toString();
+    }
+
+    private void postOrder(StringBuilder sb, Node node) {
+        if (node == null) return;
+
+
+        postOrder(sb, node.getLeftChild());
+        postOrder(sb, node.getRightNode());
+        sb.append(node.data);
     }
 
 
@@ -141,6 +198,16 @@ public class BinaryTree {
         private String data;
         private Node leftChild;
         private Node rightNode;
+
+        public Node(String data) {
+            this.data = data;
+        }
+
+        public Node(String data, Node leftChild, Node rightNode) {
+            this.data = data;
+            this.leftChild = leftChild;
+            this.rightNode = rightNode;
+        }
 
         public String getData() {
             return data;

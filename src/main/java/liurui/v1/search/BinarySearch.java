@@ -6,7 +6,7 @@ public class BinarySearch {
         int end = data.length - 1;
         int cur;
 
-        while (begin < end) {
+        while (begin <= end) {
             cur = (begin + end) / 2;
             if (data[cur] == item)
                 return cur;
