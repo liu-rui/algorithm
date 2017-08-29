@@ -7,14 +7,16 @@ public class HeapSort implements Sortable {
     public int[] sort(int[] data) {
         int[] ret = build(data);
 
-        System.out.println(Arrays.toString(ret));
         sortPrivate(ret);
-        return ret;
+
+        for (int i = 0; i < data.length; i++) {
+            data[i] = ret[i + 1];
+        }
+        return data;
     }
 
     private int[] build(int[] data) {
         int[] ret = new int[data.length + 1];
-
 
         for (int item : data) {
             ret[0]++;
@@ -32,8 +34,25 @@ public class HeapSort implements Sortable {
 
 
     private void sortPrivate(int[] data) {
-        int i = 2;
+        while (data[0] > 1) {
+            int tmp = data[data[0]];
+            data[data[0]] = data[1];
+            data[1] = tmp;
+            data[0]--;
 
+            int i = 1;
 
+            while (i * 2 <= data[0]) {
+                if (i * 2 + 1 <= data[0] && data[i * 2 + 1] > data[i * 2] && data[i * 2 + 1] > tmp) {
+                    data[i] = data[i * 2 + 1];
+                    i = i * 2 + 1;
+                } else if (data[i * 2] > tmp) {
+                    data[i] = data[i * 2];
+                    i = i * 2;
+                } else
+                    break;
+            }
+            data[i] = tmp;
+        }
     }
 }
