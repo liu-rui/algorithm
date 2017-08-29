@@ -1,14 +1,15 @@
 package liurui.v1.Questions;
 
+import liurui.v2.questions.StackUsingDoubleQueue;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import  static  org.junit.Assert.*;
 
 public class StackUsingDoubleQueueTest {
 
     @Test
     public void test() {
-        StackUsingDoubleQueue item = new StackUsingDoubleQueue();
+        liurui.v2.questions.StackUsingDoubleQueue item = new StackUsingDoubleQueue();
 
         item.push(10);
         item.push(45);

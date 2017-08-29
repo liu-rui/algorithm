@@ -1,4 +1,4 @@
-package liurui.v1.search;
+package liurui.v2.search;
 
 import org.junit.Test;
 

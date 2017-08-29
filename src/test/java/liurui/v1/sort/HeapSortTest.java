@@ -1,4 +1,4 @@
-package liurui.v1.sort;
+package liurui.v2.sort;
 
 import org.junit.Test;
 
