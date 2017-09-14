@@ -1,4 +1,4 @@
-package liurui.v1.Questions;
+package liurui.questions;
 
 import java.util.Stack;
 
@@ -9,26 +9,26 @@ public class QueueUsingDoubleStack {
     Stack<Integer> a = new Stack<>();
     Stack<Integer> b = new Stack<>();
 
-
     public void push(int data) {
         a.push(data);
     }
 
-    public int pop() {
-        if (isEmpty()) throw new IndexOutOfBoundsException();
-
-        if (b.isEmpty()) {
-            while (!a.isEmpty())
-                b.push(a.pop());
-        }
-        return b.pop();
-    }
-
-    public int getSize(){
+    public int getSize() {
         return a.size() + b.size();
     }
 
-    public boolean isEmpty() {
-        return a.isEmpty() && b.isEmpty();
+    public boolean empty() {
+        return a.empty() && b.empty();
+    }
+
+    public int pop() {
+        if (empty()) throw new IndexOutOfBoundsException();
+
+        if (b.empty()) {
+            while (!a.empty()) {
+                b.push(a.pop());
+            }
+        }
+        return b.pop();
     }
 }

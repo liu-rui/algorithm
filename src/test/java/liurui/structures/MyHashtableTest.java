@@ -1,4 +1,4 @@
-package liurui.v1.structure;
+package liurui.structures;
 
 import org.junit.Test;
 
@@ -8,39 +8,38 @@ public class MyHashtableTest {
 
     @Test
     public void test() {
-        MyHashtable hashtable = new MyHashtable();
+        MyHashTable hashtable = new MyHashTable();
 
-        assertEquals(0, hashtable.getCount());
+        assertEquals(0, hashtable.getSize());
 
-        hashtable.set(10, "a");
-        assertEquals(1, hashtable.getCount());
+        hashtable.put(10, "a");
+        assertEquals(1, hashtable.getSize());
 
         hashtable.remove(10);
-        assertEquals(0, hashtable.getCount());
+        assertEquals(0, hashtable.getSize());
         assertNull(hashtable.get(10));
 
-        hashtable.set(10,"a");
-        hashtable.set(11,"b");
-        hashtable.set(20,"c");
-        hashtable.set(30,"d");
-        hashtable.set(10,"e");
-        assertEquals(8, hashtable.getSize());
-        assertEquals(4, hashtable.getCount());
+        hashtable.put(10, "a");
+        hashtable.put(11, "b");
+        hashtable.put(20, "c");
+        hashtable.put(30, "d");
+        hashtable.put(10, "e");
+        assertEquals(4, hashtable.getSize());
         assertEquals("e", hashtable.get(10));
         assertEquals("b", hashtable.get(11));
         assertEquals("c", hashtable.get(20));
         assertEquals("d", hashtable.get(30));
 
-        hashtable.set(40,"e");
-        hashtable.set(41,"f");
-        hashtable.set(42,"g");
-        hashtable.set(43,"h");
-        hashtable.set(44,"i");
-        hashtable.set(45,"j");
-        hashtable.set(46,"k");
+        hashtable.put(40, "e");
+        hashtable.put(41, "f");
+        hashtable.put(42, "g");
+        hashtable.put(43, "h");
+        hashtable.put(44, "i");
+        hashtable.put(45, "j");
+        hashtable.put(46, "k");
 
-        assertEquals(16, hashtable.getSize());
-        assertEquals(11,hashtable.getCount());
+
+        assertEquals(11, hashtable.getSize());
         assertEquals("e", hashtable.get(10));
         assertEquals("b", hashtable.get(11));
         assertEquals("c", hashtable.get(20));

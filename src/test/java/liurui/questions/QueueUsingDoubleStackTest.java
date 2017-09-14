@@ -1,4 +1,4 @@
-package liurui.v2.questions;
+package liurui.questions;
 
 import org.junit.Test;
 
