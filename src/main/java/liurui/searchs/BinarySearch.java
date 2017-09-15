@@ -1,9 +1,13 @@
-package liurui.v2.search;
+package liurui.searchs;
 
-
-public class BinarySearch {
-
+/**
+ * 二分查找法，需要数组事先升序排列
+ */
+public class BinarySearch implements Searchable {
+    @Override
     public int find(int[] data, int item) {
+        if (data == null || data.length == 0) return -1;
+
         int begin = 0;
         int end = data.length - 1;
         int cur;
@@ -13,10 +17,10 @@ public class BinarySearch {
 
             if (data[cur] == item)
                 return cur;
-            else if (data[cur] > item)
-                end = cur - 1;
-            else
+            else if (item > data[cur])
                 begin = cur + 1;
+            else
+                end = cur - 1;
         }
         return -1;
     }

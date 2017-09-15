@@ -1,4 +1,4 @@
-package liurui.v2.search;
+package liurui.searchs;
 
 import org.junit.Test;
 
@@ -9,8 +9,8 @@ public class SequentialSearchTest {
     public void find() throws Exception {
         SequentialSearch search = new SequentialSearch();
 
-        assertEquals (-1 , search.find(new int[]{  3,5,61,5,2} , 4));
-        assertEquals (2 , search.find(new int[]{  3,5,61,5,2} , 61));
+        assertEquals(-1, search.find(new int[]{3, 5, 61, 5, 2}, 4));
+        assertEquals(2, search.find(new int[]{3, 5, 61, 5, 2}, 61));
     }
 
 }

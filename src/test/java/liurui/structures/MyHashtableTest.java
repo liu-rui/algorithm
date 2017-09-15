@@ -8,8 +8,11 @@ public class MyHashtableTest {
 
     @Test
     public void test() {
-        MyHashTable hashtable = new MyHashTable();
+        MyHashTableUsingLink hashtable = new MyHashTableUsingLink();
+        test(hashtable);
+    }
 
+    private void test(Hashable hashtable) {
         assertEquals(0, hashtable.getSize());
 
         hashtable.put(10, "a");

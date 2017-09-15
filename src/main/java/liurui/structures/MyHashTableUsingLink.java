@@ -4,7 +4,7 @@ package liurui.structures;
 /***
  * 散列表－使用链表法解决碰撞问题
  */
-public class MyHashTable {
+public class MyHashTableUsingLink implements Hashable {
     public static class Entry {
         private int key;
         private String value;
@@ -28,16 +28,17 @@ public class MyHashTable {
     int capacity = 0;//list数组已经使用的个数
     int size = 0; //元素的总个数
 
-    public MyHashTable() {
+    public MyHashTableUsingLink() {
         this(DEFAULT_CAPACITY);
     }
 
-    public MyHashTable(int capacity) {
+    public MyHashTableUsingLink(int capacity) {
         if (capacity < 1) throw new IllegalArgumentException();
         list = new Entry[capacity];
     }
 
 
+    @Override
     public void put(int key, String value) {
         int index = hash(key, list.length);
 
@@ -81,17 +82,19 @@ public class MyHashTable {
         return Math.abs(Integer.valueOf(key).hashCode() % count);
     }
 
+    @Override
     public boolean contains(int key) {
         return getEntry(key) != null;
     }
 
+    @Override
     public String get(int key) {
         Entry entry = getEntry(key);
 
         return entry == null ? null : entry.value;
     }
 
-    public Entry getEntry(int key) {
+    private Entry getEntry(int key) {
         if (isEmpty())  return null;
         int index = hash(key, list.length);
 
@@ -107,6 +110,7 @@ public class MyHashTable {
         return item;
     }
 
+    @Override
     public void remove(int key) {
         if (isEmpty()) return;
         int index = hash(key, list.length);
@@ -127,14 +131,17 @@ public class MyHashTable {
         }
     }
 
+    @Override
     public int getSize() {
         return size;
     }
 
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
+    @Override
     public void clear() {
         list = new Entry[DEFAULT_CAPACITY];
         capacity = 0;
