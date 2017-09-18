@@ -1,6 +1,6 @@
 package liurui.v2.sort;
 
-import liurui.v1.sort.Sortable;
+import liurui.sorts.Sortable;
 
 import java.util.Arrays;
 

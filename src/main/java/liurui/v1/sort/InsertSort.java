@@ -1,6 +1,8 @@
 package liurui.v1.sort;
 
 
+import liurui.sorts.Sortable;
+
 /***
  * 插入排序
  */

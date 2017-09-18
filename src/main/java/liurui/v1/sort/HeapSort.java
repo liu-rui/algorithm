@@ -1,6 +1,6 @@
 package liurui.v1.sort;
 
-import java.util.Arrays;
+import liurui.sorts.Sortable;
 
 public class HeapSort implements Sortable {
     @Override

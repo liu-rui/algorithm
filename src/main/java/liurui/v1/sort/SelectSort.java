@@ -1,5 +1,7 @@
 package liurui.v1.sort;
 
+import liurui.sorts.Sortable;
+
 public class SelectSort implements Sortable {
     @Override
     public int[] sort(int[] data) {

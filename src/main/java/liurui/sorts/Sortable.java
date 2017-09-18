@@ -1,4 +1,4 @@
-package liurui.v1.sort;
+package liurui.sorts;
 
 /***
  * 排序接口

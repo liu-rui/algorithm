@@ -1,5 +1,7 @@
 package liurui.v1.sort;
 
+import liurui.sorts.Sortable;
+
 /***
  * 快速排序
  */
