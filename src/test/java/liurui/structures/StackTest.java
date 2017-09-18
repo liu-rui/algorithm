@@ -1,24 +1,24 @@
-package liurui.v1.structure;
+package liurui.structures;
 
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class MyStackTest {
-
-
+public class StackTest {
     @Test
     public void test() {
-        MyStack stack = new MyStack(2);
+        test(new StackUsingArray(2));
+        test(new StackUsingLink());
+    }
 
-        assertEquals(0, stack.getCount());
-        assertEquals(2, stack.getSize());
+    private void test(Stackable stack) {
+        assertEquals(0, stack.getSize());
 
         stack.push(100);
-        assertEquals(1, stack.getCount());
+        assertEquals(1, stack.getSize());
         assertEquals(100, stack.peek());
         assertEquals(100, stack.pop());
-        assertEquals(0, stack.getCount());
+        assertEquals(0, stack.getSize());
 
 
         stack.push(200);
@@ -28,14 +28,12 @@ public class MyStackTest {
         stack.push(600);
 
 
-        assertEquals(5, stack.getCount());
-        assertEquals(8, stack.getSize());
+        assertEquals(5, stack.getSize());
         assertEquals(600, stack.pop());
         assertEquals(500, stack.pop());
         assertEquals(400, stack.pop());
         assertEquals(300, stack.pop());
         assertEquals(200, stack.pop());
-        assertEquals(0, stack.getCount());
-        assertEquals(8, stack.getSize());
+        assertEquals(0, stack.getSize());
     }
 }

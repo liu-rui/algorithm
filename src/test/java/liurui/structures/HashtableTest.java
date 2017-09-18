@@ -4,11 +4,11 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class MyHashtableTest {
+public class HashtableTest {
 
     @Test
     public void test() {
-        MyHashTableUsingLink hashtable = new MyHashTableUsingLink();
+        HashTableUsingLink hashtable = new HashTableUsingLink();
         test(hashtable);
     }
 

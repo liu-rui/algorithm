@@ -3,29 +3,30 @@ package liurui.structures;
 import java.util.Arrays;
 
 /***
- * 动态数组
+ * 动态数组,使用数组实现
  */
-public class MyArrayList {
+public class ArrayListUsingArray implements ArrayListable {
     public final static int DEFAULT_CAPACITY = 10;
-    public final static float RESIZE_FACTOR = 0.75f;
     protected int[] list;
     protected int size;
 
 
-    public MyArrayList() {
+    public ArrayListUsingArray() {
         this(DEFAULT_CAPACITY);
     }
 
-    public MyArrayList(int capacity) {
+    public ArrayListUsingArray(int capacity) {
         if (capacity < 1) throw new IllegalArgumentException("capacity");
 
         list = new int[capacity];
     }
 
+    @Override
     public void add(int data) {
         insert(size, data);
     }
 
+    @Override
     public void insert(int index, int data) {
         if (index < 0 || index > size) throw new IndexOutOfBoundsException("index");
 
@@ -38,10 +39,11 @@ public class MyArrayList {
     }
 
     protected void resize() {
-        if (size < list.length * RESIZE_FACTOR) return;
+        if (size < list.length) return;
         list = Arrays.copyOf(list, list.length * 2);
     }
 
+    @Override
     public boolean contains(int data) {
         if (isEmpty()) return false;
         if (list[0] == data) return true;
@@ -57,10 +59,12 @@ public class MyArrayList {
         return i != 0;
     }
 
+    @Override
     public int remove() {
         return remove(size - 1);
     }
 
+    @Override
     public int remove(int index) {
         if (isEmpty() || index < 0) throw new IndexOutOfBoundsException("index");
         int ret = list[index];
@@ -72,6 +76,7 @@ public class MyArrayList {
         return ret;
     }
 
+    @Override
     public int getSize() {
         return size;
     }
@@ -80,14 +85,17 @@ public class MyArrayList {
         return list.length;
     }
 
+    @Override
     public boolean isEmpty() {
         return size == 0;
     }
 
+    @Override
     public void clear() {
         size = 0;
     }
 
+    @Override
     public int get(int index) {
         if (isEmpty() || index < 0) throw new IndexOutOfBoundsException("index");
         return list[index];

@@ -4,29 +4,28 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class MyArrayListTest {
+public class ArrayListTest {
     @Test
     public void test() {
-        MyArrayList ary = new MyArrayList(2);
+        test(new ArrayListUsingArray(2));
+        test(new ArrayListUsingLink());
+    }
 
-        assertEquals(2, ary.capacity());
+    private void test(ArrayListable ary) {
         assertEquals(0, ary.getSize());
 
         ary.add(10);
-        assertEquals(2, ary.capacity());
         assertEquals(1, ary.getSize());
         assertEquals(10, ary.get(0));
         assertTrue(ary.contains(10));
         assertFalse(ary.contains(20));
 
         ary.remove();
-        assertEquals(2, ary.capacity());
         assertEquals(0, ary.getSize());
 
         ary.add(10);
         ary.add(20);
         ary.insert(0, 30);
-        assertEquals(8, ary.capacity());
         assertEquals(3, ary.getSize());
         assertEquals(30, ary.get(0));
         assertEquals(10, ary.get(1));
@@ -37,14 +36,12 @@ public class MyArrayListTest {
         assertFalse(ary.contains(40));
 
         ary.remove(1);
-        assertEquals(8, ary.capacity());
         assertEquals(2, ary.getSize());
         assertEquals(30, ary.get(0));
         assertEquals(20, ary.get(1));
         assertFalse(ary.contains(10));
 
         ary.remove();
-        assertEquals(8, ary.capacity());
         assertEquals(1, ary.getSize());
         assertEquals(30, ary.get(0));
         assertFalse(ary.contains(20));
@@ -52,7 +49,6 @@ public class MyArrayListTest {
 
         ary.clear();
 
-        assertEquals(8, ary.capacity());
         assertEquals(0, ary.getSize());
     }
 }

@@ -4,7 +4,7 @@ package liurui.structures;
 /***
  * 散列表－使用链表法解决碰撞问题
  */
-public class MyHashTableUsingLink implements Hashable {
+public class HashTableUsingLink implements Hashable {
     public static class Entry {
         private int key;
         private String value;
@@ -28,11 +28,11 @@ public class MyHashTableUsingLink implements Hashable {
     int capacity = 0;//list数组已经使用的个数
     int size = 0; //元素的总个数
 
-    public MyHashTableUsingLink() {
+    public HashTableUsingLink() {
         this(DEFAULT_CAPACITY);
     }
 
-    public MyHashTableUsingLink(int capacity) {
+    public HashTableUsingLink(int capacity) {
         if (capacity < 1) throw new IllegalArgumentException();
         list = new Entry[capacity];
     }

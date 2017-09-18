@@ -4,10 +4,10 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class MySortedArrayListTest {
+public class SortedArrayListTest {
     @Test
     public void test() {
-        MyArrayList ary = new MySortedArrayList(2);
+        ArrayListUsingArray ary = new ArrayListSorted(2);
 
         assertEquals(2, ary.capacity());
         assertEquals(0, ary.getSize());

@@ -3,8 +3,8 @@ package liurui.structures;
 /***
  * 排好序的动态数组
  */
-public class MySortedArrayList extends MyArrayList {
-    public MySortedArrayList(int capacity) {
+public class ArrayListSorted extends ArrayListUsingArray {
+    public ArrayListSorted(int capacity) {
         super(capacity);
     }
 
