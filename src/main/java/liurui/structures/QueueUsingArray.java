@@ -47,9 +47,7 @@ public class QueueUsingArray implements Queuable {
 
     @Override
     public int getSize() {
-        if (tail == head)
-            return 0;
-        if (tail > head)
+        if (tail >= head)
             return tail - head;
         else
             return tail + list.length - head;
