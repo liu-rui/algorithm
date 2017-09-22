@@ -2,7 +2,7 @@ package liurui.structures;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class StackTest {
     @Test

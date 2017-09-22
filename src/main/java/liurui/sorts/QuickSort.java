@@ -1,7 +1,5 @@
 package liurui.sorts;
 
-import java.util.Arrays;
-
 /***
  * 快速排序
  */
