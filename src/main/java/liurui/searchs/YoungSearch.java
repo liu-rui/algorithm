@@ -13,16 +13,16 @@ public class YoungSearch {
     public boolean search(int item) {
         final int MAX_ROW = data.length;
         final int MAX_COLUMN = data[0].length;
-        int i = 0;
-        int j = MAX_COLUMN - 1;
+        int row = 0;
+        int column = MAX_COLUMN - 1;
 
-        while (i<MAX_ROW && j>= 0) {
-            if (data[i][j] == item)
+        while (row<MAX_ROW && column>= 0) {
+            if (data[row][column] == item)
                 return true;
-            else if (data[i][j] > item) {
-                j--;
+            else if (data[row][column] > item) {
+                column--;
             } else
-                i++;
+                row++;
         }
 
         return false;
