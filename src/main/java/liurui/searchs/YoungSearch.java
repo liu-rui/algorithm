@@ -16,7 +16,7 @@ public class YoungSearch {
         int row = 0;
         int column = MAX_COLUMN - 1;
 
-        while (row<MAX_ROW && column>= 0) {
+        while (row < MAX_ROW && column >= 0) {
             if (data[row][column] == item)
                 return true;
             else if (data[row][column] > item) {
