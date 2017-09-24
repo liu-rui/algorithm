@@ -1,7 +1,5 @@
 package liurui.v1.structure;
 
-import javafx.beans.binding.StringBinding;
-
 public class BinaryTree {
     private Node root;
 

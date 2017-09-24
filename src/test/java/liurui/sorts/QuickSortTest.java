@@ -1,8 +1,8 @@
-package liurui.v2.sort;
+package liurui.sorts;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertArrayEquals;
 
 public class QuickSortTest {
     @Test

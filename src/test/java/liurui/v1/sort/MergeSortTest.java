@@ -1,7 +1,6 @@
 package liurui.v1.sort;
 
 import liurui.v2.sort.MergeSort;
-import liurui.v2.sort.ShellSort;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
