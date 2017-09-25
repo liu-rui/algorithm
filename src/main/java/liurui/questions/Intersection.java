@@ -1,9 +1,9 @@
 package liurui.questions;
 
+import liurui.sorts.QuickSort;
 import liurui.sorts.Sortable;
 import liurui.structures.ArrayListUsingArray;
 import liurui.structures.ArrayListable;
-import liurui.v2.sort.QuickSort;
 
 /***
  * 求出两个数组的交集
