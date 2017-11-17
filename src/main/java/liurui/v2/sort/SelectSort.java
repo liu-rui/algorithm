@@ -10,8 +10,9 @@ public class SelectSort implements Sortable {
             int max = i;
 
             for (int j = i - 1; j >= 0; j--) {
-                if (data[j] > data[max])
+                if (data[j] > data[max]) {
                     max = j;
+                }
             }
 
             if (max != i) {

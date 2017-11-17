@@ -33,7 +33,9 @@ public class HashTableUsingLink implements Hashable {
     }
 
     public HashTableUsingLink(int capacity) {
-        if (capacity < 1) throw new IllegalArgumentException();
+        if (capacity < 1) {
+            throw new IllegalArgumentException();
+        }
         list = new Entry[capacity];
     }
 
@@ -63,14 +65,18 @@ public class HashTableUsingLink implements Hashable {
     }
 
     private void resize() {
-        if (capacity < list.length * RESIZE_FACTOR) return;
+        if (capacity < list.length * RESIZE_FACTOR) {
+            return;
+        }
         Entry[] oldList = list;
         list = new Entry[list.length * 2];
         capacity = 0;
         size = 0;
 
         for (int i = 0; i < oldList.length; i++) {
-            if (oldList[i] == null) continue;
+            if (oldList[i] == null) {
+                continue;
+            }
 
             for (Entry item = oldList[i].next; item != null; item = item.next) {
                 put(item.key, item.value);
@@ -95,15 +101,20 @@ public class HashTableUsingLink implements Hashable {
     }
 
     private Entry getEntry(int key) {
-        if (isEmpty())  return null;
+        if (isEmpty()) {
+            return null;
+        }
         int index = hash(key, list.length);
 
-        if (list[index] == null) return null;
+        if (list[index] == null) {
+            return null;
+        }
         Entry item = list[index].next;
 
         while (item != null) {
-            if (item.key == key)
+            if (item.key == key) {
                 return item;
+            }
 
             item = item.next;
         }
@@ -112,10 +123,14 @@ public class HashTableUsingLink implements Hashable {
 
     @Override
     public void remove(int key) {
-        if (isEmpty()) return;
+        if (isEmpty()) {
+            return;
+        }
         int index = hash(key, list.length);
 
-        if (list[index] == null) return;
+        if (list[index] == null) {
+            return;
+        }
         Entry pre = list[index];
         Entry item = list[index].next;
 

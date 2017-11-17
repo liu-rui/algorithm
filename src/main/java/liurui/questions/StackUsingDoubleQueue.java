@@ -12,10 +12,11 @@ public class StackUsingDoubleQueue {
     Queue<Integer> b = new ArrayDeque<>();
 
     public void push(int data) {
-        if (a.isEmpty())
+        if (a.isEmpty()) {
             b.add(data);
-        else
+        } else {
             a.add(data);
+        }
     }
 
     public int getSize() {
@@ -27,12 +28,15 @@ public class StackUsingDoubleQueue {
     }
 
     public int pop() {
-        if (empty()) throw new IndexOutOfBoundsException();
+        if (empty()) {
+            throw new IndexOutOfBoundsException();
+        }
 
-        if (a.isEmpty())
+        if (a.isEmpty()) {
             return popPrivate(b, a);
-        else
+        } else {
             return popPrivate(a, b);
+        }
     }
 
     private int popPrivate(Queue<Integer> first, Queue<Integer> second) {

@@ -9,8 +9,9 @@ public class SelectSort implements Sortable {
             int min = i;
 
             for (int j = i + 1; j < data.length; j++) {
-                if (data[j] < data[min])
+                if (data[j] < data[min]) {
                     min = j;
+                }
             }
             if(min != i){
                 int tmp =  data[i];

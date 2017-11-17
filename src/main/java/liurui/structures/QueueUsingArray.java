@@ -12,20 +12,26 @@ public class QueueUsingArray implements Queuable {
     }
 
     public QueueUsingArray(int capacity) {
-        if (capacity < 1) capacity = DEFAULT_CAPACITY;
+        if (capacity < 1) {
+            capacity = DEFAULT_CAPACITY;
+        }
         list = new int[capacity];
     }
 
     @Override
     public void add(int data) {
-        if (full()) throw new IndexOutOfBoundsException();
+        if (full()) {
+            throw new IndexOutOfBoundsException();
+        }
         list[tail] = data;
         tail = (tail + 1) % list.length;
     }
 
     @Override
     public int pop() {
-        if (empty()) throw new IndexOutOfBoundsException();
+        if (empty()) {
+            throw new IndexOutOfBoundsException();
+        }
         int ret = list[head];
 
         head = (head + 1) % list.length;
@@ -34,7 +40,9 @@ public class QueueUsingArray implements Queuable {
 
     @Override
     public int peek() {
-        if (empty()) throw new IndexOutOfBoundsException();
+        if (empty()) {
+            throw new IndexOutOfBoundsException();
+        }
 
         return list[head];
     }
@@ -47,10 +55,11 @@ public class QueueUsingArray implements Queuable {
 
     @Override
     public int getSize() {
-        if (tail >= head)
+        if (tail >= head) {
             return tail - head;
-        else
+        } else {
             return tail + list.length - head;
+        }
     }
 
     private boolean full() {

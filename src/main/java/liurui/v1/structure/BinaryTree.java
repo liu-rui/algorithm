@@ -23,7 +23,9 @@ public class BinaryTree {
     }
 
     public void clear(Node node) {
-        if (node == null) return;
+        if (node == null) {
+            return;
+        }
 
         clear(node.getLeftChild());
         clear(node.getRightNode());
@@ -46,7 +48,9 @@ public class BinaryTree {
     }
 
     private int getHeight(Node node) {
-        if (node == null) return 0;
+        if (node == null) {
+            return 0;
+        }
 
         int leftHeight = getHeight(node.getLeftChild());
         int rightHeight = getHeight(node.getRightNode());
@@ -64,7 +68,9 @@ public class BinaryTree {
     }
 
     private int getSize(Node node) {
-        if (node == null) return 0;
+        if (node == null) {
+            return 0;
+        }
 
         return 1 + getSize(node.getLeftChild()) + getSize(node.getRightNode());
     }
@@ -77,18 +83,22 @@ public class BinaryTree {
     }
 
     private Node getParent(Node parent, Node node) {
-        if (parent == null) return null;
+        if (parent == null) {
+            return null;
+        }
 
         if (parent.getLeftChild() == node ||
-                parent.getRightNode() == node)
+                parent.getRightNode() == node) {
             return parent;
+        }
 
         Node ret;
 
-        if ((ret = getParent(parent.getLeftChild())) != null)
+        if ((ret = getParent(parent.getLeftChild())) != null) {
             return ret;
-        else
+        } else {
             return getParent(parent.getRightNode(), node);
+        }
     }
 
     public Node getLeftChild(Node node) {
@@ -113,8 +123,12 @@ public class BinaryTree {
     }
 
     public boolean exists(Node parent, Node node) {
-        if (parent == null) return false;
-        if (parent == node) return true;
+        if (parent == null) {
+            return false;
+        }
+        if (parent == node) {
+            return true;
+        }
 
         return exists(parent.getLeftChild(), node) ? true : exists(parent.getRightNode(), node);
     }
@@ -143,7 +157,9 @@ public class BinaryTree {
     }
 
     private void preOrder(StringBuilder sb, Node node) {
-        if (node == null) return;
+        if (node == null) {
+            return;
+        }
 
 
         sb.append(node.data);
@@ -160,7 +176,9 @@ public class BinaryTree {
     }
 
     private void inOrder(StringBuilder sb, Node node) {
-        if (node == null) return;
+        if (node == null) {
+            return;
+        }
 
         inOrder(sb, node.getLeftChild());
         sb.append(node.data);
@@ -176,7 +194,9 @@ public class BinaryTree {
     }
 
     private void postOrder(StringBuilder sb, Node node) {
-        if (node == null) return;
+        if (node == null) {
+            return;
+        }
 
 
         postOrder(sb, node.getLeftChild());

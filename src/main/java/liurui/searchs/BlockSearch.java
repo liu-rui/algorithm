@@ -30,7 +30,9 @@ public class BlockSearch {
     public boolean search(int data) {
         int i = binarySearch(data);
 
-        if (ary[i] == null) return false;
+        if (ary[i] == null) {
+            return false;
+        }
         return ary[i].contains(data);
     }
 
@@ -41,12 +43,13 @@ public class BlockSearch {
 
         while (begin <= end) {
             mid = begin + (end - begin) / 2;
-            if (index[mid] == data)
+            if (index[mid] == data) {
                 return mid;
-            else if (index[mid] > data)
+            } else if (index[mid] > data) {
                 end = mid - 1;
-            else
+            } else {
                 begin = mid + 1;
+            }
         }
         return mid;
     }

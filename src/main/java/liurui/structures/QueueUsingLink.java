@@ -20,7 +20,9 @@ public class QueueUsingLink implements Queuable {
 
     @Override
     public int pop() {
-        if (size == 0) throw new IndexOutOfBoundsException();
+        if (size == 0) {
+            throw new IndexOutOfBoundsException();
+        }
         int ret = head.getData();
 
         if (size == 1) {
@@ -34,7 +36,9 @@ public class QueueUsingLink implements Queuable {
 
     @Override
     public int peek() {
-        if (size == 0) throw new IndexOutOfBoundsException();
+        if (size == 0) {
+            throw new IndexOutOfBoundsException();
+        }
         return head.getData();
     }
 

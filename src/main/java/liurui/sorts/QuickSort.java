@@ -12,23 +12,29 @@ public class QuickSort implements Sortable {
     }
 
     private void sort(int[] data, int begin, int end) {
-        if (begin >= end) return;
+        if (begin >= end) {
+            return;
+        }
         int i = begin;
         int j = end;
         int item = data[begin];
 
         while (i < j) {
-            while (i < j && data[j] >= item)
+            while (i < j && data[j] >= item) {
                 j--;
+            }
 
-            if (i < j)
+            if (i < j) {
                 data[i++] = data[j];
+            }
 
-            while (i < j && data[i] < item)
+            while (i < j && data[i] < item) {
                 i++;
+            }
 
-            if (i < j)
+            if (i < j) {
                 data[j--] = data[i];
+            }
         }
         data[i] = item;
         sort(data, begin, i - 1);

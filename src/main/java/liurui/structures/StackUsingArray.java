@@ -17,7 +17,9 @@ public class StackUsingArray implements Stackable {
     }
 
     public StackUsingArray(int capacity) {
-        if (capacity < 1) capacity = DEFAULT_CAPACITY;
+        if (capacity < 1) {
+            capacity = DEFAULT_CAPACITY;
+        }
 
         list = new int[capacity];
     }
@@ -29,20 +31,26 @@ public class StackUsingArray implements Stackable {
     }
 
     private void resize() {
-        if (size < list.length) return;
+        if (size < list.length) {
+            return;
+        }
         list = Arrays.copyOf(list, list.length * 2);
     }
 
     @Override
     public int pop() {
-        if (size == 0) throw new IndexOutOfBoundsException();
+        if (size == 0) {
+            throw new IndexOutOfBoundsException();
+        }
 
         return list[--size];
     }
 
     @Override
     public int peek() {
-        if (size == 0) throw new IndexOutOfBoundsException();
+        if (size == 0) {
+            throw new IndexOutOfBoundsException();
+        }
 
         return list[size - 1];
     }

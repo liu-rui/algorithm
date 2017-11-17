@@ -24,10 +24,11 @@ public class Intersection {
                 list.add(a[i]);
                 i++;
                 j++;
-            }else if(a[i] > b[j])
+            }else if(a[i] > b[j]) {
                 j++;
-            else
+            } else {
                 i++;
+            }
         }
 
         int[] ret = new int[list.getSize()];

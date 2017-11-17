@@ -4,6 +4,7 @@ import liurui.sorts.Sortable;
 
 /***
  * 整理一个数组，将奇数放左边，偶数放右边
+ * O(LogN)
  */
 public class OddEvenSort implements Sortable {
 

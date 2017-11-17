@@ -16,7 +16,9 @@ public class ArrayListUsingArray implements ArrayListable {
     }
 
     public ArrayListUsingArray(int capacity) {
-        if (capacity < 1) throw new IllegalArgumentException("capacity");
+        if (capacity < 1) {
+            throw new IllegalArgumentException("capacity");
+        }
 
         list = new int[capacity];
     }
@@ -28,7 +30,9 @@ public class ArrayListUsingArray implements ArrayListable {
 
     @Override
     public void insert(int index, int data) {
-        if (index < 0 || index > size) throw new IndexOutOfBoundsException("index");
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException("index");
+        }
 
         for (int i = size - 1; i >= index; i--) {
             list[i + 1] = list[i];
@@ -39,14 +43,20 @@ public class ArrayListUsingArray implements ArrayListable {
     }
 
     protected void resize() {
-        if (size < list.length) return;
+        if (size < list.length) {
+            return;
+        }
         list = Arrays.copyOf(list, list.length * 2);
     }
 
     @Override
     public boolean contains(int data) {
-        if (isEmpty()) return false;
-        if (list[0] == data) return true;
+        if (isEmpty()) {
+            return false;
+        }
+        if (list[0] == data) {
+            return true;
+        }
         int first = list[0];
 
         list[0] = data;
@@ -66,7 +76,9 @@ public class ArrayListUsingArray implements ArrayListable {
 
     @Override
     public int remove(int index) {
-        if (isEmpty() || index < 0) throw new IndexOutOfBoundsException("index");
+        if (isEmpty() || index < 0) {
+            throw new IndexOutOfBoundsException("index");
+        }
         int ret = list[index];
 
         for (int i = index + 1; i < size; i++) {
@@ -97,7 +109,9 @@ public class ArrayListUsingArray implements ArrayListable {
 
     @Override
     public int get(int index) {
-        if (isEmpty() || index < 0) throw new IndexOutOfBoundsException("index");
+        if (isEmpty() || index < 0) {
+            throw new IndexOutOfBoundsException("index");
+        }
         return list[index];
     }
 }

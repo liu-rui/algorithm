@@ -16,8 +16,9 @@ public class Graph {
 
     public void addEdge(int start, int end) {
 
-        if(!mapping.containsKey(start) || !mapping.containsKey(end))
+        if(!mapping.containsKey(start) || !mapping.containsKey(end)) {
             throw new IllegalArgumentException();
+        }
 
         matrix[mapping.get(start)][mapping.get(end)] = 1;
     }

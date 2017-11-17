@@ -19,7 +19,9 @@ public class StackUsingLink implements Stackable {
 
     @Override
     public int pop() {
-        if (size == 0) throw new IndexOutOfBoundsException();
+        if (size == 0) {
+            throw new IndexOutOfBoundsException();
+        }
         int ret = tail.getData();
 
         tail = tail.getNext();
@@ -29,7 +31,9 @@ public class StackUsingLink implements Stackable {
 
     @Override
     public int peek() {
-        if (size == 0) throw new IndexOutOfBoundsException();
+        if (size == 0) {
+            throw new IndexOutOfBoundsException();
+        }
 
         return tail.getData();
     }

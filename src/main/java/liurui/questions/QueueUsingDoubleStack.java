@@ -22,7 +22,9 @@ public class QueueUsingDoubleStack {
     }
 
     public int pop() {
-        if (empty()) throw new IndexOutOfBoundsException();
+        if (empty()) {
+            throw new IndexOutOfBoundsException();
+        }
 
         if (b.empty()) {
             while (!a.empty()) {

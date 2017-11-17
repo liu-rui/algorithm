@@ -29,8 +29,9 @@ public class HaFuManTree {
                 tmp = root;
                 root = new Node(ary.get(i));
                 right = tmp;
-            } else
+            } else {
                 right = new Node(ary.get(i));
+            }
 
 
             root = new Node(new Item("", root.item.data + right.item.data), root, right);
@@ -46,13 +47,17 @@ public class HaFuManTree {
     }
 
     private void order(Node node) {
-        if (node == null) return;
+        if (node == null) {
+            return;
+        }
 
-        if (node.left != null)
+        if (node.left != null) {
             node.left.item.code = node.item.code + "0";
+        }
 
-        if (node.right != null)
+        if (node.right != null) {
             node.right.item.code = node.item.code + "1";
+        }
 
 
         order(node.left);
@@ -108,8 +113,12 @@ public class HaFuManTree {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
 
             Item item = (Item) o;
 

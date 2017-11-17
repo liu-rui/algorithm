@@ -17,12 +17,13 @@ public class YoungSearch {
         int column = MAX_COLUMN - 1;
 
         while (row < MAX_ROW && column >= 0) {
-            if (data[row][column] == item)
+            if (data[row][column] == item) {
                 return true;
-            else if (data[row][column] > item) {
+            } else if (data[row][column] > item) {
                 column--;
-            } else
+            } else {
                 row++;
+            }
         }
 
         return false;

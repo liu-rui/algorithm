@@ -26,18 +26,21 @@ public class ArrayListSorted extends ArrayListUsingArray {
 
     @Override
     public boolean contains(int data) {
-        if (isEmpty()) return false;
+        if (isEmpty()) {
+            return false;
+        }
         int begin = 0;
         int end = size - 1;
 
         while (begin <= end) {
             int i = begin + (end - begin) / 2;
-            if (list[i] == data)
+            if (list[i] == data) {
                 return true;
-            else if (data > list[i])
+            } else if (data > list[i]) {
                 begin = i + 1;
-            else
+            } else {
                 end = i - 1;
+            }
         }
         return false;
     }

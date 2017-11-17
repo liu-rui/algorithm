@@ -16,7 +16,9 @@ public class ArrayListUsingLink implements ArrayListable {
 
     @Override
     public void insert(int index, int data) {
-        if (index < 0 || index > size) throw new IndexOutOfBoundsException();
+        if (index < 0 || index > size) {
+            throw new IndexOutOfBoundsException();
+        }
         Item<Integer> item = new Item<>(data);
 
         if (size == 0) {
@@ -41,7 +43,9 @@ public class ArrayListUsingLink implements ArrayListable {
     }
 
     private Item<Integer> getItem(int index) {
-        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
 
         Item<Integer> ret = head;
         int i = 0;
@@ -58,8 +62,9 @@ public class ArrayListUsingLink implements ArrayListable {
         Item<Integer> ret = head;
 
         while (ret != null) {
-            if (ret.getData() == data)
+            if (ret.getData() == data) {
                 return true;
+            }
 
             ret = ret.getNext();
         }
@@ -73,7 +78,9 @@ public class ArrayListUsingLink implements ArrayListable {
 
     @Override
     public int remove(int index) {
-        if (index < 0 || index >= size) throw new IndexOutOfBoundsException();
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException();
+        }
 
         Item<Integer> item = getItem(index);
 
@@ -86,8 +93,9 @@ public class ArrayListUsingLink implements ArrayListable {
             Item<Integer> prevItem = getItem(index - 1);
 
             prevItem.setNext(item.getNext());
-            if (index == size - 1)
+            if (index == size - 1) {
                 tail = prevItem;
+            }
             size--;
         }
         return item.getData();

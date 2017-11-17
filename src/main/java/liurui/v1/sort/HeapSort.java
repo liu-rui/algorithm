@@ -49,8 +49,9 @@ public class HeapSort implements Sortable {
                 } else if (data[i * 2] > tmp) {
                     data[i] = data[i * 2];
                     i = i * 2;
-                } else
+                } else {
                     break;
+                }
             }
             data[i] = tmp;
         }

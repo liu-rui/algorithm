@@ -6,7 +6,9 @@ package liurui.searchs;
 public class BinarySearch implements Searchable {
     @Override
     public int find(int[] data, int item) {
-        if (data == null || data.length == 0) return -1;
+        if (data == null || data.length == 0) {
+            return -1;
+        }
 
         int begin = 0;
         int end = data.length - 1;
@@ -15,12 +17,13 @@ public class BinarySearch implements Searchable {
         while (begin <= end) {
             cur = begin + (end - begin) / 2;
 
-            if (data[cur] == item)
+            if (data[cur] == item) {
                 return cur;
-            else if (item > data[cur])
+            } else if (item > data[cur]) {
                 begin = cur + 1;
-            else
+            } else {
                 end = cur - 1;
+            }
         }
         return -1;
     }
