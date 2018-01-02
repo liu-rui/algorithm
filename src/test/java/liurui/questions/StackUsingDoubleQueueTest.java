@@ -8,7 +8,7 @@ public class StackUsingDoubleQueueTest {
 
     @Test
     public void test() {
-        StackUsingDoubleQueue item = new StackUsingDoubleQueue();
+        liurui.v3.questions.StackUsingDoubleQueue item = new liurui.v3.questions.StackUsingDoubleQueue();
 
         item.push(10);
         item.push(45);

@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 public class QueueUsingDoubleStackTest {
     @Test
     public void test(){
-        QueueUsingDoubleStack  item = new QueueUsingDoubleStack();
+        liurui.v3.questions.QueueUsingDoubleStack  item = new liurui.v3.questions.QueueUsingDoubleStack();
 
         item.push(10);
         item.push(45);

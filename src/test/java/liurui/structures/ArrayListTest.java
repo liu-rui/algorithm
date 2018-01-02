@@ -7,8 +7,8 @@ import static org.junit.Assert.*;
 public class ArrayListTest {
     @Test
     public void test() {
-        test(new ArrayListUsingArray(2));
-        test(new ArrayListUsingLink());
+        test(new liurui.v3.structures.ArrayListUsingArray(2));
+        test(new liurui.v3.structures.ArrayListUsingLink());
     }
 
     private void test(ArrayListable ary) {

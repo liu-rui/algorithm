@@ -9,7 +9,7 @@ public class HashtableTest {
 
     @Test
     public void test() {
-        HashTableUsingLink hashtable = new HashTableUsingLink();
+        liurui.v3.structures.HashTableUsingLink hashtable = new  liurui.v3.structures. HashTableUsingLink();
         test(hashtable);
     }
 

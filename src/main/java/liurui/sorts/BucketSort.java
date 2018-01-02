@@ -1,7 +1,7 @@
 package liurui.sorts;
 
 /***
- * 堆排序
+ * 桶排序
  */
 public class BucketSort implements Sortable {
     @Override

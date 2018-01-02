@@ -7,8 +7,8 @@ import static org.junit.Assert.assertEquals;
 public class StackTest {
     @Test
     public void test() {
-        test(new StackUsingArray(2));
-        test(new StackUsingLink());
+        test(new  liurui.v3.structures.StackUsingArray(2));
+        test(new liurui.v3.structures.StackUsingLink());
     }
 
     private void test(Stackable stack) {

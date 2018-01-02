@@ -8,8 +8,8 @@ public class QueueTest {
 
     @Test
     public void test() {
-        test(new QueueUsingLink());
-        test(new QueueUsingArray());
+        test(new liurui.v3.structures.QueueUsingLink());
+        test(new liurui.v3.structures.QueueUsingArray());
     }
 
 
