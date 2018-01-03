@@ -1,6 +1,6 @@
 package liurui.defines.sorts;
 
-import liurui.standard.sorts.InsertSortImpl;
+import liurui.answers.sorts.InsertSortImpl;
 import org.junit.Test;
 
 public class InsertSortTest {

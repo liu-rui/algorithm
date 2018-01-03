@@ -1,7 +1,7 @@
 package liurui.defines.sorts;
 
 
-import liurui.standard.sorts.SelectSortImpl;
+import liurui.answers.sorts.SelectSortImpl;
 import org.junit.Test;
 
 public class SelectSortTest {

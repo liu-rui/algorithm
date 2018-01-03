@@ -1,6 +1,6 @@
 package liurui.defines.structures;
 
-import liurui.standard.structures.HashTableUsingLinkImpl;
+import liurui.answers.structures.HashTableUsingLinkImpl;
 import org.junit.Test;
 
 public class HashTableUsingLinkTest {

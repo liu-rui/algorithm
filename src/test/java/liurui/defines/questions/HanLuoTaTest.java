@@ -1,6 +1,6 @@
 package liurui.defines.questions;
 
-import liurui.standard.questions.HanLuoTaImpl;
+import liurui.answers.questions.HanLuoTaImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;

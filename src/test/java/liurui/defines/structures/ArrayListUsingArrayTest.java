@@ -1,6 +1,6 @@
 package liurui.defines.structures;
 
-import liurui.standard.structures.ArrayListUsingArrayImpl;
+import liurui.answers.structures.ArrayListUsingArrayImpl;
 import org.junit.Test;
 
 public class ArrayListUsingArrayTest {

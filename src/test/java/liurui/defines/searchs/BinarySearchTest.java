@@ -1,6 +1,6 @@
 package liurui.defines.searchs;
 
-import liurui.standard.searchs.BinarySearchImpl;
+import liurui.answers.searchs.BinarySearchImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

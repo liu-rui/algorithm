@@ -1,6 +1,6 @@
 package liurui.defines.questions;
 
-import liurui.standard.questions.OddEvenSortImpl;
+import liurui.answers.questions.OddEvenSortImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;

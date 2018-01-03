@@ -1,6 +1,6 @@
 package liurui.defines.structures;
 
-import liurui.standard.structures.QueueUsingArrayImpl;
+import liurui.answers.structures.QueueUsingArrayImpl;
 import org.junit.Test;
 
 public class QueueUsingArrayTest {

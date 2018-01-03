@@ -1,6 +1,6 @@
 package liurui.defines.sorts;
 
-import liurui.standard.sorts.BucketSortImpl;
+import liurui.answers.sorts.BucketSortImpl;
 import org.junit.Test;
 
 public class BucketSortTest {

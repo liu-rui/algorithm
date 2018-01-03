@@ -1,6 +1,6 @@
 package liurui.defines.structures;
 
-import liurui.standard.structures.QueueUsingLinkImpl;
+import liurui.answers.structures.QueueUsingLinkImpl;
 import org.junit.Test;
 
 public class QueueUsingLinkTest {

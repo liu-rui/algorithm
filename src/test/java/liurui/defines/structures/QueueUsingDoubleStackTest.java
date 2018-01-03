@@ -1,6 +1,6 @@
 package liurui.defines.structures;
 
-import liurui.standard.structures.QueueUsingDoubleStackImpl;
+import liurui.answers.structures.QueueUsingDoubleStackImpl;
 import org.junit.Test;
 
 public class QueueUsingDoubleStackTest {

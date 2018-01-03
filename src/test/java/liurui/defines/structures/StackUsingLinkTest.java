@@ -1,6 +1,6 @@
 package liurui.defines.structures;
 
-import liurui.standard.structures.StackUsingLinkImpl;
+import liurui.answers.structures.StackUsingLinkImpl;
 import org.junit.Test;
 
 public class StackUsingLinkTest {

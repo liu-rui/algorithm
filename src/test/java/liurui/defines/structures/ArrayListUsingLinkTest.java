@@ -1,6 +1,6 @@
 package liurui.defines.structures;
 
-import liurui.standard.structures.ArrayListUsingLinkImpl;
+import liurui.answers.structures.ArrayListUsingLinkImpl;
 import org.junit.Test;
 
 public class ArrayListUsingLinkTest {

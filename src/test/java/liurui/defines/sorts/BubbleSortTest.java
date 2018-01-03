@@ -1,6 +1,6 @@
 package liurui.defines.sorts;
 
-import liurui.standard.sorts.BubbleSortImpl;
+import liurui.answers.sorts.BubbleSortImpl;
 import org.junit.Test;
 
 public class BubbleSortTest {

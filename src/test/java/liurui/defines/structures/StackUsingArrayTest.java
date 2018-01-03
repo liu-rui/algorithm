@@ -1,6 +1,6 @@
 package liurui.defines.structures;
 
-import liurui.standard.structures.StackUsingArrayImpl;
+import liurui.answers.structures.StackUsingArrayImpl;
 import org.junit.Test;
 
 public class StackUsingArrayTest {
