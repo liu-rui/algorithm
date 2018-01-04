@@ -1,7 +1,7 @@
-package liurui.defines.structures;
+package liurui.defines.structures.tree;
 
 /**
- * 二叉查找树
+ * 二叉查找树(BST)
  *
  *特点：
  *  1. 左子树小于根节点，右子树大于根节点
@@ -36,4 +36,11 @@ public interface BinarySearchTree {
      * @return 值列表
      */
     String printInOrder();
+
+    /**
+     * 打印后序遍历结果
+     *
+     * @return 值列表
+     */
+    String printPostOrder();
 }

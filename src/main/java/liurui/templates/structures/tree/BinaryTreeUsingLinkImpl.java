@@ -1,10 +1,10 @@
-package liurui.v4.structures;
+package liurui.templates.structures.tree;
 
-import liurui.defines.structures.BinaryTree;
-import liurui.defines.structures.BinaryTreeNode;
-import liurui.defines.structures.BinaryTreeUsingArray;
+import liurui.defines.structures.tree.BinaryTree;
+import liurui.defines.structures.tree.BinaryTreeNode;
+import liurui.defines.structures.tree.BinaryTreeUsingLink;
 
-public class BinaryTreeUsingArrayImpl  implements BinaryTreeUsingArray {
+public class BinaryTreeUsingLinkImpl implements BinaryTreeUsingLink {
     @Override
     public void setRoot(BinaryTreeNode root) {
 
@@ -66,52 +66,22 @@ public class BinaryTreeUsingArrayImpl  implements BinaryTreeUsingArray {
     }
 
     @Override
-    public String PrintPreOrder() {
+    public String printPreOrder() {
         return null;
     }
 
     @Override
-    public String PrintInOrder() {
+    public String printInOrder() {
         return null;
     }
 
     @Override
-    public String PrintPostOrder() {
+    public String printPostOrder() {
         return null;
     }
 
     @Override
-    public String PrintLevelOrder() {
+    public String printLevelOrder() {
         return null;
-    }
-
-    @Override
-    public boolean isBlanceBinaryTree(BinaryTree binaryTree) {
-        return false;
-    }
-
-    @Override
-    public boolean isCompleteTree(BinaryTree binaryTree) {
-        return false;
-    }
-
-    @Override
-    public BinaryTree clone() {
-        return null;
-    }
-
-    @Override
-    public boolean isSame(BinaryTree another) {
-        return false;
-    }
-
-    @Override
-    public boolean createMirrorTree() {
-        return false;
-    }
-
-    @Override
-    public boolean isMirror(BinaryTree another) {
-        return false;
     }
 }

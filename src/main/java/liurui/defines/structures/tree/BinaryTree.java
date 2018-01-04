@@ -1,4 +1,4 @@
-package liurui.defines.structures;
+package liurui.defines.structures.tree;
 
 public interface BinaryTree {
     /**
@@ -94,69 +94,69 @@ public interface BinaryTree {
      *
      * @return 值列表
      */
-    String PrintPreOrder();
+    String printPreOrder();
 
     /**
      * 中序遍历
      *
      * @return 值列表
      */
-    String PrintInOrder();
+    String printInOrder();
 
     /**
      * 后序遍历
      *
      * @return 值列表
      */
-    String PrintPostOrder();
+    String printPostOrder();
 
     /**
      * 层次遍历
      *
      * @return 值列表
      */
-    String PrintLevelOrder();
+    String printLevelOrder();
 
-
-    /**
-     * 判断一棵树是否是平衡二叉树
-     *
-     * @param binaryTree 二叉树
-     * @return 是否是平衡二叉树
-     */
-    boolean isBlanceBinaryTree(BinaryTree binaryTree);
-
-    /**
-     * 判断一棵树是否是完全二叉树
-     *
-     * @param binaryTree 二叉树
-     * @return 是否是完全二叉树
-     */
-    boolean isCompleteTree(BinaryTree binaryTree);
-
-    /**
-     * 克隆一个二叉树
-     * @return 新的二叉树
-     */
-    BinaryTree clone();
-
-    /**
-     * 判断2颗树是否相同
-     * @param another 另一个是
-     * @return
-     */
-    boolean isSame(BinaryTree another);
-
-    /**
-     * 创建一个镜像二叉树
-     * @return 镜像二叉树
-     */
-    boolean createMirrorTree();
-
-    /**
-     * 二叉树是否互为镜像
-     * @param another 镜像二叉树
-     * @return 二叉树是否互为镜像
-     */
-    boolean isMirror(BinaryTree another);
+//
+//    /**
+//     * 判断一棵树是否是平衡二叉树
+//     *
+//     * @param binaryTree 二叉树
+//     * @return 是否是平衡二叉树
+//     */
+//    boolean isBlanceBinaryTree(BinaryTree binaryTree);
+//
+//    /**
+//     * 判断一棵树是否是完全二叉树
+//     *
+//     * @param binaryTree 二叉树
+//     * @return 是否是完全二叉树
+//     */
+//    boolean isCompleteTree(BinaryTree binaryTree);
+//
+//    /**
+//     * 克隆一个二叉树
+//     * @return 新的二叉树
+//     */
+//    BinaryTree clone();
+//
+//    /**
+//     * 判断2颗树是否相同
+//     * @param another 另一个是
+//     * @return
+//     */
+//    boolean isSame(BinaryTree another);
+//
+//    /**
+//     * 创建一个镜像二叉树
+//     * @return 镜像二叉树
+//     */
+//    BinaryTree createMirrorTree();
+//
+//    /**
+//     * 二叉树是否互为镜像
+//     * @param another 镜像二叉树
+//     * @return 二叉树是否互为镜像
+//     */
+//    boolean isMirror(BinaryTree another);
 }

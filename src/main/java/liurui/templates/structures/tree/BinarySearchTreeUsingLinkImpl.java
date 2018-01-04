@@ -1,6 +1,6 @@
-package liurui.v4.structures;
+package liurui.templates.structures.tree;
 
-import liurui.defines.structures.BinarySearchTreeUsingLink;
+import liurui.defines.structures.tree.BinarySearchTreeUsingLink;
 
 public class BinarySearchTreeUsingLinkImpl implements BinarySearchTreeUsingLink {
     @Override
@@ -20,6 +20,11 @@ public class BinarySearchTreeUsingLinkImpl implements BinarySearchTreeUsingLink 
 
     @Override
     public String printInOrder() {
+        return null;
+    }
+
+    @Override
+    public String printPostOrder() {
         return null;
     }
 }

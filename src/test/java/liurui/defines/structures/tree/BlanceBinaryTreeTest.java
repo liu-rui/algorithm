@@ -1,4 +1,4 @@
-package liurui.defines.structures;
+package liurui.defines.structures.tree;
 
 public class BlanceBinaryTreeTest {
 /**

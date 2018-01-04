@@ -1,13 +1,13 @@
-package liurui.templates.structures;
+package liurui.v4.structures.tree;
 
-import liurui.defines.structures.BlanceBinaryTreeUsingAvl;
+import liurui.defines.structures.tree.BlanceBinaryTreeUsingRedBlack;
 
 /**
- * 平衡二叉树,通过AVL算法实现
+ * 平衡二叉树,通过红黑树算法实现
  *
  * 插入，删除，查找都是O(logn)
  */
-public class BlanceBinaryTreeUsingAvlImpl implements BlanceBinaryTreeUsingAvl {
+public class BlanceBinaryTreeUsingRedBlackImpl implements BlanceBinaryTreeUsingRedBlack {
     @Override
     public void add(int data) {
 
@@ -25,6 +25,11 @@ public class BlanceBinaryTreeUsingAvlImpl implements BlanceBinaryTreeUsingAvl {
 
     @Override
     public String printInOrder() {
+        return null;
+    }
+
+    @Override
+    public String printPostOrder() {
         return null;
     }
 }

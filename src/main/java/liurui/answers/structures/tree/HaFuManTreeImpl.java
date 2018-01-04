@@ -1,11 +1,13 @@
-package liurui.defines.structures;
+package liurui.answers.structures.tree;
+
+import liurui.defines.structures.tree.HaFuManTree;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-public class HaFuManTree {
+public class HaFuManTreeImpl implements HaFuManTree {
     ArrayList<Item> ary = new ArrayList<>();
     Map<String, String> key2codeMap = new HashMap<>();
     Map<String, String> code2keyMap = new HashMap<>();
@@ -64,8 +66,14 @@ public class HaFuManTree {
         order(node.right);
     }
 
+    @Override
+    public void generic(HashMap<String, Integer> keys) {
+        keys.forEach(this::set);
+        generic();
+    }
 
-    public String get(String key) {
+    @Override
+    public String getCode(String key) {
         return key2codeMap.get(key);
     }
 

@@ -1,6 +1,6 @@
-package liurui.v4.structures;
+package liurui.templates.structures.tree;
 
-import liurui.defines.structures.BlanceBinaryTreeUsingAvl;
+import liurui.defines.structures.tree.BlanceBinaryTreeUsingAvl;
 
 /**
  * 平衡二叉树,通过AVL算法实现
@@ -25,6 +25,11 @@ public class BlanceBinaryTreeUsingAvlImpl implements BlanceBinaryTreeUsingAvl {
 
     @Override
     public String printInOrder() {
+        return null;
+    }
+
+    @Override
+    public String printPostOrder() {
         return null;
     }
 }

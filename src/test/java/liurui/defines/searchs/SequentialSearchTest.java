@@ -1,6 +1,6 @@
 package liurui.defines.searchs;
 
-import liurui.answers.searchs.SequentialSearchImpl;
+import liurui.v4.searchs.SequentialSearchImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

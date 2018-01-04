@@ -1,6 +1,6 @@
 package liurui.defines.searchs;
 
-import liurui.answers.searchs.YoungSearchImpl;
+import liurui.v4.searchs.YoungSearchImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;

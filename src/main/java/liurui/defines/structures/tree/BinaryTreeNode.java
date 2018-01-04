@@ -1,15 +1,15 @@
-package liurui.defines.structures;
+package liurui.defines.structures.tree;
 
 public class BinaryTreeNode {
     private int data;
     private BinaryTreeNode left;
-    private BinaryTree right;
+    private BinaryTreeNode right;
 
     public BinaryTreeNode(int data) {
         this.data = data;
     }
 
-    public BinaryTreeNode(int data, BinaryTreeNode left, BinaryTree right) {
+    public BinaryTreeNode(int data, BinaryTreeNode left, BinaryTreeNode right) {
         this.data = data;
         this.left = left;
         this.right = right;
@@ -31,11 +31,11 @@ public class BinaryTreeNode {
         this.left = left;
     }
 
-    public BinaryTree getRight() {
+    public BinaryTreeNode getRight() {
         return right;
     }
 
-    public void setRight(BinaryTree right) {
+    public void setRight(BinaryTreeNode right) {
         this.right = right;
     }
 }
