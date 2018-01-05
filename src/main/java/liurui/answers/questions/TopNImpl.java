@@ -52,7 +52,6 @@ public class TopNImpl implements TopN {
             }
             heap[parent] = data;
         }
-        System.out.println(Arrays.toString(heap));
     }
 
     private int[] sortForMax(int[] heap) {
