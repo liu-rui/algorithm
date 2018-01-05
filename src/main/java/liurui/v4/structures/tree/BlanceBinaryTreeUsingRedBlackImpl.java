@@ -7,19 +7,20 @@ import liurui.defines.structures.tree.BlanceBinaryTreeUsingRedBlack;
  *
  * 插入，删除，查找都是O(logn)
  */
-public class BlanceBinaryTreeUsingRedBlackImpl implements BlanceBinaryTreeUsingRedBlack {
+public class BlanceBinaryTreeUsingRedBlackImpl<K extends Comparable<K>, V> implements BlanceBinaryTreeUsingRedBlack<K , V> {
+
     @Override
-    public void add(int data) {
+    public void add(K key, V data) {
 
     }
 
     @Override
-    public boolean contains(int data) {
+    public boolean contains(K key) {
         return false;
     }
 
     @Override
-    public void remove(int data) {
+    public void remove(K key) {
 
     }
 

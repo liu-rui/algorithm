@@ -7,19 +7,20 @@ import liurui.defines.structures.tree.BlanceBinaryTreeUsingAvl;
  *
  * 插入，删除，查找都是O(logn)
  */
-public class BlanceBinaryTreeUsingAvlImpl implements BlanceBinaryTreeUsingAvl {
+public class BlanceBinaryTreeUsingAvlImpl<K extends Comparable<K>, V> implements BlanceBinaryTreeUsingAvl<K  , V> {
+
     @Override
-    public void add(int data) {
+    public void add(K key, V data) {
 
     }
 
     @Override
-    public boolean contains(int data) {
+    public boolean contains(K key) {
         return false;
     }
 
     @Override
-    public void remove(int data) {
+    public void remove(K key) {
 
     }
 

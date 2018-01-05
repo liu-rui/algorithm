@@ -4,14 +4,15 @@ import liurui.defines.structures.tree.BinaryTree;
 import liurui.defines.structures.tree.BinaryTreeNode;
 import liurui.defines.structures.tree.BinaryTreeUsingLink;
 
-public class BinaryTreeUsingLinkImpl implements BinaryTreeUsingLink {
+public class BinaryTreeUsingLinkImpl<K extends Comparable<K>, V> implements BinaryTreeUsingLink<K, V> {
+
     @Override
-    public void setRoot(BinaryTreeNode root) {
+    public void setRoot(BinaryTreeNode<K, V> root) {
 
     }
 
     @Override
-    public BinaryTreeNode getRoot() {
+    public BinaryTreeNode<K, V> getRoot() {
         return null;
     }
 
@@ -41,27 +42,27 @@ public class BinaryTreeUsingLinkImpl implements BinaryTreeUsingLink {
     }
 
     @Override
-    public BinaryTreeNode getParent(BinaryTreeNode node) {
+    public BinaryTreeNode getParent(BinaryTreeNode<K,V> node) {
         return null;
     }
 
     @Override
-    public BinaryTreeNode getLeftNode(BinaryTreeNode node) {
+    public BinaryTreeNode<K, V> getLeftNode(BinaryTreeNode<K, V> node) {
         return null;
     }
 
     @Override
-    public BinaryTreeNode getRightNode(BinaryTreeNode node) {
+    public BinaryTreeNode<K, V> getRightNode(BinaryTreeNode<K, V> node) {
         return null;
     }
 
     @Override
-    public void insertLeft(BinaryTreeNode parent, BinaryTreeNode node) {
+    public void insertLeft(BinaryTreeNode<K, V> parent, BinaryTreeNode<K, V> node) {
 
     }
 
     @Override
-    public void insertRight(BinaryTreeNode parent, BinaryTreeNode node) {
+    public void insertRight(BinaryTreeNode<K, V> parent, BinaryTreeNode<K, V> node) {
 
     }
 

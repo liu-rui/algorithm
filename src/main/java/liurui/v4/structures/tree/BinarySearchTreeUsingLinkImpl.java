@@ -3,23 +3,23 @@ package liurui.v4.structures.tree;
 import liurui.defines.structures.tree.BinarySearchTreeUsingLink;
 import liurui.defines.structures.tree.BinaryTreeNode;
 
-public class BinarySearchTreeUsingLinkImpl implements BinarySearchTreeUsingLink {
+public class BinarySearchTreeUsingLinkImpl<K extends Comparable<K>, V> implements BinarySearchTreeUsingLink<K, V> {
     BinaryTreeNode root;
 
     @Override
-    public void add(int data) {
+    public void add(K key, V data) {
         if (root == null) {
-            root = new BinaryTreeNode(data);
+            root = new BinaryTreeNode(key, data);
             return;
         }
 
-        add(null, root, data);
+        add(null, root, key, data);
     }
 
-    public void add(BinaryTreeNode parent, BinaryTreeNode node, int data) {
+    private void add(BinaryTreeNode<K,V> parent, BinaryTreeNode node, K key, V data) {
         if (node == null) {
-            node = new BinaryTreeNode(data);
-            if (parent.getData() > data)
+            node = new BinaryTreeNode(key, data);
+            if (parent.compareTo(node) > 0)
                 parent.setLeft(node);
             else
                 parent.setRight(node);
@@ -28,38 +28,38 @@ public class BinarySearchTreeUsingLinkImpl implements BinarySearchTreeUsingLink 
 
         if (node.getData() == data) {
             return;
-        } else if (node.getData() > data) {
-            add(node, node.getLeft(), data);
+        } else if (node.getKey().compareTo(key) > 0) {
+            add(node, node.getLeft(), key, data);
         } else {
-            add(node, node.getRight(), data);
+            add(node, node.getRight(), key, data);
         }
     }
 
     @Override
-    public boolean contains(int data) {
-        return getNode(root, data) != null;
+    public boolean contains(K key) {
+        return getNode(root, key) != null;
     }
 
-    private BinaryTreeNode getNode(BinaryTreeNode node, int data) {
+    private BinaryTreeNode getNode(BinaryTreeNode<K,V> node, K key) {
         if (node == null) return null;
 
-        if (node.getData() == data) {
+        if (node.getKey().compareTo(key) == 0) {
             return node;
-        } else if (node.getData() > data) {
-            return getNode(node.getLeft(), data);
+        } else if (node.getKey().compareTo(key) > 0) {
+            return getNode(node.getLeft(), key);
         } else {
-            return getNode(node.getRight(), data);
+            return getNode(node.getRight(), key);
         }
     }
 
     @Override
-    public void remove(int data) {
+    public void remove(K key) {
         if (root == null) return;
-        BinaryTreeNode[] nodes = getParentAndNode(null, root, data);
+        BinaryTreeNode<K,V>[] nodes = getParentAndNode(null, root, key);
 
         if (nodes == null) return;
-        BinaryTreeNode parent = nodes[0];
-        BinaryTreeNode node = nodes[1];
+        BinaryTreeNode<K,V> parent = nodes[0];
+        BinaryTreeNode<K,V> node = nodes[1];
         boolean isLeft = parent == null || node.equals(parent.getLeft());
 
 
@@ -94,8 +94,8 @@ public class BinarySearchTreeUsingLinkImpl implements BinarySearchTreeUsingLink 
                 }
             }
         } else {
-            BinaryTreeNode newNodeParent = node.getRight();
-            BinaryTreeNode newNode = newNodeParent.getLeft();
+            BinaryTreeNode<K,V> newNodeParent = node.getRight();
+            BinaryTreeNode<K,V> newNode = newNodeParent.getLeft();
 
             while (newNode != null && newNode.getLeft() != null) {
                 newNodeParent = newNode;
@@ -137,17 +137,16 @@ public class BinarySearchTreeUsingLinkImpl implements BinarySearchTreeUsingLink 
     }
 
 
-    private BinaryTreeNode[] getParentAndNode(BinaryTreeNode parent, BinaryTreeNode node, int data) {
+    private BinaryTreeNode<K,V>[] getParentAndNode(BinaryTreeNode<K,V> parent, BinaryTreeNode<K,V> node, K key) {
         if (node == null) return null;
-        if (node.getData() == data)
+        if (node.getKey().compareTo(key) == 0)
             return new BinaryTreeNode[]{parent, node};
-        else if (node.getData() > data) {
-            return getParentAndNode(node, node.getLeft(), data);
+        else if (node.getKey().compareTo(key) > 0) {
+            return getParentAndNode(node, node.getLeft(), key);
         } else {
-            return getParentAndNode(node, node.getRight(), data);
+            return getParentAndNode(node, node.getRight(), key);
         }
     }
-
 
     @Override
     public String printInOrder() {
@@ -157,14 +156,14 @@ public class BinarySearchTreeUsingLinkImpl implements BinarySearchTreeUsingLink 
         return sb.toString();
     }
 
-    private void printInOrder(StringBuilder sb, BinaryTreeNode node) {
+    private void printInOrder(StringBuilder sb, BinaryTreeNode<K,V> node) {
         if (node == null) return;
 
         printInOrder(sb, node.getLeft());
         if (sb.length() != 0) {
             sb.append(",");
         }
-        sb.append(node.getData());
+        sb.append(node.getText());
         printInOrder(sb, node.getRight());
     }
 
@@ -176,7 +175,7 @@ public class BinarySearchTreeUsingLinkImpl implements BinarySearchTreeUsingLink 
         return sb.toString();
     }
 
-    private void printPostOrder(StringBuilder sb, BinaryTreeNode node) {
+    private void printPostOrder(StringBuilder sb, BinaryTreeNode<K,V> node) {
         if (node == null) return;
 
         printPostOrder(sb, node.getLeft());
@@ -184,6 +183,6 @@ public class BinarySearchTreeUsingLinkImpl implements BinarySearchTreeUsingLink 
         if (sb.length() != 0) {
             sb.append(",");
         }
-        sb.append(node.getData());
+        sb.append(node.getText());
     }
 }

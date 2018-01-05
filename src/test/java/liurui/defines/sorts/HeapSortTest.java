@@ -1,6 +1,6 @@
 package liurui.defines.sorts;
 
-import liurui.answers.sorts.HeapSortImpl;
+import liurui.v4.sorts.HeapSortImpl;
 import org.junit.Test;
 
 public class HeapSortTest {

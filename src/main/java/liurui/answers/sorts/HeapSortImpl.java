@@ -2,52 +2,63 @@ package liurui.answers.sorts;
 
 import liurui.defines.sorts.HeapSort;
 
+import java.util.Arrays;
+
+/**
+ * 堆排序
+ */
 public class HeapSortImpl implements HeapSort {
     @Override
     public int[] sort(int[] data) {
-        int[] heap = buildHeap(data);
+        if (data == null || data.length == 0) return data;
+        int[] heap = createHeap(data);
 
-
-        while (heap[0] != 0) {
-            data[heap[0] - 1] = heap[1];
-            heap[1] = heap[heap[0]];
-            heap[0]--;
-
-            int tmp = heap[1];
-            int i = 1;
-
-            while (i * 2 <= heap[0]) {
-                if (i * 2 + 1 <= heap[0] && heap[i * 2 + 1] > heap[i * 2] &&  heap[i * 2 + 1] > tmp){
-                    heap[i] = heap[i * 2 + 1];
-                    i = i * 2 + 1;
-                } else if (heap[i * 2] > tmp) {
-                    heap[i] = heap[i * 2];
-                    i = i * 2;
-                } else {
-                    break;
-                }
-            }
-            heap[i] = tmp;
-        }
-        return data;
+        return sortUsingHeap(heap);
     }
 
-    private int[] buildHeap(int[] data) {
+    private int[] createHeap(int[] data) {
         int[] heap = new int[data.length + 1];
 
-        for (int datum : data) {
+        for (int item : data) {
             heap[0]++;
             int i = heap[0];
 
-            while (i / 2 > 0 && heap[i / 2] < datum) {
+            while (i > 1 && heap[i / 2] < item) {
                 heap[i] = heap[i / 2];
                 i /= 2;
             }
-
-            heap[i] = datum;
-
+            heap[i] = item;
         }
-
         return heap;
+    }
+
+    private int[] sortUsingHeap(int[] heap) {
+        int[] ret = new int[heap[0]];
+
+        while (heap[0] != 0) {
+            ret[heap[0] - 1] = heap[1];
+
+            int item = heap[heap[0]];
+            int parent = 1;
+            int child = 2;
+
+            heap[0]--;
+
+            while (child <= heap[0]) {
+                if ((child + 1) <= heap[0] && heap[child] < heap[child + 1]) {
+                    child++;
+                }
+
+                if (item > child) {
+                    break;
+                } else {
+                    heap[parent] = heap[child];
+                    parent = child;
+                    child *= 2;
+                }
+            }
+            heap[parent] = item;
+        }
+        return ret;
     }
 }

@@ -1,19 +1,19 @@
 package liurui.defines.structures.tree;
 
-public interface BinaryTree {
+public interface BinaryTree<K extends Comparable<K>, V> {
     /**
      * 设置根节点
      *
      * @param root 根节点
      */
-    void setRoot(BinaryTreeNode root);
+    void setRoot(BinaryTreeNode<K,V> root);
 
     /**
      * 获取根节点
      *
      * @return 根节点
      */
-    BinaryTreeNode getRoot();
+    BinaryTreeNode<K,V> getRoot();
 
     /**
      * 清空树
@@ -55,7 +55,7 @@ public interface BinaryTree {
      * @param node 节点
      * @return 双亲节点
      */
-    BinaryTreeNode getParent(BinaryTreeNode node);
+    BinaryTreeNode getParent(BinaryTreeNode<K,V> node);
 
     /**
      * 获取特定节点的左子树
@@ -63,7 +63,7 @@ public interface BinaryTree {
      * @param node 节点
      * @return 左子树
      */
-    BinaryTreeNode getLeftNode(BinaryTreeNode node);
+    BinaryTreeNode<K,V> getLeftNode(BinaryTreeNode<K,V> node);
 
     /**
      * 获取特定节点的右子树
@@ -71,7 +71,7 @@ public interface BinaryTree {
      * @param node 节点
      * @return 右子树
      */
-    BinaryTreeNode getRightNode(BinaryTreeNode node);
+    BinaryTreeNode<K,V> getRightNode(BinaryTreeNode<K,V> node);
 
     /**
      * 插入左子树
@@ -79,7 +79,7 @@ public interface BinaryTree {
      * @param parent 双亲节点
      * @param node   子树
      */
-    void insertLeft(BinaryTreeNode parent, BinaryTreeNode node);
+    void insertLeft(BinaryTreeNode<K,V> parent, BinaryTreeNode<K,V> node);
 
     /**
      * 插入右子树
@@ -87,7 +87,7 @@ public interface BinaryTree {
      * @param parent 双亲节点
      * @param node   子树
      */
-    void insertRight(BinaryTreeNode parent, BinaryTreeNode node);
+    void insertRight(BinaryTreeNode<K,V> parent, BinaryTreeNode<K,V> node);
 
     /**
      * 前序遍历

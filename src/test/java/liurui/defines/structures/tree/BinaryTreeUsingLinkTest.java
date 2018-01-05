@@ -13,8 +13,8 @@ public class BinaryTreeUsingLinkTest {
 
     @Test
     public void clear() {
-        BinaryTree item = new BinaryTreeUsingLinkImpl();
-        BinaryTreeNode node = new BinaryTreeNode(1, new BinaryTreeNode(2), null);
+        BinaryTree<Integer , Integer> item = new BinaryTreeUsingLinkImpl<>();
+        BinaryTreeNode node = new BinaryTreeNode(1, 1,new BinaryTreeNode(2,2), null);
 
         item.setRoot(node);
         assertFalse(item.isEmpty());
@@ -29,12 +29,12 @@ public class BinaryTreeUsingLinkTest {
 
     @Test
     public void getSize() {
-        BinaryTree item = new BinaryTreeUsingLinkImpl();
-        BinaryTreeNode a = new BinaryTreeNode(1);
-        BinaryTreeNode b = new BinaryTreeNode(2);
-        BinaryTreeNode c = new BinaryTreeNode(3);
-        BinaryTreeNode d = new BinaryTreeNode(4);
-        BinaryTreeNode e = new BinaryTreeNode(5);
+        BinaryTree<String,Integer> item = new BinaryTreeUsingLinkImpl<>();
+        BinaryTreeNode a = new BinaryTreeNode("a",1);
+        BinaryTreeNode b = new BinaryTreeNode("b",2);
+        BinaryTreeNode c = new BinaryTreeNode("c",3);
+        BinaryTreeNode d = new BinaryTreeNode("d",4);
+        BinaryTreeNode e = new BinaryTreeNode("e",5);
 
         item.insertLeft(a, b);
         item.insertRight(a, c);
@@ -63,9 +63,9 @@ public class BinaryTreeUsingLinkTest {
         assertNull(d.getLeft());
         assertEquals(e, d.getRight());
 
-        assertEquals("1,2,3,4,5", item.printPreOrder());
-        assertEquals("2,1,3,4,5", item.printInOrder());
-        assertEquals("2,5,4,3,1", item.printPostOrder());
-        assertEquals("1,2,3,4,5", item.printLevelOrder());
+        assertEquals("[a:1],[b:2],[c:3],[d:4],[e:5]", item.printPreOrder());
+        assertEquals("[b:2],[a:1],[c:3],[d:4],[e:5]", item.printInOrder());
+        assertEquals("[b:2],[e:5],[d:4],[c:3],[a:1]", item.printPostOrder());
+        assertEquals("[a:1],[b:2],[c:3],[d:4],[e:5]", item.printLevelOrder());
     }
 }

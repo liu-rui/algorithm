@@ -10,17 +10,17 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class BinaryTreeUsingLinkImpl implements BinaryTreeUsingLink {
+public class BinaryTreeUsingLinkImpl<K extends Comparable<K>, V> implements BinaryTreeUsingLink<K , V> {
     private BinaryTreeNode root;
 
 
     @Override
-    public void setRoot(BinaryTreeNode root) {
+    public void setRoot(BinaryTreeNode<K,V> root) {
         this.root = root;
     }
 
     @Override
-    public BinaryTreeNode getRoot() {
+    public BinaryTreeNode<K,V> getRoot() {
         return root;
     }
 
@@ -39,7 +39,7 @@ public class BinaryTreeUsingLinkImpl implements BinaryTreeUsingLink {
         return getSize(root);
     }
 
-    public int getSize(BinaryTreeNode node) {
+    public int getSize(BinaryTreeNode<K,V> node) {
         if (node == null) return 0;
 
         return getSize(node.getLeft()) + getSize(node.getRight()) + 1;
@@ -50,7 +50,7 @@ public class BinaryTreeUsingLinkImpl implements BinaryTreeUsingLink {
         return getSize(root, 1, level);
     }
 
-    public int getSize(BinaryTreeNode node, int currentLevel, int level) {
+    private int getSize(BinaryTreeNode<K,V> node, int currentLevel, int level) {
         if (node == null || currentLevel > level) return 0;
         if (currentLevel == level) return 1;
 
@@ -63,7 +63,7 @@ public class BinaryTreeUsingLinkImpl implements BinaryTreeUsingLink {
         return getHeight(root);
     }
 
-    private int getHeight(BinaryTreeNode node) {
+    private int getHeight(BinaryTreeNode<K,V> node) {
         if (node == null) return 0;
 
         return Math.max(getHeight(node.getLeft()), getHeight(node.getRight())) + 1;
@@ -71,13 +71,13 @@ public class BinaryTreeUsingLinkImpl implements BinaryTreeUsingLink {
 
 
     @Override
-    public BinaryTreeNode getParent(BinaryTreeNode node) {
+    public BinaryTreeNode getParent(BinaryTreeNode<K,V> node) {
         if (root == null || node == null) return null;
 
         return getParent(null, root, node);
     }
 
-    public BinaryTreeNode getParent(BinaryTreeNode parent, BinaryTreeNode current, BinaryTreeNode node) {
+    public BinaryTreeNode getParent(BinaryTreeNode<K,V> parent, BinaryTreeNode<K,V> current, BinaryTreeNode<K,V> node) {
         if (current == null) return null;
         if (current == node) return parent;
 
@@ -87,25 +87,25 @@ public class BinaryTreeUsingLinkImpl implements BinaryTreeUsingLink {
 
 
     @Override
-    public BinaryTreeNode getLeftNode(BinaryTreeNode node) {
+    public BinaryTreeNode<K,V> getLeftNode(BinaryTreeNode<K,V> node) {
         if (node == null) return null;
         return node.getLeft();
     }
 
     @Override
-    public BinaryTreeNode getRightNode(BinaryTreeNode node) {
+    public BinaryTreeNode<K,V> getRightNode(BinaryTreeNode<K,V> node) {
         if (node == null) return null;
         return node.getRight();
     }
 
     @Override
-    public void insertLeft(BinaryTreeNode parent, BinaryTreeNode node) {
+    public void insertLeft(BinaryTreeNode<K,V> parent, BinaryTreeNode<K,V> node) {
         if (parent == null) throw new IllegalArgumentException();
         parent.setLeft(node);
     }
 
     @Override
-    public void insertRight(BinaryTreeNode parent, BinaryTreeNode node) {
+    public void insertRight(BinaryTreeNode<K,V> parent, BinaryTreeNode<K,V> node) {
         if (parent == null) throw new IllegalArgumentException();
         parent.setRight(node);
     }
@@ -118,13 +118,13 @@ public class BinaryTreeUsingLinkImpl implements BinaryTreeUsingLink {
         return sb.toString();
     }
 
-    public void printPreOrder(StringBuilder sb, BinaryTreeNode node) {
+    public void printPreOrder(StringBuilder sb, BinaryTreeNode<K,V> node) {
         if (node == null) return;
 
         if (sb.length() != 0) {
             sb.append(",");
         }
-        sb.append(node.getData());
+        sb.append(node.getText());
         printPreOrder(sb, node.getLeft());
         printPreOrder(sb, node.getRight());
     }
@@ -138,14 +138,14 @@ public class BinaryTreeUsingLinkImpl implements BinaryTreeUsingLink {
         return sb.toString();
     }
 
-    public void printInOrder(StringBuilder sb, BinaryTreeNode node) {
+    public void printInOrder(StringBuilder sb, BinaryTreeNode<K,V> node) {
         if (node == null) return;
 
         printInOrder(sb, node.getLeft());
         if (sb.length() != 0) {
             sb.append(",");
         }
-        sb.append(node.getData());
+        sb.append(node.getText());
         printInOrder(sb, node.getRight());
     }
 
@@ -158,7 +158,7 @@ public class BinaryTreeUsingLinkImpl implements BinaryTreeUsingLink {
         return sb.toString();
     }
 
-    public void printPostOrder(StringBuilder sb, BinaryTreeNode node) {
+    public void printPostOrder(StringBuilder sb, BinaryTreeNode<K,V> node) {
         if (node == null) return;
 
         printPostOrder(sb, node.getLeft());
@@ -166,21 +166,21 @@ public class BinaryTreeUsingLinkImpl implements BinaryTreeUsingLink {
         if (sb.length() != 0) {
             sb.append(",");
         }
-        sb.append(node.getData());
+        sb.append(node.getText());
     }
 
     @Override
     public String printLevelOrder() {
         if (root == null) return "";
         StringBuilder sb = new StringBuilder();
-        LinkedList<BinaryTreeNode> nodes = new LinkedList<>();
+        LinkedList<BinaryTreeNode<K,V>> nodes = new LinkedList<>();
 
         nodes.add(root);
 
         while (!nodes.isEmpty()) {
-            BinaryTreeNode node = nodes.poll();
+            BinaryTreeNode<K,V> node = nodes.poll();
 
-            sb.append(node.getData());
+            sb.append(node.getText());
             sb.append(",");
 
             if (node.getLeft() != null) {

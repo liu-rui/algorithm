@@ -12,18 +12,18 @@ public class BinarySearchTreeUsingLinkTest {
 
     @Before
     public void aa() {
-        item = new BinarySearchTreeUsingLinkImpl();
-        item.add(42);
-        item.add(14);
-        item.add(65);
-        item.add(9);
-        item.add(23);
-        item.add(55);
-        item.add(72);
-        item.add(1);
-        item.add(68);
-        item.add(88);
-        item.add(70);
+        item = new BinarySearchTreeUsingLinkImpl<Integer,Integer>();
+        item.add(42,42);
+        item.add(14,14);
+        item.add(65,65);
+        item.add(9,9);
+        item.add(23,23);
+        item.add(55,55);
+        item.add(72,72);
+        item.add(1,1);
+        item.add(68,68);
+        item.add(88,88);
+        item.add(70,70);
     }
 
     @Test
@@ -31,24 +31,24 @@ public class BinarySearchTreeUsingLinkTest {
         assertTrue(item.contains(72));
         assertFalse(item.contains(100));
 
-        assertEquals("1,9,14,23,42,55,65,68,70,72,88", item.printInOrder());
-        assertEquals("1,9,23,14,55,70,68,88,72,65,42" , item.printPostOrder());
+        assertEquals("[1:1],[9:9],[14:14],[23:23],[42:42],[55:55],[65:65],[68:68],[70:70],[72:72],[88:88]", item.printInOrder());
+        assertEquals("[1:1],[9:9],[23:23],[14:14],[55:55],[70:70],[68:68],[88:88],[72:72],[65:65],[42:42]" , item.printPostOrder());
     }
 
     @Test
     public void testRemove1() {
         item.remove(23);
         assertFalse(item.contains(23));
-        assertEquals("1,9,14,42,55,65,68,70,72,88", item.printInOrder());
-        assertEquals("1,9,14,55,70,68,88,72,65,42", item.printPostOrder());
+        assertEquals("[1:1],[9:9],[14:14],[42:42],[55:55],[65:65],[68:68],[70:70],[72:72],[88:88]", item.printInOrder());
+        assertEquals("[1:1],[9:9],[14:14],[55:55],[70:70],[68:68],[88:88],[72:72],[65:65],[42:42]", item.printPostOrder());
     }
 
     @Test
     public  void  testRemove2(){
         item.remove(9);
         assertFalse(item.contains(9));
-        assertEquals("1,14,23,42,55,65,68,70,72,88", item.printInOrder());
-        assertEquals("1,23,14,55,70,68,88,72,65,42", item.printPostOrder());
+        assertEquals("[1:1],[14:14],[23:23],[42:42],[55:55],[65:65],[68:68],[70:70],[72:72],[88:88]", item.printInOrder());
+        assertEquals("[1:1],[23:23],[14:14],[55:55],[70:70],[68:68],[88:88],[72:72],[65:65],[42:42]", item.printPostOrder());
     }
 
 
@@ -57,8 +57,8 @@ public class BinarySearchTreeUsingLinkTest {
         item.remove(68);
         assertFalse(item.contains(68));
 
-        assertEquals("1,9,14,23,42,55,65,70,72,88", item.printInOrder());
-        assertEquals("1,9,23,14,55,70,88,72,65,42" , item.printPostOrder());
+        assertEquals("[1:1],[9:9],[14:14],[23:23],[42:42],[55:55],[65:65],[70:70],[72:72],[88:88]", item.printInOrder());
+        assertEquals("[1:1],[9:9],[23:23],[14:14],[55:55],[70:70],[88:88],[72:72],[65:65],[42:42]" , item.printPostOrder());
     }
 
 
@@ -67,8 +67,8 @@ public class BinarySearchTreeUsingLinkTest {
         item.remove(65);
         assertFalse(item.contains(65));
 
-        assertEquals("1,9,14,23,42,55,68,70,72,88", item.printInOrder());
-        assertEquals("1,9,23,14,55,70,88,72,68,42" , item.printPostOrder());
+        assertEquals("[1:1],[9:9],[14:14],[23:23],[42:42],[55:55],[68:68],[70:70],[72:72],[88:88]", item.printInOrder());
+        assertEquals("[1:1],[9:9],[23:23],[14:14],[55:55],[70:70],[88:88],[72:72],[68:68],[42:42]" , item.printPostOrder());
     }
 
     @Test
@@ -76,7 +76,7 @@ public class BinarySearchTreeUsingLinkTest {
         item.remove(42);
         assertFalse(item.contains(42));
 
-        assertEquals("1,9,14,23,55,65,68,70,72,88", item.printInOrder());
-        assertEquals("1,9,23,14,70,68,88,72,65,55" , item.printPostOrder());
+        assertEquals("[1:1],[9:9],[14:14],[23:23],[55:55],[65:65],[68:68],[70:70],[72:72],[88:88]", item.printInOrder());
+        assertEquals("[1:1],[9:9],[23:23],[14:14],[70:70],[68:68],[88:88],[72:72],[65:65],[55:55]" , item.printPostOrder());
     }
 }
