@@ -21,5 +21,14 @@ public class GraphTest {
                         "B -> C",
                         "D -> C"}
                 , graph.printEdges());
+
+
+        graph.removeEdge("B", "C");
+        graph.removeEdge("A", "B");
+        assertArrayEquals(new String[]{
+                        "A -> C",
+                        "A -> D",
+                        "D -> C"}
+                , graph.printEdges());
     }
 }

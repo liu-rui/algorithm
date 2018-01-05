@@ -2,6 +2,10 @@ package liurui.defines.structures.graph;
 
 /**
  * 图
+ *
+ * 打印规则：
+ *  1. 边输出规则： A -> B
+ *  2. 边的输出按照顶点的顺序输出
  */
 public interface Graph {
 
