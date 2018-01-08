@@ -8,7 +8,10 @@ public class GraphUsingListTest {
     public void test() {
         GraphUsingList graph = new GraphUsingListImpl();
 
-        new GraphTest().test(graph);
-        new GraphTest().testSearch(graph);
+        GraphTest graphTest = new GraphTest();
+
+        graphTest.test(graph);
+        graphTest.testSearch(graph);
+        graphTest.testShortestPath(graph);
     }
 }

@@ -106,6 +106,12 @@ public class GraphUsingListImpl implements GraphUsingList {
     }
 
     @Override
+    public void addDoubleEdge(String start, String end, int value) {
+        addEdge(start, end, value);
+        addEdge(end, start, value);
+    }
+
+    @Override
     public void removeEdge(String start, String end) {
         if (!verticesByName.containsKey(start) || !verticesByName.containsKey(end))
             throw new IllegalArgumentException();
@@ -215,11 +221,103 @@ public class GraphUsingListImpl implements GraphUsingList {
 
     @Override
     public String[] printShortestPathUsingDijkstra() {
-        return new String[0];
+        ArrayList<String> ret = new ArrayList<>();
+        int[][] distances = new int[list.length][list.length];
+        int[] visited = new int[list.length];
+
+        //产生距离矩阵
+        for (int i = 0; i < list.length; i++) {
+            Node node = list[i];
+
+            while (node != null) {
+                distances[i][node.getIndex()] = node.getValue();
+                node = node.getNext();
+            }
+        }
+
+        visited[0] = 1;
+
+        for (int i = 0; i < visited.length - 1; i++) {
+            int min = Integer.MAX_VALUE;
+            int v = 0;
+
+            for (int j = 0; j < list.length; j++) {
+                if (visited[j] != 1 && distances[0][j] != 0 && distances[0][j] < min) {
+                    min = distances[0][j];
+                    v = j;
+                }
+            }
+
+            visited[v] = 1;
+            ret.add(String.format("%s -> %s %s", verticesByIndex.get(0), verticesByIndex.get(v), distances[0][v]));
+
+            for (int j = 0; j < list.length; j++) {
+                if (visited[j] != 1 && distances[v][j] != 0 && (min + distances[v][j] < distances[0][j] || distances[0][j] == 0)) {
+                    distances[0][j] = min + distances[v][j];
+                }
+            }
+        }
+        return ret.toArray(new String[0]);
     }
 
     @Override
     public String[] printShortestPathUsingFloyd() {
-        return new String[0];
+        int[][] distances = new int[list.length][list.length];
+
+        for (int i = 0; i < list.length; i++) {
+            for (int j = 0; j < list.length; j++) {
+                distances[i][j] = Integer.MAX_VALUE;
+            }
+        }
+
+        for (int i = 0; i < list.length; i++) {
+            Node node = list[i];
+
+            while (node != null) {
+                distances[i][node.getIndex()] = node.getValue();
+                node = node.getNext();
+            }
+        }
+
+        for (int k = 0; k < list.length; k++) {
+            for (int i = 0; i < list.length; i++) {
+                for (int j = 0; j < list.length; j++) {
+                    int tmp = distances[i][k] == Integer.MAX_VALUE || distances[k][j] == Integer.MAX_VALUE
+                            ? Integer.MAX_VALUE
+                            : distances[i][k] + distances[k][j];
+                    if (distances[i][j] > tmp) {
+                        distances[i][j] = tmp;
+                    }
+                }
+            }
+        }
+        PriorityQueue<Item> queue = new PriorityQueue<>();
+
+        for (int i = 1; i < list.length; i++) {
+            queue.add(new Item(i, distances[0][i]));
+        }
+        String[]  ret= new String[queue.size()];
+        int i = 0;
+
+        while (!queue.isEmpty()){
+            Item item = queue.poll();
+            ret[i++] = String.format("%s -> %s %s" , verticesByIndex.get(0) , verticesByIndex.get(item.index) , item.value);
+        }
+        return ret;
+    }
+
+    public static class Item implements Comparable<Item> {
+        private int index;
+        private int value;
+
+        public Item(int index, int value) {
+            this.index = index;
+            this.value = value;
+        }
+
+        @Override
+        public int compareTo(Item o) {
+            return Integer.compare(value, o.value);
+        }
     }
 }

@@ -1,16 +1,17 @@
 package liurui.v4.structures.tree;
 
-import liurui.defines.structures.Item;
-import liurui.defines.structures.tree.BinaryTree;
 import liurui.defines.structures.tree.BinaryTreeNode;
 import liurui.defines.structures.tree.HaFuManTree;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 
 /**
  * 哈夫曼树
+ *
+ *
+ * 参考：
+ * 1. http://rosettacode.org/wiki/Huffman_coding#Java
  */
 public class HaFuManTreeImpl implements HaFuManTree {
     private static class Item implements Comparable<Item> {

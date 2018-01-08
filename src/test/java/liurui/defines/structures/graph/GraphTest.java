@@ -44,4 +44,30 @@ public class GraphTest {
         assertEquals("A,B,D,E,C,F,G", graph.printDepthFirstSearch());
         assertEquals("A,B,C,D,E,F,G", graph.printBreadthFirstSearch());
     }
+
+    public void testShortestPath(Graph graph) {
+        graph.init(new String[]{"A", "B", "C", "D", "E", "F"});
+
+        graph.addDoubleEdge("A", "B", 16);
+        graph.addDoubleEdge("A", "C", 1);
+        graph.addDoubleEdge("A", "E", 12);
+        graph.addDoubleEdge("A", "F", 15);
+        graph.addDoubleEdge("B", "D", 2);
+        graph.addDoubleEdge("B", "F", 8);
+        graph.addDoubleEdge("C", "E", 5);
+        graph.addDoubleEdge("D", "F", 3);
+        graph.addDoubleEdge("E", "F", 8);
+        graph.addDoubleEdge("D", "E", 9);
+
+        String[] shortestPaths = {
+                "A -> C 1",
+                "A -> E 6",
+                "A -> F 14",
+                "A -> D 15",
+                "A -> B 16"};
+
+        assertArrayEquals(shortestPaths,
+                graph.printShortestPathUsingDijkstra());
+        assertArrayEquals(shortestPaths, graph.printShortestPathUsingFloyd());
+    }
 }

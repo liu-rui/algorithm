@@ -27,7 +27,15 @@ public interface Graph {
      * @param end   终止顶点
      * @param value 权
      */
-    void addEdge(String start, String end , int value);
+    void addEdge(String start, String end, int value);
+
+    /**
+     * 添加边(双向的)
+     * @param start 顶点
+     * @param end 顶点
+     * @param value 权
+     */
+    void addDoubleEdge(String start, String end, int value);
 
     /**
      * 删除边
@@ -65,7 +73,7 @@ public interface Graph {
 
 
     /**
-     * 使用迪杰斯特拉算法打印最短路径
+     * 使用迪杰斯特拉算法打印最短路径,结果按照距离升序排列
      *
      * 最短路径格式为
      * 顶点 -> 顶点 距离
@@ -77,12 +85,11 @@ public interface Graph {
 
 
     /**
-     * 使用弗洛伊德算法打印最短路径
+     * 使用弗洛伊德算法打印最短路径,结果按照距离升序排列
      *
      * 最短路径格式为
      * 顶点 -> 顶点 距离
      * 例如：A -> B 12
-     *
      *
      * @return 最短路径
      */

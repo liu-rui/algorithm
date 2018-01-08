@@ -22,6 +22,11 @@ public class GraphUsingListImpl implements GraphUsingList {
     }
 
     @Override
+    public void addDoubleEdge(String start, String end, int value) {
+
+    }
+
+    @Override
     public void removeEdge(String start, String end) {
 
     }
