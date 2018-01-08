@@ -9,5 +9,6 @@ public class GraphUsingListTest {
         GraphUsingList graph = new GraphUsingListImpl();
 
         new GraphTest().test(graph);
+        new GraphTest().testSearch(graph);
     }
 }

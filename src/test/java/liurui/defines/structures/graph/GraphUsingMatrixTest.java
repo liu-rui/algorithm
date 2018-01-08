@@ -9,5 +9,6 @@ public class GraphUsingMatrixTest {
         GraphUsingMatrix graph = new GraphUsingMatrixImpl();
 
         new GraphTest().test(graph);
+        new GraphTest().testSearch(graph);
     }
 }

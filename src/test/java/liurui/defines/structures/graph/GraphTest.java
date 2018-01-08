@@ -31,4 +31,17 @@ public class GraphTest {
                         "D -> C"}
                 , graph.printEdges());
     }
+
+    public void testSearch(Graph graph) {
+        graph.init(new String[]{"A", "B", "C", "D", "E", "F", "G"});
+
+        graph.addEdge("A", "B");
+        graph.addEdge("A", "C");
+        graph.addEdge("B", "D");
+        graph.addEdge("B", "E");
+        graph.addEdge("C", "F");
+        graph.addEdge("C", "G");
+        assertEquals("A,B,D,E,C,F,G", graph.printDepthFirstSearch());
+        assertEquals("A,B,C,D,E,F,G", graph.printBreadthFirstSearch());
+    }
 }
