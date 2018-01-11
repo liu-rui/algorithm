@@ -4,6 +4,11 @@ import liurui.defines.questions.TopN;
 
 import java.util.Arrays;
 
+/**
+ * 求数组中最大的前num个数
+ * 时间复杂度为O((N-M)*logM)
+ * N为数组的长度，M为结果的个数
+ */
 public class TopNImpl implements TopN {
     /**
      * 求数组中最大的前num个数

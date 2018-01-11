@@ -1,5 +1,8 @@
 package liurui.defines.questions;
 
+/**
+ * 求数组中最大的前num个数
+ */
 public interface TopN {
     /**
      *  求数组中最大的前num个数
