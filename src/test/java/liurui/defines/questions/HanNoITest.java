@@ -1,14 +1,15 @@
 package liurui.defines.questions;
 
-import liurui.answers.questions.HanLuoTaImpl;
+import liurui.defines.practice.HanNoI;
+import liurui.v4.practice.HanNoIImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
 
-public class HanLuoTaTest {
+public class HanNoITest {
     @Test
     public void test() {
-        HanLuoTa item = new HanLuoTaImpl();
+        HanNoI item = new HanNoIImpl();
 
         assertArrayEquals(new String[]{"a -> c",
                         "a -> b",

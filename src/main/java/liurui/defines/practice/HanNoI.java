@@ -1,8 +1,8 @@
-package liurui.defines.questions;
+package liurui.defines.practice;
 
 /***
  *  汉诺塔问题
  */
-public interface HanLuoTa {
+public interface HanNoI {
     String[] move(int sum, char a, char b, char c);
 }
