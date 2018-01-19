@@ -11,8 +11,7 @@ import liurui.defines.searchs.LostNumber;
  * 排序的影响，时间复杂度最多也就是O(NlogN)
  * 2. 使用散列表的话，时间复杂度为O(N),但是空间复杂度为O(N)
  * <p>
- * 3.100个数之和为(1+100)*100/2=5050,然后减去当前数组之和，结果就是缺失的数
- * 时间复杂度为O(N),但是空间复杂度为O(1)
+ * 是有还有更好的方法？
  */
 public class LostNumberImpl implements LostNumber {
     /**
@@ -23,11 +22,11 @@ public class LostNumberImpl implements LostNumber {
      */
     @Override
     public int find(int[] ary) {
-        int sum = (1 + 100) * 100 / 2;
+        int ret = (1 + 100) * 100 / 2;
 
-        for (int i : ary) {
-            sum -= i;
+        for (int item : ary) {
+            ret -= item;
         }
-        return sum;
+        return ret;
     }
 }

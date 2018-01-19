@@ -10,7 +10,7 @@ public class LongestPalindromeTest {
     public void test() {
         LongestPalindrome item = new LongestPalindromeImpl();
 
-//        assertEquals("cdedc", item.search("abcdedco"));
+        assertEquals("cdedc", item.search("abcdedco"));
         assertEquals("cdefgfedc", item.search("abcdefgfedcgcda"));
     }
 }

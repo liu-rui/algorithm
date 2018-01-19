@@ -1,6 +1,5 @@
-package liurui.defines.searchs;
+package liurui.defines.questions;
 
-import liurui.defines.questions.TopN;
 import liurui.v4.questions.TopNImpl;
 import org.junit.Test;
 

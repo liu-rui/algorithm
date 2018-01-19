@@ -13,12 +13,16 @@ public class BinaryTreeUsingLinkTest {
 
     @Test
     public void clear() {
-        BinaryTree<Integer , Integer> item = new BinaryTreeUsingLinkImpl<>();
-        BinaryTreeNode node = new BinaryTreeNode(1, 1,new BinaryTreeNode(2,2), null);
+        BinaryTree<Integer, Integer> item = new BinaryTreeUsingLinkImpl<>();
+        BinaryTreeNode<Integer, Integer> node = new BinaryTreeNode<>(1, 1, new BinaryTreeNode(2, 2), null);
 
         item.setRoot(node);
         assertFalse(item.isEmpty());
         assertEquals(2, item.getSize());
+        assertEquals(1, item.getSize(1));
+        assertEquals(1, item.getSize(2));
+        assertEquals(0, item.getSize(3));
+
 
         assertEquals(node, item.getRoot());
         item.clear();
@@ -29,12 +33,12 @@ public class BinaryTreeUsingLinkTest {
 
     @Test
     public void getSize() {
-        BinaryTree<String,Integer> item = new BinaryTreeUsingLinkImpl<>();
-        BinaryTreeNode a = new BinaryTreeNode("a",1);
-        BinaryTreeNode b = new BinaryTreeNode("b",2);
-        BinaryTreeNode c = new BinaryTreeNode("c",3);
-        BinaryTreeNode d = new BinaryTreeNode("d",4);
-        BinaryTreeNode e = new BinaryTreeNode("e",5);
+        BinaryTree<String, Integer> item = new BinaryTreeUsingLinkImpl<>();
+        BinaryTreeNode<String, Integer> a = new BinaryTreeNode<>("a", 1);
+        BinaryTreeNode<String, Integer> b = new BinaryTreeNode<>("b", 2);
+        BinaryTreeNode<String, Integer> c = new BinaryTreeNode<>("c", 3);
+        BinaryTreeNode<String, Integer> d = new BinaryTreeNode<>("d", 4);
+        BinaryTreeNode<String, Integer> e = new BinaryTreeNode<>("e", 5);
 
         item.insertLeft(a, b);
         item.insertRight(a, c);
@@ -58,10 +62,10 @@ public class BinaryTreeUsingLinkTest {
         assertEquals(a, item.getParent(c));
         assertNull(item.getParent(a));
 
-        assertEquals(b, a.getLeft());
-        assertEquals(c, a.getRight());
-        assertNull(d.getLeft());
-        assertEquals(e, d.getRight());
+        assertEquals(b, item.getLeftNode(a));
+        assertEquals(c, item.getRightNode(a));
+        assertNull(item.getLeftNode(d));
+        assertEquals(e, item.getRightNode(d));
 
         assertEquals("[a:1],[b:2],[c:3],[d:4],[e:5]", item.printPreOrder());
         assertEquals("[b:2],[a:1],[c:3],[d:4],[e:5]", item.printInOrder());

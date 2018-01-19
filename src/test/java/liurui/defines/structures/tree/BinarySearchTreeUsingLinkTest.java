@@ -11,7 +11,7 @@ public class BinarySearchTreeUsingLinkTest {
 
 
     @Before
-    public void aa() {
+    public void init() {
         item = new BinarySearchTreeUsingLinkImpl<Integer,Integer>();
         item.add(42,42);
         item.add(14,14);

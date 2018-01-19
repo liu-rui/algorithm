@@ -2,16 +2,15 @@ package liurui.v4.structures.tree;
 
 import liurui.defines.structures.tree.Heap;
 
+import java.util.Arrays;
+
 /**
  * 堆
- * 是一种特殊的完全二叉树
- * 分为最大堆（第一个元素最大）和最小堆（第一个最小）
- * 特点：
- *  1. 对于最大堆来说，第i个元素一定大于等于2i和2i+1元素
  */
 public class HeapImpl implements Heap {
-    int[] ret;
+    private int[] heap;
     private boolean big;
+
 
     /**
      * 初始化堆
@@ -21,27 +20,30 @@ public class HeapImpl implements Heap {
      */
     @Override
     public void init(boolean big, int[] data) {
+        if (data == null || data.length == 0) {
+            throw new IllegalArgumentException();
+        }
         this.big = big;
-        ret = new int[data.length + 1];
+        heap = new int[data.length + 1];
 
         for (int item : data) {
-            add(item);
+            heap[0]++;
+            int i = heap[0];
+
+            for (; i / 2 >= 1 && compare(item, heap[i / 2]); i /= 2) {
+                heap[i] = heap[i / 2];
+            }
+            heap[i] = item;
         }
     }
 
-    private void add(int item) {
-        ret[0]++;
-        int i = ret[0];
+    private boolean compare(int a, int b) {
+        boolean ret = a > b;
 
-        while (i > 1 && compare(item, ret[i / 2]) > 0) {
-            ret[i] = ret[i / 2];
-            i /= 2;
+        if (!big) {
+            ret = !ret;
         }
-        ret[i] = item;
-    }
-
-    private int compare(int a, int b) {
-        return big ? Integer.compare(a, b) : Integer.compare(b, a);
+        return ret;
     }
 
     /**
@@ -51,28 +53,31 @@ public class HeapImpl implements Heap {
      */
     @Override
     public int pop() {
-        if (ret[0] == 0) throw new IndexOutOfBoundsException();
-        int data = ret[1];
-        int item = ret[ret[0]];
+        if (heap == null || heap[0] == 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        int ret = heap[1];
+        int item = heap[heap[0]];
+
+        heap[0]--;
         int parent = 1;
         int child = 2;
 
-        ret[0]--;
-
-        while (child <= ret[0]) {
-            if ((child + 1) <= ret[0] && compare(ret[child + 1], ret[child]) > 0)
+        while (child <= heap[0]) {
+            if (child + 1 <= heap[0] && compare(heap[child + 1], heap[child])) {
                 child++;
+            }
 
-            if (compare(item, ret[child]) > 0) {
+            if(compare(item, heap[child])){
                 break;
-            } else {
-                ret[parent] = ret[child];
-                parent = child;
-                child *= 2;
+            }else {
+                heap[parent] = heap[child];
+                parent=  child;
+                child *=2;
             }
         }
-        ret[parent] = item;
-        return data;
+        heap[parent] = item;
+        return ret;
     }
 
     /**
@@ -82,6 +87,6 @@ public class HeapImpl implements Heap {
      */
     @Override
     public int size() {
-        return ret[0];
+        return heap[0];
     }
 }

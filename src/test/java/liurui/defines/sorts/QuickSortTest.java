@@ -1,6 +1,6 @@
 package liurui.defines.sorts;
 
-import liurui.answers.sorts.QuickSortImpl;
+import liurui.v4.sorts.QuickSortImpl;
 import org.junit.Test;
 
 public class QuickSortTest {

@@ -1,4 +1,4 @@
-package liurui.v4.structures.tree;
+package liurui.answers.structures.tree;
 
 import liurui.defines.structures.tree.BinarySearchTreeUsingLink;
 import liurui.defines.structures.tree.BinaryTreeNode;

@@ -1,6 +1,6 @@
 package liurui.defines.questions;
 
-import liurui.answers.questions.DifferenceSetImpl;
+import liurui.v4.questions.DifferenceSetImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;

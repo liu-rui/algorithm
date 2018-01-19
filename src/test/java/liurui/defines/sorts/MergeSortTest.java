@@ -1,6 +1,6 @@
 package liurui.defines.sorts;
 
-import liurui.answers.sorts.MergeSortImpl;
+import liurui.v4.sorts.MergeSortImpl;
 import org.junit.Test;
 
 public class MergeSortTest {

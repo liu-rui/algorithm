@@ -8,6 +8,15 @@ import liurui.defines.sorts.BubbleSort;
 public class BubbleSortImpl implements BubbleSort {
     @Override
     public int[] sort(int[] data) {
-        return new int[0];
+        for (int i = 1; i < data.length; i++) {
+            for (int j = 1; j <= data.length - i; j++) {
+                if (data[j - 1] > data[j]) {
+                    int tmp = data[j];
+                    data[j] = data[j - 1];
+                    data[j - 1] = tmp;
+                }
+            }
+        }
+        return data;
     }
 }

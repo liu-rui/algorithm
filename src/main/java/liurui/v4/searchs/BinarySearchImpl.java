@@ -12,17 +12,16 @@ public class BinarySearchImpl implements BinarySearch {
 
         int begin = 0;
         int end = data.length - 1;
-        int current;
 
         while (begin <= end) {
-            current = begin + (end - begin) / 2;
+            int mid = begin + (end - begin) / 2;
 
-            if (data[current] == item) {
-                return current;
-            } else if (data[current] > item) {
-                end = current - 1;
+            if (data[mid] == item) {
+                return mid;
+            } else if (data[mid] > item) {
+                end = mid - 1;
             } else {
-                begin = current + 1;
+                begin = mid + 1;
             }
         }
         return -1;

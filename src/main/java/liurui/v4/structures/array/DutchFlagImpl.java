@@ -17,10 +17,6 @@ import javax.swing.text.AbstractDocument;
  * 说白了就是将有0,1,2三个数组成的数组按照升序排列
  * 如果使用快速排序可以达到O(nlogn),还有更好的算法吗?
  * <p>
- * 有！
- * 时间复杂度O(N)
- * 思路:
- * 定义三个变量：begin,current,end
  */
 public class DutchFlagImpl implements DutchFlag {
 
@@ -32,23 +28,18 @@ public class DutchFlagImpl implements DutchFlag {
      */
     @Override
     public int[] sort(int[] ary) {
-        int begin = 0;
-        int current = 0;
-        int end = ary.length - 1;
+        int begin = 0, current = 0, end = ary.length - 1;
 
         while (current <= end) {
             switch (ary[current]) {
                 case 0:
-                    swap(ary, begin, current);
-                    begin++;
-                    current++;
+                    swap(ary, begin++, current++);
                     break;
                 case 1:
                     current++;
                     break;
                 case 2:
-                    swap(ary, current, end);
-                    end--;
+                    swap(ary, current, end--);
                     break;
             }
         }

@@ -1,6 +1,6 @@
 package liurui.defines.sorts;
 
-import liurui.answers.sorts.ShellSortImpl;
+import liurui.v4.sorts.ShellSortImpl;
 import org.junit.Test;
 
 public class ShellSortTest {

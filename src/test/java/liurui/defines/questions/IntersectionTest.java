@@ -1,6 +1,6 @@
 package liurui.defines.questions;
 
-import liurui.answers.questions.IntersectionImpl;
+import liurui.v4.questions.IntersectionImpl;
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;

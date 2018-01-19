@@ -2,6 +2,9 @@ package liurui.templates.questions;
 
 import liurui.defines.questions.DifferenceSet;
 
+/**
+ * 请求两个数组的差集
+ */
 public class DifferenceSetImpl implements DifferenceSet {
 
     @Override

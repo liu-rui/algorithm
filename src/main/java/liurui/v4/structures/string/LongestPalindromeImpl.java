@@ -3,45 +3,49 @@ package liurui.v4.structures.string;
 import liurui.defines.structures.string.LongestPalindrome;
 
 /**
- * 时间复杂度为O(N^2)
- *
- *
- * 思想：
- * 1. 首先循环每一个字符，作为回文子串的中点
- * 2. 里面再来个循环(需要考虑奇数和偶数情况，所以是两个循环)，判断是否是回文，如果发现大的更新max
+ * 寻找最大的回文字串
+ * 例如:abcdedco,结果为cdedc
  */
 public class LongestPalindromeImpl implements LongestPalindrome {
     @Override
     public String search(String str) {
-        int current = 0, max = 0, begin = 0, len = str.length();
+        if (str == null || str.isEmpty()) return "";
+        int begin = 0;
+        int end = 0;
+        int max = 0;
 
-        //i作为回文子串的中点
-        for (int i = 0; i < len; i++) {
-            //考虑回文子串为奇数长度的情况
-            for (int j = 0; i - j >= 0 && i + j < len; j++) {
-                if (str.charAt(i - j) != str.charAt(i + j)) {
+        for (int i = 0; i < str.length(); i++) {
+            int cur = 0;
+            for (int j = 0; i - j >= 0 && i + j < str.length(); j++) {
+                if (str.charAt(i - j) == str.charAt(i + j)) {
+                    cur = j * 2;
+                } else {
                     break;
                 }
-                current = j * 2 + 1;
             }
 
-            if (current > max) {
-                begin = i - current / 2;
-                max = current;
+            if (cur > max) {
+                max = cur;
+                begin = i - max / 2;
+                end = i + max / 2;
             }
 
-            //考虑回文子串为偶数长度的情况
-            for (int j = 0; i - j >= 0 && i + j + 1 < len; j++) {
-                if (str.charAt(i - j) != str.charAt(i + j + 1)) {
+            cur = 0;
+            for (int j = 0; i - j >= 0 && i + j + 1 < str.length(); j++) {
+                if (str.charAt(i - j) == str.charAt(i + j + 1)) {
+                    cur += j * 2 + 1;
+                } else {
                     break;
                 }
-                current = j * 2 + 2;
             }
-            if (current > max) {
-                begin = i - current / 2;
-                max = current;
+
+            if (cur > max) {
+                max = cur;
+                begin = i - max / 2;
+                end = i + max / 2 + 1;
             }
         }
-        return str.substring(begin , begin + max);
+
+        return str.substring(begin, end + 1);
     }
 }

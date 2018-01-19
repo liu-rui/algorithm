@@ -1,12 +1,10 @@
 package liurui.v4.searchs;
 
 import liurui.defines.searchs.FindK;
-
-import java.lang.reflect.WildcardType;
+import liurui.defines.structures.Item;
 
 /**
  * 找出数组中第k大的数
- * 时间复杂度为O(N)
  */
 public class FindKImpl implements FindK {
 
@@ -19,22 +17,23 @@ public class FindKImpl implements FindK {
      */
     @Override
     public int find(int[] ary, int k) {
-        return find(ary, k, 0, ary.length - 1);
-    }
+        int begin = 0 ;
+        int end = ary.length - 1;
+        while (true){
+            int i = partition(ary , begin , end);
 
-    private int find(int[] ary, int k, int begin, int end) {
-        int i = sort(ary, begin, end);
-
-        if (i + 1 > k) {
-            return find(ary, k, begin, i - 1);
-        } else if (i + 1 < k) {
-            return find(ary, k, i + 1, end);
-        } else {
-            return ary[i];
+            if(i+1 == k){
+                return ary[i];
+            }else if(i+1 > k){
+                end = i-1;
+            }else{
+                begin = i+1;
+            }
         }
     }
 
-    private int sort(int[] ary, int begin, int end) {
+
+    private int partition(int[] ary, int begin, int end) {
         if (begin >= end) return begin;
         int item = ary[begin];
 
@@ -47,11 +46,11 @@ public class FindKImpl implements FindK {
                 ary[begin++] = ary[end];
             }
 
-            while (begin < end && ary[begin] >= item) {
+            while (begin<end && ary[begin] >= item){
                 begin++;
             }
 
-            if (begin < end) {
+            if(begin < end){
                 ary[end--] = ary[begin];
             }
         }

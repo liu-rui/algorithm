@@ -10,21 +10,19 @@ import liurui.defines.structures.string.ContainsUsingBit;
  * N为b串的长度
  * <p>
  * <p>
- * 缺点是：如果字符只是由26个字母组成，没有问题；但是，超过了整型的32个，将出现溢出
+ * 缺点是：如果字符只是由26个字母组成，没有问题；但是，超过了整形的32个，将出现溢出
  */
 public class ContainsUsingBitImpl implements ContainsUsingBit {
     @Override
     public boolean contains(String a, String b) {
-        int all = 0;
-        int lenM = a.length();
+        int bit = 0;
 
-        for (int i = 0; i < lenM; i++) {
-            all |= 1 << (a.charAt(i) - 'a');
+        for (int i = 0; i < a.length(); i++) {
+            bit |= 1 << (a.charAt(i) - 'a');
         }
-        int lenN = b.length();
 
-        for (int i = 0; i < lenN; i++) {
-            if ((all & (1 << (b.charAt(i) - 'a'))) == 0) {
+        for (int j = 0; j < b.length(); j++) {
+            if ((bit & (1 << b.charAt(j) - 'a')) == 0) {
                 return false;
             }
         }

@@ -1,4 +1,4 @@
-package liurui.v4.questions;
+package liurui.answers.questions;
 
 import liurui.defines.questions.Exchange;
 
@@ -15,6 +15,29 @@ public class ExchangeImpl implements Exchange {
      */
     @Override
     public int[] exec(int[] ary) {
+        return answer2(ary);
+    }
+
+    /**
+     * 方案1: 使用先+,后-
+     *
+     * @param ary
+     * @return
+     */
+    private int[] answer1(int[] ary) {
+        ary[0] += ary[1];
+        ary[1] = ary[0] - ary[1];
+        ary[0] -= ary[1];
+        return ary;
+    }
+
+    /**
+     * 方案2: 使用异或，反反得正
+     *
+     * @param ary
+     * @return
+     */
+    private int[] answer2(int[] ary) {
         ary[0] ^= ary[1];
         ary[1] ^= ary[0];
         ary[0] ^= ary[1];

@@ -4,7 +4,6 @@ import liurui.v4.searchs.LostNumberImpl;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 
 import static org.junit.Assert.*;

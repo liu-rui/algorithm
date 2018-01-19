@@ -2,6 +2,10 @@ package liurui.templates.structures.string;
 
 import liurui.defines.structures.string.LongestPalindrome;
 
+/**
+ * 寻找最大的回文字串
+ * 例如:abcdedco,结果为cdedc
+ */
 public class LongestPalindromeImpl  implements LongestPalindrome {
     @Override
     public String search(String str) {

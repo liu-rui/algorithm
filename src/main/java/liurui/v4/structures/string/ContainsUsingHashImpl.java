@@ -15,16 +15,13 @@ public class ContainsUsingHashImpl implements ContainsUsingHash {
     @Override
     public boolean contains(String a, String b) {
         HashSet<Character> set = new HashSet<>();
-        int lenM = a.length();
 
-        for (int i = 0; i < lenM; i++) {
+        for (int i = 0; i < a.length(); i++) {
             set.add(a.charAt(i));
         }
 
-        int lenN = b.length();
-
-        for (int i = 0; i < lenN; i++) {
-            if (!set.contains(b.charAt(i))) {
+        for (int j = 0; j < b.length(); j++) {
+            if (!set.contains(b.charAt(j))) {
                 return false;
             }
         }

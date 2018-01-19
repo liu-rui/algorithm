@@ -18,27 +18,26 @@ public class FindMaxSumSubArrayUsingExhaustiveImpl implements FindMaxSumSubArray
      * @return 子数组
      */
     @Override
-    public int[] find(int[] ary){
-        int maxSum=ary[0];
+    public int[] find(int[] ary) {
+        int max = ary[0];
         int begin = 0;
         int end = 0;
 
-        for(int i  = 0;i< ary.length;i++){
-            for(int j = i;j< ary.length;j++){
+        for (int i = 0; i < ary.length; i++) {
+            for (int j = i; j < ary.length; j++) {
                 int sum = 0;
 
-                for(int k = i;k<=j;k++){
-                    sum+= ary[k];
+                for (int k = i; k <= j; k++) {
+                    sum += ary[k];
                 }
 
-                if(sum > maxSum){
+                if (sum >= max) {
+                    max = sum;
                     begin = i;
                     end = j;
-                    maxSum = sum;
                 }
             }
         }
-
-        return Arrays.copyOfRange(ary , begin , end+1);
+        return Arrays.copyOfRange(ary, begin, end + 1);
     }
 }

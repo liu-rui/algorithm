@@ -1,4 +1,4 @@
-package liurui.defines.questions;
+package liurui.defines.practice;
 
 import liurui.defines.practice.HanNoI;
 import liurui.v4.practice.HanNoIImpl;

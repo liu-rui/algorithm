@@ -4,6 +4,9 @@ import liurui.defines.structures.string.PermutationUsingDictionary;
 
 import java.util.ArrayList;
 
+/**
+ * 时间复杂度为O(NlogN)
+ */
 public class PermutationUsingDictionaryImpl implements PermutationUsingDictionary {
     @Override
     public String[] permutation(String str) {
