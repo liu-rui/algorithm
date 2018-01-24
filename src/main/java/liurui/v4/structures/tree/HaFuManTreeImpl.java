@@ -2,7 +2,11 @@ package liurui.v4.structures.tree;
 
 import liurui.defines.structures.tree.HaFuManTree;
 
+import java.lang.reflect.Array;
+import java.time.chrono.IsoChronology;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 哈夫曼树
@@ -28,116 +32,116 @@ public class HaFuManTreeImpl implements HaFuManTree {
 
         @Override
         public int compareTo(Node o) {
-            if (o == null) return 1;
             int ret = Integer.compare(frequency, o.frequency);
-
-            return ret == 0 ? key.compareToIgnoreCase(o.key) : ret;
+            return ret == 0 ? key.compareTo(o.key) : ret;
         }
 
         @Override
         public String toString() {
-            return "{" +
-                    "k:'" + key + '\'' +
-                    ", f:" + frequency +
-                    '}';
+            return String.format("[%s:%d]", key, frequency);
         }
     }
 
-    private static class MinHeap {
-        Node[] heap;
+    private static class Heap {
+        Node[] list;
         int size = 0;
 
-        public MinHeap(HashMap<String, Integer> keys) {
+        public void init(HashMap<String, Integer> keys) {
             if (keys == null || keys.size() == 0) {
                 throw new IllegalArgumentException();
             }
-            heap = new Node[keys.size()];
-            keys.forEach((k, v) -> push(new Node(k, v)));
+            list = new Node[keys.size()];
+
+            for (Map.Entry<String, Integer> entry : keys.entrySet()) {
+                Node item = new Node(entry.getKey(), entry.getValue());
+
+                push(item);
+            }
         }
 
-        public void push(Node node) {
-            int i = size;
+        private void push(Node node) {
+            size++;
+            int i = size - 1;
 
-            while (i > 0 && i / 2 >= 0 && heap[i / 2].compareTo(node) > 0) {
-                heap[i] = heap[i / 2];
+            while (i >= 1 && i / 2 >= 0 && list[i / 2].compareTo(node) > 0) {
+                list[i] = list[i / 2];
                 i /= 2;
             }
-            heap[i] = node;
-            size++;
+            list[i] = node;
         }
 
-        public Node pop() {
+        private Node pop() {
             if (size == 0) throw new IndexOutOfBoundsException();
-            Node ret = heap[0];
-            Node item = heap[size - 1];
+            Node ret = list[0];
 
             size--;
 
-            int parent = 0;
-            int child = 1;
+            if (size != 0) {
+                Node item = list[size];
+                int parent = 0;
+                int child = 1;
 
-            while (child < size) {
-                if (child + 1 < size && heap[child].compareTo(heap[child + 1]) > 0) {
-                    child++;
-                }
+                while (child < size) {
+                    if (child + 1 < size && list[child].compareTo(list[child + 1]) > 0) {
+                        child++;
+                    }
 
-                if (heap[child].compareTo(item) > 0) {
-                    break;
-                } else {
-                    heap[parent] = heap[child];
-                    parent = child;
-                    child *= 2;
+                    if (list[child].compareTo(item) > 0) {
+                        break;
+                    } else {
+                        list[parent] = list[child];
+                        parent = child;
+                        child *= 2;
+                    }
                 }
+                list[parent] = item;
             }
-            heap[parent] = item;
             return ret;
         }
 
-        public  int getSize(){
+        private int size() {
             return size;
         }
     }
 
+    private Node root;
     private HashMap<String, String> hashByKey = new HashMap<>();
     private HashMap<String, String> hashByCode = new HashMap<>();
 
-
     /**
      * 生成哈夫曼编码
-     * 由于这里使用了最小堆来存储中间结果，总体的时间复杂度为O(logN)
      *
      * @param keys 字母的出现频率
      */
     @Override
     public void generic(HashMap<String, Integer> keys) {
-        if (keys == null || keys.size() == 0) {
-            throw new IllegalArgumentException();
-        }
-        MinHeap minHeap = new MinHeap(keys);
+        Heap heap = new Heap();
+        heap.init(keys);
 
-        while (minHeap.getSize() > 1) {
-            Node left = minHeap.pop();
-            Node right = minHeap.pop();
-
-            minHeap.push(new Node(left.key + right.key, left.frequency + right.frequency, left, right));
+        while (heap.size() > 1) {
+            Node left = heap.pop();
+            Node right = heap.pop();
+            heap.push(new Node(left.key + right.key,
+                    left.frequency + right.frequency,
+                    left,
+                    right));
         }
-        generic(minHeap.pop(), "");
+        root = heap.pop();
+        generic(root, "");
     }
 
     private void generic(Node node, String code) {
+        if (node == null) {
+            return;
+        }
+
         if (node.left == null && node.right == null) {
             hashByKey.put(node.key, code);
             hashByCode.put(code, node.key);
             return;
         }
-
-        if (node.left != null) {
-            generic(node.left, code + "0");
-        }
-
-        if (node.right != null) {
-            generic(node.right, code + "1");
-        }
+        generic(node.left, code + "0");
+        generic(node.right, code + "1");
     }
 
 
@@ -163,7 +167,7 @@ public class HaFuManTreeImpl implements HaFuManTree {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < data.length(); i++) {
-            sb.append(hashByKey.get(String.valueOf(data.charAt(i))));
+            sb.append(hashByKey.get(String.valueOf(  data.charAt(i))));
         }
         return sb.toString();
     }
@@ -179,14 +183,14 @@ public class HaFuManTreeImpl implements HaFuManTree {
         StringBuilder sb = new StringBuilder();
         int begin = 0;
 
-        for (int i = 0; i < data.length(); i++) {
-            String item = data.substring(begin, i + 1);
+        for(int i = 0;i<data.length();i++){
+            String code = data.substring(begin, i + 1);
 
-            if (hashByCode.containsKey(item)) {
-                begin = i + 1;
-                sb.append(hashByCode.get(item));
+            if(hashByCode.containsKey(code)){
+                sb.append(hashByCode.get(code));
+                begin = i+1;
             }
         }
-        return sb.toString();
+        return  sb.toString();
     }
 }

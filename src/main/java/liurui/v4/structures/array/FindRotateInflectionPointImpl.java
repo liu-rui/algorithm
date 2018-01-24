@@ -20,7 +20,7 @@ public class FindRotateInflectionPointImpl implements FindRotateInflectionPoint 
         int begin = 0;
         int end = ary.length - 1;
 
-        while (begin < end) {
+        while (begin <= end) {
             if (end - begin == 1) {
                 if (ary[begin] > ary[0]) {
                     return ary[end];
@@ -28,13 +28,12 @@ public class FindRotateInflectionPointImpl implements FindRotateInflectionPoint 
                     return ary[begin];
                 }
             }
+            int mid = begin + (end - begin) / 2;
 
-            int cur = begin + (end - begin) / 2;
-
-            if (ary[cur] > ary[0]) {
-                begin = cur;
+            if (ary[mid] > ary[0]) {
+                begin = mid;
             } else {
-                end = cur;
+                end = mid;
             }
         }
         return -1;

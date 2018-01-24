@@ -16,14 +16,19 @@ public class ReverseImpl implements Reverse {
      */
     @Override
     public String reverse(String str, int begin, int end) {
-        int mid = (end - begin) / 2;
         char[] chars = str.toCharArray();
+        int mid = (end - begin) / 2;
 
-        for (int i = 0; i < mid; i++) {
-            char tmp = chars[begin + i];
-            chars[begin + i] = chars[end - i];
-            chars[end - i] = tmp;
+        for (int i = 0; i <= mid; i++) {
+            swap(chars, begin + i, end - i);
         }
         return String.valueOf(chars);
+    }
+
+    private void swap(char[] chars, int i, int j) {
+        char tmp = chars[i];
+
+        chars[i] = chars[j];
+        chars[j] = tmp;
     }
 }

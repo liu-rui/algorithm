@@ -1,6 +1,5 @@
 package liurui.v4.structures.array;
 
-import liurui.defines.structures.array.FindMaxSumSubArray;
 import liurui.defines.structures.array.FindMaxSumSubArrayUsingExhaustive;
 
 import java.util.Arrays;
@@ -19,25 +18,24 @@ public class FindMaxSumSubArrayUsingExhaustiveImpl implements FindMaxSumSubArray
      */
     @Override
     public int[] find(int[] ary) {
-        int max = ary[0];
         int begin = 0;
         int end = 0;
+        int max = Integer.MIN_VALUE;
 
         for (int i = 0; i < ary.length; i++) {
             for (int j = i; j < ary.length; j++) {
                 int sum = 0;
-
                 for (int k = i; k <= j; k++) {
                     sum += ary[k];
                 }
-
-                if (sum >= max) {
+                if (sum > max) {
                     max = sum;
                     begin = i;
                     end = j;
                 }
             }
         }
+
         return Arrays.copyOfRange(ary, begin, end + 1);
     }
 }

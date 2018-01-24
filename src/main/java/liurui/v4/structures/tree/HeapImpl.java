@@ -2,15 +2,12 @@ package liurui.v4.structures.tree;
 
 import liurui.defines.structures.tree.Heap;
 
-import java.util.Arrays;
-
 /**
  * 堆
  */
 public class HeapImpl implements Heap {
     private int[] heap;
     private boolean big;
-
 
     /**
      * 初始化堆
@@ -28,20 +25,22 @@ public class HeapImpl implements Heap {
 
         for (int item : data) {
             heap[0]++;
+
             int i = heap[0];
 
-            for (; i / 2 >= 1 && compare(item, heap[i / 2]); i /= 2) {
+            while (i / 2 >= 1 && compare(heap[i / 2], item) > 0) {
                 heap[i] = heap[i / 2];
+                i /= 2;
             }
             heap[i] = item;
         }
     }
 
-    private boolean compare(int a, int b) {
-        boolean ret = a > b;
+    private int compare(int a, int b) {
+        int ret = Integer.compare(a, b);
 
-        if (!big) {
-            ret = !ret;
+        if (big) {
+            ret *= -1;
         }
         return ret;
     }
@@ -60,23 +59,24 @@ public class HeapImpl implements Heap {
         int item = heap[heap[0]];
 
         heap[0]--;
-        int parent = 1;
-        int child = 2;
+        if (heap[0] != 0) {
+            int parent = 1;
+            int child = 2;
 
-        while (child <= heap[0]) {
-            if (child + 1 <= heap[0] && compare(heap[child + 1], heap[child])) {
-                child++;
+            while (child <= heap[0]) {
+                if (child + 1 <= heap[0] && compare(heap[child], heap[child + 1]) > 0) {
+                    child++;
+                }
+                if (compare(heap[child], item) > 0) {
+                    break;
+                } else {
+                    heap[parent] = heap[child];
+                    parent = child;
+                    child *= 2;
+                }
             }
-
-            if(compare(item, heap[child])){
-                break;
-            }else {
-                heap[parent] = heap[child];
-                parent=  child;
-                child *=2;
-            }
+            heap[parent] = item;
         }
-        heap[parent] = item;
         return ret;
     }
 
@@ -87,6 +87,6 @@ public class HeapImpl implements Heap {
      */
     @Override
     public int size() {
-        return heap[0];
+        return heap == null ? 0 : heap[0];
     }
 }

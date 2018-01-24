@@ -1,9 +1,10 @@
 package liurui.v4.structures.tree;
 
-import liurui.defines.structures.string.Contains;
+import liurui.defines.practice.MaxTree;
 import liurui.defines.structures.tree.BinaryTreeNode;
 import liurui.defines.structures.tree.BinaryTreeUsingLink;
 
+import java.util.ArrayDeque;
 import java.util.LinkedList;
 
 public class BinaryTreeUsingLinkImpl<K extends Comparable<K>, V> implements BinaryTreeUsingLink<K, V> {
@@ -35,10 +36,11 @@ public class BinaryTreeUsingLinkImpl<K extends Comparable<K>, V> implements Bina
     }
 
     private int getSize(BinaryTreeNode<K, V> node) {
-        if (node == null) return 0;
+        if (node == null) {
+            return 0;
+        }
         return 1 + getSize(node.getLeft()) + getSize(node.getRight());
     }
-
 
     @Override
     public int getSize(int level) {
@@ -49,9 +51,11 @@ public class BinaryTreeUsingLinkImpl<K extends Comparable<K>, V> implements Bina
         if (node == null || currentLevel > level) {
             return 0;
         }
-        return (currentLevel == level ? 1 : 0) + getSize(node.getLeft(), currentLevel + 1, level) +
+        return (currentLevel == level ? 1 : 0) +
+                getSize(node.getLeft(), currentLevel + 1, level) +
                 getSize(node.getRight(), currentLevel + 1, level);
     }
+
 
     @Override
     public int getHeight() {
@@ -59,29 +63,32 @@ public class BinaryTreeUsingLinkImpl<K extends Comparable<K>, V> implements Bina
     }
 
     private int getHeight(BinaryTreeNode<K, V> node) {
-        if (node == null) return 0;
-
-        return Math.max(getHeight(node.getLeft()), getHeight(node.getRight())) + 1;
+        if (node == null) {
+            return 0;
+        }
+        return 1 + Math.max(getHeight(node.getLeft()), getHeight(node.getRight()));
     }
 
     @Override
     public BinaryTreeNode getParent(BinaryTreeNode<K, V> node) {
-        if (root == null) return null;
-        return getParent(root, node);
+        return getParent(node, root);
     }
 
-    private BinaryTreeNode getParent(BinaryTreeNode<K, V> parent, BinaryTreeNode<K, V> node) {
-        if (parent == null) return null;
-        if (node == parent.getLeft() || node == parent.getRight()) return parent;
+    private BinaryTreeNode getParent(BinaryTreeNode<K, V> node, BinaryTreeNode<K, V> parent) {
+        if (parent == null) {
+            return null;
+        }
 
-        BinaryTreeNode ret = getParent(parent.getLeft(), node);
+        if (node == parent.getLeft() || node == parent.getRight()) {
+            return parent;
+        }
+        BinaryTreeNode ret = getParent(node, parent.getLeft());
 
         if (ret != null) {
             return ret;
         }
-        return getParent(parent.getRight(), node);
+        return getParent(node, parent.getRight());
     }
-
 
     @Override
     public BinaryTreeNode<K, V> getLeftNode(BinaryTreeNode<K, V> node) {
@@ -95,13 +102,11 @@ public class BinaryTreeUsingLinkImpl<K extends Comparable<K>, V> implements Bina
 
     @Override
     public void insertLeft(BinaryTreeNode<K, V> parent, BinaryTreeNode<K, V> node) {
-        if (parent == null) throw new IllegalArgumentException();
         parent.setLeft(node);
     }
 
     @Override
     public void insertRight(BinaryTreeNode<K, V> parent, BinaryTreeNode<K, V> node) {
-        if (parent == null) throw new IllegalArgumentException();
         parent.setRight(node);
     }
 
@@ -109,48 +114,57 @@ public class BinaryTreeUsingLinkImpl<K extends Comparable<K>, V> implements Bina
     public String printPreOrder() {
         StringBuilder sb = new StringBuilder();
 
-        printPreOrder(sb, root);
+        printPreOrder(root, sb);
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
     }
 
-    private void printPreOrder(StringBuilder container, BinaryTreeNode<K, V> node) {
-        if (node == null) return;
-        container.append(String.format("%s,", node.getText()));
-        printPreOrder(container, node.getLeft());
-        printPreOrder(container, node.getRight());
+    private void printPreOrder(BinaryTreeNode<K, V> node, StringBuilder sb) {
+        if (node == null) {
+            return;
+        }
+        sb.append(node.getText());
+        sb.append(',');
+        printPreOrder(node.getLeft(), sb);
+        printPreOrder(node.getRight(), sb);
     }
 
     @Override
     public String printInOrder() {
         StringBuilder sb = new StringBuilder();
 
-        printInOrder(sb, root);
+        printInOrder(root, sb);
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
     }
 
-    private void printInOrder(StringBuilder container, BinaryTreeNode<K, V> node) {
-        if (node == null) return;
-        printInOrder(container, node.getLeft());
-        container.append(String.format("%s,", node.getText()));
-        printInOrder(container, node.getRight());
+    private void printInOrder(BinaryTreeNode<K, V> node, StringBuilder sb) {
+        if (node == null) {
+            return;
+        }
+        printInOrder(node.getLeft(), sb);
+        sb.append(node.getText());
+        sb.append(',');
+        printInOrder(node.getRight(), sb);
     }
 
     @Override
     public String printPostOrder() {
         StringBuilder sb = new StringBuilder();
 
-        printPostOrder(sb, root);
+        printPostOrder(root, sb);
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
     }
 
-    private void printPostOrder(StringBuilder container, BinaryTreeNode<K, V> node) {
-        if (node == null) return;
-        printPostOrder(container, node.getLeft());
-        printPostOrder(container, node.getRight());
-        container.append(String.format("%s,", node.getText()));
+    private void printPostOrder(BinaryTreeNode<K, V> node, StringBuilder sb) {
+        if (node == null) {
+            return;
+        }
+        printPostOrder(node.getLeft(), sb);
+        printPostOrder(node.getRight(), sb);
+        sb.append(node.getText());
+        sb.append(',');
     }
 
     @Override
@@ -159,18 +173,22 @@ public class BinaryTreeUsingLinkImpl<K extends Comparable<K>, V> implements Bina
         LinkedList<BinaryTreeNode<K, V>> queue = new LinkedList<>();
 
         queue.add(root);
+        sb.append(root.getText());
+        sb.append(',');
 
         while (!queue.isEmpty()) {
             BinaryTreeNode<K, V> node = queue.poll();
 
-            sb.append(String.format("%s,", node.getText()));
-
-            if (node.getLeft() != null) {
+            if(node.getLeft() != null){
                 queue.add(node.getLeft());
+                sb.append(node.getLeft().getText());
+                sb.append(',');
             }
 
-            if (node.getRight() != null) {
+            if(node.getRight() != null){
                 queue.add(node.getRight());
+                sb.append(node.getRight().getText());
+                sb.append(',');
             }
         }
         sb.deleteCharAt(sb.length() - 1);

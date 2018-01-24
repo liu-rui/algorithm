@@ -14,14 +14,14 @@ import java.util.HashSet;
 public class ContainsUsingHashImpl implements ContainsUsingHash {
     @Override
     public boolean contains(String a, String b) {
-        HashSet<Character> set = new HashSet<>();
+        HashSet<Character> exsited = new HashSet<>();
 
         for (int i = 0; i < a.length(); i++) {
-            set.add(a.charAt(i));
+            exsited.add(a.charAt(i));
         }
 
-        for (int j = 0; j < b.length(); j++) {
-            if (!set.contains(b.charAt(j))) {
+        for (int i = 0; i < b.length(); i++) {
+            if (!exsited.contains(b.charAt(i))) {
                 return false;
             }
         }

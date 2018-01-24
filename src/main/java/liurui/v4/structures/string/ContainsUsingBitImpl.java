@@ -15,14 +15,14 @@ import liurui.defines.structures.string.ContainsUsingBit;
 public class ContainsUsingBitImpl implements ContainsUsingBit {
     @Override
     public boolean contains(String a, String b) {
-        int bit = 0;
+        int tmp = 0;
 
         for (int i = 0; i < a.length(); i++) {
-            bit |= 1 << (a.charAt(i) - 'a');
+            tmp |= a.charAt(i) - 'a';
         }
 
-        for (int j = 0; j < b.length(); j++) {
-            if ((bit & (1 << b.charAt(j) - 'a')) == 0) {
+        for (int i = 0; i < b.length(); i++) {
+            if ((tmp & (b.charAt(i) - 'a')) == 0) {
                 return false;
             }
         }

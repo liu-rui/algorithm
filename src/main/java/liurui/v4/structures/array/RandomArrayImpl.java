@@ -1,10 +1,9 @@
-package liurui.templates.structures.array;
+package liurui.v4.structures.array;
 
 import liurui.defines.structures.array.RandomArray;
 
 import java.util.Arrays;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * 给定一个整型数组，把数组随机打乱顺序
@@ -27,10 +26,19 @@ public class RandomArrayImpl implements RandomArray {
      */
     @Override
     public int[] random(int[] ary) {
+        for (int i = 0; i < ary.length; i++) {
+            int newIndex = new Random().nextInt(ary.length - i) + i;
+            int tmp = ary[i];
+
+            ary[i] = ary[newIndex];
+            ary[newIndex] = tmp;
+        }
+
         return ary;
     }
 
     public static void main(String[] args) {
+
         RandomArrayImpl array = new RandomArrayImpl();
 
         System.out.println(Arrays.toString(array.random(new int[]{1, 2, 3, 4, 5, 6})));

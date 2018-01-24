@@ -4,196 +4,140 @@ import liurui.defines.structures.tree.BinarySearchTreeUsingLink;
 import liurui.defines.structures.tree.BinaryTreeNode;
 
 public class BinarySearchTreeUsingLinkImpl<K extends Comparable<K>, V> implements BinarySearchTreeUsingLink<K, V> {
-    private BinaryTreeNode<K, V> root;
+    BinaryTreeNode<K, V> root;
 
     @Override
     public void add(K key, V data) {
-        if (root == null) {
-            root = new BinaryTreeNode<>(key, data);
-        } else {
-            BinaryTreeNode<K, V> parent = root;
+        root = add(root, key, data);
+    }
 
-            while (true) {
-                int compare = parent.getKey().compareTo(key);
+    private BinaryTreeNode<K, V> add(BinaryTreeNode<K, V> node, K key, V data) {
+        if (node == null) return new BinaryTreeNode<>(key, data);
 
-                switch (compare) {
-                    case 0:
-                        parent.setData(data);
-                        return;
-                    case 1:
-                        if (parent.getLeft() != null) {
-                            parent = parent.getLeft();
-                        } else {
-                            parent.setLeft(new BinaryTreeNode<>(key, data));
-                            return;
-                        }
-                        break;
-                    case -1:
-                        if (parent.getRight() != null) {
-                            parent = parent.getRight();
-                        } else {
-                            parent.setRight(new BinaryTreeNode<>(key, data));
-                            return;
-                        }
-                        break;
-                }
-            }
+        int compare = node.getKey().compareTo(key);
+
+        switch (compare) {
+            case 0:
+                node.setData(data);
+                break;
+            case 1:
+                node.setLeft(add(node.getLeft(), key, data));
+                break;
+            case -1:
+                node.setRight(add(node.getRight(), key, data));
+                break;
         }
+        return node;
     }
 
     @Override
     public boolean contains(K key) {
-        BinaryTreeNode<K, V>[] nodeAndParent = getNodeAndParent(key);
+        if (root == null) {
+            return false;
+        }
+        BinaryTreeNode<K, V> item = root;
 
-        return nodeAndParent[0] != null;
+        while (item != null) {
+            int compare = item.getKey().compareTo(key);
+
+            switch (compare) {
+                case 0:
+                    return true;
+                case 1:
+                    item = item.getLeft();
+                    break;
+                case -1:
+                    item = item.getRight();
+                    break;
+            }
+        }
+        return false;
     }
 
     @Override
     public void remove(K key) {
-        BinaryTreeNode<K, V>[] nodeAndParent = getNodeAndParent(key);
-        BinaryTreeNode<K, V> node = nodeAndParent[0];
-        BinaryTreeNode<K, V> parent = nodeAndParent[1];
-
-        if (node == null) return;
-        boolean isLeftLeaf = parent != null && node == parent.getLeft();
-
-        if (node.getLeft() == null && node.getRight() == null) {
-            if (root == node) {
-                root = null;
-            } else {
-                if (isLeftLeaf) {
-                    parent.setLeft(null);
-                } else {
-                    parent.setRight(null);
-                }
-            }
-        } else if (node.getLeft() != null && node.getRight() == null) {
-            if (root == node) {
-                root = node.getLeft();
-            } else {
-                if (isLeftLeaf) {
-                    parent.setLeft(node.getLeft());
-                } else {
-                    parent.setRight(node.getLeft());
-                }
-            }
-            node.setLeft(null);//释放资源
-        } else if (node.getLeft() == null && node.getRight() != null) {
-            if (root == node) {
-                root = node.getRight();
-            } else {
-                if (isLeftLeaf) {
-                    parent.setLeft(node.getRight());
-                } else {
-                    parent.setRight(node.getRight());
-                }
-                node.setRight(null);//释放资源
-            }
-        } else {
-            if (node.getRight().getLeft() == null) {
-                node.getRight().setLeft(node.getLeft());
-
-                if (root == node) {
-                    root = node.getRight();
-                } else {
-                    if (isLeftLeaf) {
-                        parent.setLeft(node.getRight());
-                    } else {
-                        parent.setRight(node.getRight());
-                    }
-                }
-            } else {
-                BinaryTreeNode<K, V> newNodeParent = node.getRight();
-                BinaryTreeNode<K, V> newNode = newNodeParent.getLeft();
-
-                while (newNode.getLeft() != null) {
-                    newNodeParent = newNode;
-                    newNode = newNode.getLeft();
-                }
-                newNodeParent.setLeft(newNode.getRight());
-                newNode.setLeft(node.getLeft());
-                newNode.setRight(node.getRight());
-
-                if (root == node) {
-                    root = newNode;
-                } else {
-                    if (isLeftLeaf) {
-                        parent.setLeft(newNode);
-                    } else {
-                        parent.setRight(newNode);
-                    }
-                }
-            }
-
-            //释放资源
-            node.setLeft(null);
-            node.setRight(null);
-        }
+        root = remove(root, key);
     }
 
-    /**
-     * 使用固长数组存储返回值；0：存储查找的节点，1存储父节点
-     *
-     * @param key
-     * @return
-     */
-    private BinaryTreeNode<K, V>[] getNodeAndParent(K key) {
-        BinaryTreeNode<K, V>[] ret = new BinaryTreeNode[2];
-        BinaryTreeNode<K, V> parent = null;
-        BinaryTreeNode<K, V> node = root;
-
-        while (node != null) {
-            int compare = node.getKey().compareTo(key);
-
-            switch (compare) {
-                case 0:
-                    ret[0] = node;
-                    ret[1] = parent;
-                case 1:
-                    parent = node;
-                    node = node.getLeft();
-                    break;
-                case -1:
-                    parent = node;
-                    node = node.getRight();
-                    break;
-            }
+    private BinaryTreeNode<K, V> remove(BinaryTreeNode<K, V> node, K key) {
+        if (node == null) {
+            return null;
         }
-        return ret;
+        int compare = node.getKey().compareTo(key);
+
+        switch (compare) {
+            case 0:
+                if (node.getLeft() == null) {
+                    return node.getRight();
+                } else if (node.getRight() == null) {
+                    return node.getLeft();
+                } else {
+                    BinaryTreeNode<K, V> newNode = min(node.getRight());
+
+                    newNode.setRight(deleteMin(node.getRight()));
+                    newNode.setLeft(node.getLeft());
+                    node = newNode;
+                }
+                break;
+            case 1:
+                node.setLeft(remove(node.getLeft(), key));
+                break;
+            case -1:
+                node.setRight(remove(node.getRight(), key));
+                break;
+        }
+        return node;
     }
+
+    private BinaryTreeNode<K, V> min(BinaryTreeNode<K, V> node) {
+        if (node.getLeft() == null) return node;
+        return min(node.getLeft());
+    }
+
+    private BinaryTreeNode<K, V> deleteMin(BinaryTreeNode<K, V> node) {
+        if (node.getLeft() == null) {
+            return node.getRight();
+        }
+        node.setLeft(deleteMin(node.getLeft()));
+        return node;
+    }
+
 
     @Override
     public String printInOrder() {
         StringBuilder sb = new StringBuilder();
 
-        printInOrder(sb, root);
+        printInOrder(root, sb);
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
     }
 
-    private void printInOrder(StringBuilder sb, BinaryTreeNode<K, V> node) {
-        if (node == null) return;
-
-        printInOrder(sb, node.getLeft());
-        sb.append(String.format("%s,", node.getText()));
-        printInOrder(sb, node.getRight());
+    private void printInOrder(BinaryTreeNode<K, V> node, StringBuilder sb) {
+        if (node == null) {
+            return;
+        }
+        printInOrder(node.getLeft(), sb);
+        sb.append(node.getText());
+        sb.append(',');
+        printInOrder(node.getRight(), sb);
     }
-
 
     @Override
     public String printPostOrder() {
         StringBuilder sb = new StringBuilder();
 
-        printPostOrder(sb, root);
+        printPostOrder(root, sb);
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
     }
 
-    private void printPostOrder(StringBuilder sb, BinaryTreeNode<K, V> node) {
-        if (node == null) return;
-
-        printPostOrder(sb, node.getLeft());
-        printPostOrder(sb, node.getRight());
-        sb.append(String.format("%s,", node.getText()));
+    private void printPostOrder(BinaryTreeNode<K, V> node, StringBuilder sb) {
+        if (node == null) {
+            return;
+        }
+        printPostOrder(node.getLeft(), sb);
+        printPostOrder(node.getRight(), sb);
+        sb.append(node.getText());
+        sb.append(',');
     }
 }

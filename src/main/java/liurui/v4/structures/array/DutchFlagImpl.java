@@ -2,8 +2,6 @@ package liurui.v4.structures.array;
 
 import liurui.defines.structures.array.DutchFlag;
 
-import javax.swing.text.AbstractDocument;
-
 /**
  * 荷兰国旗问题：
  * 现有红、白、蓝三个不同颜色的小球，乱序
@@ -16,7 +14,6 @@ import javax.swing.text.AbstractDocument;
  * <p>
  * 说白了就是将有0,1,2三个数组成的数组按照升序排列
  * 如果使用快速排序可以达到O(nlogn),还有更好的算法吗?
- * <p>
  */
 public class DutchFlagImpl implements DutchFlag {
 
@@ -28,27 +25,32 @@ public class DutchFlagImpl implements DutchFlag {
      */
     @Override
     public int[] sort(int[] ary) {
-        int begin = 0, current = 0, end = ary.length - 1;
+        int begin = 0;
+        int cur = 0;
+        int end = ary.length-1;
 
-        while (current <= end) {
-            switch (ary[current]) {
+
+        while (cur<=end){
+            int item = ary[cur];
+
+            switch (item){
                 case 0:
-                    swap(ary, begin++, current++);
+                    swap(ary,begin++ , cur++);
                     break;
                 case 1:
-                    current++;
+                    cur++;
                     break;
                 case 2:
-                    swap(ary, current, end--);
+                    swap(ary, cur,end--);
                     break;
             }
         }
-        return ary;
+
+        return  ary;
     }
 
-    private void swap(int[] ary, int a, int b) {
+    private void swap(int[] ary , int a , int b){
         int tmp = ary[a];
-
         ary[a] = ary[b];
         ary[b] = tmp;
     }

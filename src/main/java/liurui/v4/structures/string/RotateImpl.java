@@ -29,14 +29,20 @@ public class RotateImpl implements Rotate {
         return String.valueOf(chars);
     }
 
-    private void reverse(char[] chars, int begin, int end) {
+
+    public String reverse(char[] chars, int begin, int end) {
         int mid = (end - begin) / 2;
-        char tmp;
 
         for (int i = 0; i <= mid; i++) {
-            tmp = chars[begin + i];
-            chars[begin + i] = chars[end - i];
-            chars[end - i] = tmp;
+            swap(chars, begin + i, end - i);
         }
+        return String.valueOf(chars);
+    }
+
+    private void swap(char[] chars, int i, int j) {
+        char tmp = chars[i];
+
+        chars[i] = chars[j];
+        chars[j] = tmp;
     }
 }

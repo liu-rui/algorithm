@@ -16,30 +16,28 @@ public class PermutatioUsingFixPositionImpl implements PermutatioUsingFixPositio
      */
     @Override
     public String[] permutation(String str) {
-        char[] chars = str.toCharArray();
-        ArrayList<String> container = new ArrayList<>();
+        ArrayList<String> ret = new ArrayList<>();
 
-        permutation(container, chars, 0, chars.length - 1);
-        return container.toArray(new String[0]);
+        permutation(str.toCharArray(), ret, 0, str.length() - 1);
+        return ret.toArray(new String[0]);
     }
 
-    private void permutation(ArrayList<String> container, char[] chars, int begin, int end) {
+    private void permutation(char[] chars, ArrayList<String> container, int begin, int end) {
         if (begin == end) {
             container.add(String.valueOf(chars));
-            return;
         }
 
         for (int i = begin; i <= end; i++) {
-            swap(chars, i, begin);
-            permutation(container, chars, begin + 1, end);
             swap(chars, begin, i);
+            permutation(chars, container, begin + 1, end);
+            swap(chars, i, begin);
         }
     }
 
-    private void swap(char[] chars, int a, int b) {
-        char tmp = chars[a];
+    private void swap(char[] chars, int i, int j) {
+        char tmp = chars[i];
 
-        chars[a] = chars[b];
-        chars[b] = tmp;
+        chars[i] = chars[j];
+        chars[j] = tmp;
     }
 }

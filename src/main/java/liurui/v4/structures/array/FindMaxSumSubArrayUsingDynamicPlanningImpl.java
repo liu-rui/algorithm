@@ -20,24 +20,24 @@ public class FindMaxSumSubArrayUsingDynamicPlanningImpl implements FindMaxSumSub
     public int[] find(int[] ary) {
         int begin = 0;
         int end = 0;
-        int max = ary[0];
-        int lastMax = ary[0];
+        int max = Integer.MIN_VALUE;
+        int lastMax = Integer.MIN_VALUE;
+        int lastBegin = 0;
 
-
-        for (int i = 1; i < ary.length; i++) {
+        for (int i = 0; i < ary.length; i++) {
             if (lastMax > 0) {
                 lastMax += ary[i];
             } else {
+                lastBegin = i;
                 lastMax = ary[i];
-                begin = i;
             }
 
             if (lastMax > max) {
                 max = lastMax;
+                begin = lastBegin;
                 end = i;
             }
         }
-
         return Arrays.copyOfRange(ary, begin, end + 1);
     }
 }

@@ -18,7 +18,7 @@ public class PalindromeImpl implements Palindrome {
         int mid = str.length() / 2;
 
         for (int i = 0; i < mid; i++) {
-            if (str.charAt(i) != str.charAt(str.length() - i-1)) {
+            if (str.charAt(i) != str.charAt(str.length() - i - 1)) {
                 return false;
             }
         }
