@@ -15,20 +15,21 @@ public class MaxNumberImpl implements MaxNumber {
     @Override
     public int find(int[] ary) {
         int c = ary[0] - ary[1];
-        int cSign = sign(c);
         int aSign = sign(ary[0]);
-        int bSign =  sign(ary[1]);
-        int sameAB = fan(  aSign ^ bSign);
-        int enableA =  sameAB * cSign + fan(sameAB) * aSign ;
-        int enableB = sameAB * fan(cSign) + fan(sameAB) * bSign;
-        return enableA * ary[0] + enableB * ary[1];
+        int bSign = sign(ary[1]);
+        int cSign = sign(c);
+        int sameSign = flip(aSign ^ bSign);
+        int enableA = sameSign * cSign + flip(sameSign) * aSign;
+        int enableB = sameSign * flip(cSign) + flip(sameSign) * bSign;
+
+        return enableA * ary[0]  + enableB * ary[1];
     }
 
-    private int sign(int data) {
-        return  fan((data >> 31) & 1);
+    int sign(int a) {
+        return flip((a >> 31) & 1);
     }
 
-    private int fan(int data) {
-        return data ^ 1;
+    int flip(int sign) {
+        return sign ^ 1;
     }
 }

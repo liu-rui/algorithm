@@ -6,7 +6,7 @@ import liurui.defines.sorts.MergeSort;
  * 归并排序
  */
 public class MergeSortImpl implements MergeSort {
-    private int[] tmp;
+    int[] tmp;
 
     @Override
     public int[] sort(int[] data) {
@@ -15,10 +15,11 @@ public class MergeSortImpl implements MergeSort {
         return data;
     }
 
+
     private void sort(int[] data, int begin, int end) {
         if (begin >= end) return;
-
         int mid = begin + (end - begin) / 2;
+
         sort(data, begin, mid);
         sort(data, mid + 1, end);
         merge(data, begin, mid, end);
@@ -26,30 +27,39 @@ public class MergeSortImpl implements MergeSort {
 
     private void merge(int[] data, int begin, int mid, int end) {
         int i = begin;
-        int left = begin;
-        int right = mid + 1;
+        int j = mid + 1;
+        int k = begin;
 
-        while (left <= mid && right <= end) {
-            if (data[left] <= data[right]) {
-                tmp[i++] = data[left++];
-            } else {
-                tmp[i++] = data[right++];
+
+        while (i <= mid && j <= end) {
+            int compare = Integer.compare(data[i], data[j]);
+
+            switch (compare) {
+                case 0:
+                    tmp[k++] = data[i++];
+                    tmp[k++] = data[j++];
+                    break;
+                case 1:
+                    tmp[k++] = data[j++];
+                    break;
+                case -1:
+                    tmp[k++] = data[i++];
+                    break;
             }
         }
 
-        while (left <= mid) {
-            tmp[i++] = data[left++];
+        while (i <= mid) {
+            tmp[k++] = data[i++];
         }
 
-        while (right <= end) {
-            tmp[i++] = data[right++];
+        while (j <= end) {
+            tmp[k++] = data[j++];
         }
 
-        i = begin;
+        k = begin;
 
-        while (i <= end) {
-            data[i] = tmp[i];
-            i++;
+        for (; k <= end; k++) {
+            data[k] = tmp[k];
         }
     }
 }

@@ -20,21 +20,21 @@ public class MoreThanHalfImpl implements MoreThanHalf {
      */
     @Override
     public int find(int[] ary) {
-        int ret = ary[0];
-        int num = 1;
+        int num = ary[0];
+        int count = 0;
 
-        for (int i = 1; i < ary.length; i++) {
-            if (ary[i] == ret) {
-                num += 1;
+        for (int item : ary) {
+            if (num == item) {
+                count++;
             } else {
-                num -= 1;
+                count--;
 
-                if (num == 0) {
-                    ret = ary[i];
-                    num = 1;
+                if (count == 0) {
+                    num = item;
+                    count = 1;
                 }
             }
         }
-        return ret;
+        return num;
     }
 }

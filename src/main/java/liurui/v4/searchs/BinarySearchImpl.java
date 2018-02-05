@@ -8,20 +8,23 @@ import liurui.defines.searchs.BinarySearch;
 public class BinarySearchImpl implements BinarySearch {
     @Override
     public int find(int[] data, int item) {
-        if (data == null || data.length == 0) return -1;
-
         int begin = 0;
         int end = data.length - 1;
 
         while (begin <= end) {
             int mid = begin + (end - begin) / 2;
 
-            if (data[mid] == item) {
-                return mid;
-            } else if (data[mid] > item) {
-                end = mid - 1;
-            } else {
-                begin = mid + 1;
+            int compare = Integer.compare(data[mid], item);
+
+            switch (compare) {
+                case 0:
+                    return mid;
+                case 1:
+                    end = mid - 1;
+                    break;
+                case -1:
+                    begin = mid + 1;
+                    break;
             }
         }
         return -1;

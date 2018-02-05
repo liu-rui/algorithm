@@ -22,11 +22,11 @@ public class LostNumberImpl implements LostNumber {
      */
     @Override
     public int find(int[] ary) {
-        int ret = (1 + 100) * 100 / 2;
+        int sum = (1 + 100) * 100 / 2;
 
         for (int item : ary) {
-            ret -= item;
+            sum -= item;
         }
-        return ret;
+        return sum;
     }
 }

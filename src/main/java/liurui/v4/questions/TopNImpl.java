@@ -2,11 +2,11 @@ package liurui.v4.questions;
 
 import liurui.defines.questions.TopN;
 
-import javax.swing.event.ChangeListener;
-import javax.swing.text.AsyncBoxView;
+import javax.sound.midi.Soundbank;
 import java.util.Arrays;
 
 public class TopNImpl implements TopN {
+
     /**
      * 求数组中最大的前num个数
      *
@@ -16,16 +16,14 @@ public class TopNImpl implements TopN {
      */
     @Override
     public int[] max(int[] data, int num) {
-        if (data == null || data.length == 0 || num <= 0 || num > data.length) return null;
         int[] heap = new int[num + 1];
 
         for (int item : data) {
-            //未满
-            if (heap[0] != heap.length - 1) {
+            if (heap[0] != num) {
                 heap[0]++;
                 int i = heap[0];
 
-                while (i > 1 && heap[i / 2] > item) {
+                while (i / 2 > 0 && heap[i / 2] > item) {
                     heap[i] = heap[i / 2];
                     i /= 2;
                 }
@@ -36,46 +34,46 @@ public class TopNImpl implements TopN {
 
                 while (child <= heap[0]) {
                     if (child + 1 <= heap[0] && heap[child] > heap[child + 1]) {
-                        child += 1;
+                        child++;
                     }
 
-                    if (heap[child] >= item) {
+                    if (heap[child] > item) {
                         break;
-                    } else {
-                        heap[parent] = heap[child];
-                        parent = child;
-                        child *= 2;
                     }
+
+                    heap[parent] = heap[child];
+                    parent = child;
+                    child *= 2;
                 }
                 heap[parent] = item;
             }
         }
 
         int[] ret = new int[num];
-        int i = num - 1;
 
-        while (true) {
-            ret[i--] = heap[1];
+        for (int i = num - 1; i >= 0; i--) {
+            ret[i] = heap[1];
 
-            if (heap[0] == 1) break;
             int item = heap[heap[0]];
-            heap[0]--;
-
             int parent = 1;
             int child = 2;
 
+            heap[0]--;
+
+            if (heap[0] == 0) {
+                break;
+            }
             while (child <= heap[0]) {
                 if (child + 1 <= heap[0] && heap[child] > heap[child + 1]) {
                     child++;
                 }
 
-                if (heap[child] >= item) {
+                if (heap[child] > item) {
                     break;
-                } else {
-                    heap[parent] = heap[child];
-                    parent = child;
-                    child *= 2;
                 }
+                heap[parent] = heap[child];
+                parent = child;
+                child *= 2;
             }
             heap[parent] = item;
         }
@@ -94,12 +92,11 @@ public class TopNImpl implements TopN {
         int[] heap = new int[num + 1];
 
         for (int item : data) {
-            //未满
-            if (heap[0] != heap.length - 1) {
+            if (heap[0] != num) {
                 heap[0]++;
                 int i = heap[0];
 
-                while (i > 1 && heap[i / 2] < item) {
+                while (i / 2 > 0 && heap[i / 2] < item) {
                     heap[i] = heap[i / 2];
                     i /= 2;
                 }
@@ -113,42 +110,43 @@ public class TopNImpl implements TopN {
                         child++;
                     }
 
-                    if (heap[child] <= item) {
+                    if (heap[child] < item) {
                         break;
-                    } else {
-                        heap[parent] = heap[child];
-                        parent = child;
-                        child *= 2;
                     }
+                    heap[parent] = heap[child];
+                    parent = child;
+                    child *= 2;
                 }
                 heap[parent] = item;
             }
         }
 
         int[] ret = new int[num];
-        int i =  num-1;
 
-        while (true){
-            ret[i--] =    heap[1];
-            if(heap[0] ==1){
-                break;
-            }
+        for (int i = num - 1; i >= 0; i--) {
+            ret[i] = heap[1];
+
             int item = heap[heap[0]];
-            heap[0]--;
-            int parent =1;
+            int parent = 1;
             int child = 2;
 
-            while (child <=  heap[0]){
-                if(child +1 <= heap[0] && heap[child] <  heap[child+1]){
+            heap[0]--;
+
+            if (heap[0] == 0) {
+                break;
+            }
+
+            while (child <= heap[0]) {
+                if (child + 1 <= heap[0] && heap[child] < heap[child + 1]) {
                     child++;
                 }
-                if(heap[child]<=item){
+
+                if (heap[child] < item) {
                     break;
-                }else{
-                    heap[parent] = heap[child];
-                    parent=child;
-                    child*=2;
                 }
+                heap[parent] = heap[child];
+                parent = child;
+                child *= 2;
             }
             heap[parent] = item;
         }

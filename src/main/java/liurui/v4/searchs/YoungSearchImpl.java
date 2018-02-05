@@ -11,13 +11,18 @@ public class YoungSearchImpl implements YoungSearch {
         int i = 0;
         int j = data[0].length-1;
 
-        while (j >= 0 && i < data.length) {
-            if (data[i][j] == item) {
-                return true;
-            } else if (data[i][j] > item) {
-                j--;
-            } else {
-                i++;
+        while (i<data.length && j>=0){
+            int compare = Integer.compare(data[i][j], item);
+
+            switch (compare){
+                case 0:
+                     return  true;
+                case 1:
+                    j--;
+                    break;
+                case -1:
+                    i++;
+                    break;
             }
         }
         return false;
