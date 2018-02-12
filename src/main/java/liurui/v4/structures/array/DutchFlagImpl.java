@@ -27,30 +27,29 @@ public class DutchFlagImpl implements DutchFlag {
     public int[] sort(int[] ary) {
         int begin = 0;
         int cur = 0;
-        int end = ary.length-1;
+        int end = ary.length - 1;
 
-
-        while (cur<=end){
+        while (cur <= end) {
             int item = ary[cur];
 
-            switch (item){
+            switch (item) {
                 case 0:
-                    swap(ary,begin++ , cur++);
+                    swap(ary, begin++, cur++);
                     break;
                 case 1:
                     cur++;
                     break;
                 case 2:
-                    swap(ary, cur,end--);
+                    swap(ary, cur, end--);
                     break;
             }
         }
-
-        return  ary;
+        return ary;
     }
 
-    private void swap(int[] ary , int a , int b){
+    private void swap(int[] ary, int a, int b) {
         int tmp = ary[a];
+
         ary[a] = ary[b];
         ary[b] = tmp;
     }

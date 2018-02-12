@@ -1,12 +1,10 @@
 package liurui.v4.structures.tree;
 
+import com.sun.org.apache.xalan.internal.xsltc.runtime.Node;
 import liurui.defines.structures.tree.HaFuManTree;
 
-import java.lang.reflect.Array;
-import java.time.chrono.IsoChronology;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
+import java.util.PriorityQueue;
 
 /**
  * 哈夫曼树
@@ -14,99 +12,31 @@ import java.util.Map;
 public class HaFuManTreeImpl implements HaFuManTree {
     private static class Node implements Comparable<Node> {
         private String key;
-        private int frequency;
+        private int value;
         private Node left;
         private Node right;
 
-        public Node(String key, int frequency) {
-            this.key = key;
-            this.frequency = frequency;
-        }
 
-        public Node(String key, int frequency, Node left, Node right) {
+        public Node(String key, int value) {
             this.key = key;
-            this.frequency = frequency;
-            this.left = left;
-            this.right = right;
+            this.value = value;
         }
 
         @Override
         public int compareTo(Node o) {
-            int ret = Integer.compare(frequency, o.frequency);
-            return ret == 0 ? key.compareTo(o.key) : ret;
+            return Integer.compare(value, o.value);
         }
 
-        @Override
-        public String toString() {
-            return String.format("[%s:%d]", key, frequency);
-        }
-    }
-
-    private static class Heap {
-        Node[] list;
-        int size = 0;
-
-        public void init(HashMap<String, Integer> keys) {
-            if (keys == null || keys.size() == 0) {
-                throw new IllegalArgumentException();
-            }
-            list = new Node[keys.size()];
-
-            for (Map.Entry<String, Integer> entry : keys.entrySet()) {
-                Node item = new Node(entry.getKey(), entry.getValue());
-
-                push(item);
-            }
-        }
-
-        private void push(Node node) {
-            size++;
-            int i = size - 1;
-
-            while (i >= 1 && i / 2 >= 0 && list[i / 2].compareTo(node) > 0) {
-                list[i] = list[i / 2];
-                i /= 2;
-            }
-            list[i] = node;
-        }
-
-        private Node pop() {
-            if (size == 0) throw new IndexOutOfBoundsException();
-            Node ret = list[0];
-
-            size--;
-
-            if (size != 0) {
-                Node item = list[size];
-                int parent = 0;
-                int child = 1;
-
-                while (child < size) {
-                    if (child + 1 < size && list[child].compareTo(list[child + 1]) > 0) {
-                        child++;
-                    }
-
-                    if (list[child].compareTo(item) > 0) {
-                        break;
-                    } else {
-                        list[parent] = list[child];
-                        parent = child;
-                        child *= 2;
-                    }
-                }
-                list[parent] = item;
-            }
-            return ret;
-        }
-
-        private int size() {
-            return size;
+        public Node(String key, int value, Node left, Node right) {
+            this.key = key;
+            this.value = value;
+            this.left = left;
+            this.right = right;
         }
     }
 
-    private Node root;
-    private HashMap<String, String> hashByKey = new HashMap<>();
-    private HashMap<String, String> hashByCode = new HashMap<>();
+    HashMap<String, String> hashByKey = new HashMap<>();
+    HashMap<String, String> hashByCode = new HashMap<>();
 
     /**
      * 生成哈夫曼编码
@@ -115,33 +45,40 @@ public class HaFuManTreeImpl implements HaFuManTree {
      */
     @Override
     public void generic(HashMap<String, Integer> keys) {
-        Heap heap = new Heap();
-        heap.init(keys);
+        PriorityQueue<Node> nodes = new PriorityQueue<>();
 
-        while (heap.size() > 1) {
-            Node left = heap.pop();
-            Node right = heap.pop();
-            heap.push(new Node(left.key + right.key,
-                    left.frequency + right.frequency,
+        keys.forEach((k, v) -> nodes.add(new Node(k, v)));
+
+        while (nodes.size() > 1) {
+            Node left = nodes.poll();
+            Node right = nodes.poll();
+
+            nodes.add(new Node(left.key + right.key,
+                    left.value + right.value,
                     left,
                     right));
         }
-        root = heap.pop();
+        Node root = nodes.poll();
+        generic(root);
+    }
+
+    private void generic(Node root) {
         generic(root, "");
     }
 
     private void generic(Node node, String code) {
-        if (node == null) {
-            return;
-        }
-
         if (node.left == null && node.right == null) {
             hashByKey.put(node.key, code);
             hashByCode.put(code, node.key);
-            return;
         }
-        generic(node.left, code + "0");
-        generic(node.right, code + "1");
+
+        if (node.left != null) {
+            generic(node.left, code + "0");
+        }
+
+        if (node.right != null) {
+            generic(node.right, code + "1");
+        }
     }
 
 
@@ -167,8 +104,9 @@ public class HaFuManTreeImpl implements HaFuManTree {
         StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < data.length(); i++) {
-            sb.append(hashByKey.get(String.valueOf(  data.charAt(i))));
+            sb.append(hashByKey.get(String.valueOf(data.charAt(i))));
         }
+
         return sb.toString();
     }
 
@@ -183,7 +121,7 @@ public class HaFuManTreeImpl implements HaFuManTree {
         StringBuilder sb = new StringBuilder();
         int begin = 0;
 
-        for(int i = 0;i<data.length();i++){
+        for (int i = 0; i < data.length(); i++) {
             String code = data.substring(begin, i + 1);
 
             if(hashByCode.containsKey(code)){
@@ -191,6 +129,6 @@ public class HaFuManTreeImpl implements HaFuManTree {
                 begin = i+1;
             }
         }
-        return  sb.toString();
+        return sb.toString();
     }
 }

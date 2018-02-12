@@ -15,14 +15,15 @@ import liurui.defines.structures.string.ContainsUsingBit;
 public class ContainsUsingBitImpl implements ContainsUsingBit {
     @Override
     public boolean contains(String a, String b) {
-        int tmp = 0;
+        int bitmap = 0;
 
         for (int i = 0; i < a.length(); i++) {
-            tmp |= a.charAt(i) - 'a';
+            bitmap = bitmap | (2 << (a.charAt(i) - 'a'));
         }
 
-        for (int i = 0; i < b.length(); i++) {
-            if ((tmp & (b.charAt(i) - 'a')) == 0) {
+
+        for (int j = 0; j < b.length(); j++) {
+            if ((bitmap & (2 << (b.charAt(j) - 'a'))) == 0) {
                 return false;
             }
         }

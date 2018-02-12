@@ -1,7 +1,5 @@
 package liurui.v4.structures.tree;
 
-import jdk.internal.org.objectweb.asm.signature.SignatureWriter;
-import liurui.defines.structures.tree.BinaryTreeNode;
 import liurui.defines.structures.tree.BlanceBinaryTreeUsingAvl;
 
 /**
@@ -10,174 +8,220 @@ import liurui.defines.structures.tree.BlanceBinaryTreeUsingAvl;
  * 插入，删除，查找都是O(logn)
  */
 public class BlanceBinaryTreeUsingAvlImpl<K extends Comparable<K>, V> implements BlanceBinaryTreeUsingAvl<K, V> {
-    private static class Node<K extends Comparable<K>, V> {
+    private static class MyNode<K extends Comparable<K>, V> {
+        private int height = 0;
         private K key;
         private V data;
-        private int height;
-        private Node<K, V> left, right;
+        MyNode<K, V> left;
+        MyNode<K, V> right;
 
-        public Node(K key, V data) {
+
+        public MyNode(K key, V data) {
             this.key = key;
             this.data = data;
         }
 
-        public Node(K key, V data, Node<K, V> left, Node<K, V> right) {
+        public MyNode(K key, V data, MyNode<K, V> left, MyNode<K, V> right) {
             this.key = key;
             this.data = data;
             this.left = left;
             this.right = right;
         }
 
-        @Override
-        public String toString() {
-            return "[" + key + ":" + height + "]";
+        public int getHeight() {
+            return height;
+        }
+
+        public void setHeight(int height) {
+            this.height = height;
+        }
+
+
+        public K getKey() {
+            return key;
+        }
+
+        public void setKey(K key) {
+            this.key = key;
+        }
+
+        public V getData() {
+            return data;
+        }
+
+        public void setData(V data) {
+            this.data = data;
+        }
+
+        public MyNode<K, V> getLeft() {
+            return left;
+        }
+
+        public void setLeft(MyNode<K, V> left) {
+            this.left = left;
+        }
+
+        public MyNode<K, V> getRight() {
+            return right;
+        }
+
+        public void setRight(MyNode<K, V> right) {
+            this.right = right;
+        }
+
+        public String getText() {
+            return String.format("[%s:%d]", key, height);
         }
     }
 
-    Node<K, V> root;
+    MyNode<K, V> root;
+
 
     @Override
     public void add(K key, V data) {
         root = add(root, key, data);
     }
 
-    private Node<K, V> add(Node<K, V> node, K key, V data) {
+    private MyNode<K, V> add(MyNode<K, V> node, K key, V data) {
         if (node == null) {
-            return new Node<>(key, data);
+            return new MyNode<>(key, data);
         }
-        int compare = node.key.compareTo(key);
+
+        int compare = node.getKey().compareTo(key);
 
         switch (compare) {
             case 0:
-                node.data = data;
+                node.setData(data);
                 return node;
             case 1:
-                node.left = add(node.left, key, data);
+                node.setLeft(add(node.getLeft(), key, data));
                 break;
             case -1:
-                node.right = add(node.right, key, data);
+                node.setRight(add(node.getRight(), key, data));
                 break;
         }
-        node.height = 1 + Math.max(height(node.left), height(node.right));
+        node.setHeight(1 + Math.max(getHeight(node.getLeft()), getHeight(node.getRight())));
         return balance(node);
     }
 
-    private Node<K, V> balance(Node<K, V> node) {
-        //LeftX
-        if (balanceFactor(node) > 1) {
-            //LeftRight
-            if (balanceFactor(node.left) < 0) {
-                node.left = rotateLeft(node.left);
+    private int getHeight(MyNode<K, V> node) {
+        return node == null ? -1 : node.getHeight();
+    }
+
+    private MyNode<K, V> getLeftNode(MyNode<K, V> node) {
+        if (node.getLeft() == null) {
+            return node;
+        }
+        return getLeftNode(node.getLeft());
+    }
+
+    private MyNode<K, V> removeLeftNode(MyNode<K, V> node) {
+        if (node.getLeft() == null) {
+            return node.getRight();
+        }
+        node.setLeft(removeLeftNode(node.getLeft()));
+        node.setHeight(1 + Math.max(getHeight(node.getLeft()), getHeight(node.getRight())));
+        return balance(node);
+    }
+
+    private MyNode<K, V> balance(MyNode<K, V> node) {
+        int factor = getBalanceFactor(node);
+
+        if (factor > 1) {
+            if (getBalanceFactor(node.getLeft()) < 0) {
+                node.setLeft(rotateLeft(node.getLeft()));
             }
             node = rotateRight(node);
-        } else if (balanceFactor(node) < -1) {//RightX
-            //RightLeft
-            if (balanceFactor(node.right) > 0) {
-                node.right = rotateRight(node.right);
+        } else if (factor < -1) {
+            if (getBalanceFactor(node.getRight()) > 0) {
+                node.setRight(rotateRight(node.getRight()));
             }
             node = rotateLeft(node);
         }
         return node;
     }
 
-    private Node<K, V> rotateLeft(Node<K, V> node) {
-        Node<K, V> newNode = node.right;
-
-        node.right = newNode.left;
-        newNode.left = node;
-        node.height = 1 + Math.max(height(node.left), height(node.right));
-        newNode.height = 1 + Math.max(height(newNode.left), height(newNode.right));
-        return newNode;
+    private int getBalanceFactor(MyNode<K, V> node) {
+        return getHeight(node.getLeft()) - getHeight(node.getRight());
     }
 
+    private MyNode<K, V> rotateLeft(MyNode<K, V> node) {
+        MyNode<K, V> ret = node.right;
 
-    private Node<K, V> rotateRight(Node<K, V> node) {
-        Node<K, V> newNode = node.left;
-
-        node.left = newNode.right;
-        newNode.right = node;
-        node.height = 1 + Math.max(height(node.left), height(node.right));
-        newNode.height = 1 + Math.max(height(newNode.left), height(newNode.right));
-        return newNode;
+        node.setRight(ret.getLeft());
+        ret.setLeft(node);
+        node.setHeight(1 + Math.max(getHeight(node.getLeft()), getHeight(node.getRight())));
+        ret.setHeight(1 + Math.max(getHeight(ret.getLeft()), getHeight(ret.getRight())));
+        return ret;
     }
 
-    private int balanceFactor(Node<K, V> node) {
-        return height(node.left) - height(node.right);
+    private MyNode<K, V> rotateRight(MyNode<K, V> node) {
+        MyNode<K, V> ret = node.getLeft();
+
+        node.setLeft(ret.getRight());
+        ret.setRight(node);
+        node.setHeight(1 + Math.max(getHeight(node.getLeft()), getHeight(node.getRight())));
+        ret.setHeight(1 + Math.max(getHeight(ret.getLeft()), getHeight(ret.getRight())));
+        return ret;
     }
 
-    private int height(Node<K, V> node) {
-        return node == null ? -1 : node.height;
-    }
 
     @Override
     public boolean contains(K key) {
         return contains(root, key);
     }
 
-    private boolean contains(Node<K, V> node, K key) {
+    private boolean contains(MyNode<K, V> node, K key) {
         if (node == null) {
             return false;
         }
 
-        int compare = node.key.compareTo(key);
+        int compare = node.getKey().compareTo(key);
 
         switch (compare) {
-            case 0:
-                return true;
             case 1:
-                return contains(node.left, key);
+                return contains(node.getLeft(), key);
             case -1:
-                return contains(node.right, key);
+                return contains(node.getRight(), key);
+            default:
+                return true;
         }
-        return false;
     }
 
     @Override
     public void remove(K key) {
-        if (!contains(key)) return;
         root = remove(root, key);
     }
 
-    private Node<K, V> remove(Node<K, V> node, K key) {
+    private MyNode<K, V> remove(MyNode<K, V> node, K key) {
         if (node == null) {
             return null;
         }
-
-        int compare = node.key.compareTo(key);
+        int compare = node.getKey().compareTo(key);
 
         switch (compare) {
             case 0:
-                if (node.left == null) {
-                    return node.right;
-                } else if (node.right == null) {
-                    return node.left;
+                if (node.getLeft() == null && node.getRight() == null) {
+                    return null;
+                } else if (node.getLeft() != null && node.getRight() == null) {
+                    return node.getLeft();
+                } else if (node.getLeft() == null && node.getRight() != null) {
+                    return node.getRight();
                 } else {
-                    Node<K, V> newNode = min(node.right);
-                    newNode.right = deleteMin(node.right);
-                    newNode.left = node.left;
+                    MyNode<K, V> newNode = getLeftNode(node.getRight());
+
+                    newNode.setRight(removeLeftNode(node.getRight()));
+                    newNode.setLeft(node.getLeft());
                     node = newNode;
                 }
-                break;
             case 1:
-                node.left = remove(node.left, key);
+                node.setLeft(remove(node.getLeft(), key));
                 break;
             case -1:
-                node.right = remove(node.right, key);
+                node.setRight(remove(node.getRight(), key));
                 break;
         }
-        node.height = 1 + Math.max(height(node.left), height(node.right));
-        return balance(node);
-    }
-
-    private Node<K, V> min(Node<K, V> node) {
-        if (node.left == null) return node;
-        return min(node.left);
-    }
-
-    private Node<K, V> deleteMin(Node<K, V> node) {
-        if (node.left == null) return node.right;
-        node.left = deleteMin(node.left);
-        node.height = 1 + Math.max(height(node.left), height(node.right));
+        node.setHeight(1 + Math.max(getHeight(node.getLeft()), getHeight(node.getRight())));
         return balance(node);
     }
 
@@ -185,37 +229,42 @@ public class BlanceBinaryTreeUsingAvlImpl<K extends Comparable<K>, V> implements
     public String printInOrder() {
         StringBuilder sb = new StringBuilder();
 
-        printInOrder(root, sb);
+        printInOrder(sb, root);
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
     }
 
-    private void printInOrder(Node<K, V> node, StringBuilder sb) {
+
+    private void printInOrder(StringBuilder sb, MyNode<K, V> node) {
         if (node == null) {
             return;
         }
-        printInOrder(node.left, sb);
-        sb.append(node.toString());
+
+        printInOrder(sb, node.getLeft());
+        sb.append(node.getText());
         sb.append(',');
-        printInOrder(node.right, sb);
+        printInOrder(sb, node.getRight());
     }
+
 
     @Override
     public String printPostOrder() {
         StringBuilder sb = new StringBuilder();
 
-        printPostOrder(root, sb);
+        printPostOrder(sb, root);
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
     }
 
-    private void printPostOrder(Node<K, V> node, StringBuilder sb) {
+
+    private void printPostOrder(StringBuilder sb, MyNode<K, V> node) {
         if (node == null) {
             return;
         }
-        printPostOrder(node.left, sb);
-        printPostOrder(node.right, sb);
-        sb.append(node.toString());
+
+        printPostOrder(sb, node.getLeft());
+        printPostOrder(sb, node.getRight());
+        sb.append(node.getText());
         sb.append(',');
     }
 }

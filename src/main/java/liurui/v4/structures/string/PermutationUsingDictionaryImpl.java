@@ -3,6 +3,7 @@ package liurui.v4.structures.string;
 import liurui.defines.structures.string.PermutationUsingDictionary;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * 计算出字符的所有排列情况,使用字典序的方式
@@ -17,68 +18,89 @@ public class PermutationUsingDictionaryImpl implements PermutationUsingDictionar
     @Override
     public String[] permutation(String str) {
         ArrayList<String> ret = new ArrayList<>();
-        char[] chars = str.toCharArray();
+        char[] ary = str.toCharArray();
 
-        sort(chars, 0, chars.length - 1);
+        sort(ary, new char[ary.length], 0, ary.length - 1);
 
 
         while (true) {
-            ret.add(String.valueOf(chars));
-            int i = chars.length - 2;
+            ret.add(String.valueOf(ary));
+            int minIndex = -1;
 
-            for (; i >= 0 && chars[i] > chars[i + 1]; i--) ;
+            for (int i = ary.length - 2; i >= 0; i--) {
+                if (ary[i] < ary[i + 1]) {
+                    minIndex = i;
+                    break;
+                }
+            }
 
-            if (i < 0) break;
-            int j = chars.length - 1;
+            if (minIndex == -1) {
+                break;
+            }
 
-            for (; j > i && chars[j] < chars[i]; j--) ;
-            swap(chars, i, j);
-            reverse(chars, i + 1, chars.length - 1);
+            int firstIndex = -1;
+
+            for (int i = ary.length - 1; i > minIndex; i--) {
+                if (ary[i] > ary[minIndex]) {
+                    firstIndex = i;
+                    break;
+                }
+            }
+            swap(ary, minIndex, firstIndex);
+            reverse(ary, minIndex + 1, ary.length - 1);
         }
 
-        return ret.toArray(new String[0]);
+        System.out.println(ret);
+        return ret.toArray(new String[ret.size()]);
     }
 
-    private void reverse(char[] chars, int begin, int end) {
+    private void swap(char[] ary, int a, int b) {
+        char tmp = ary[a];
+
+        ary[a] = ary[b];
+        ary[b] = tmp;
+    }
+
+    private void reverse(char[] ary, int begin, int end) {
         int mid = (end - begin) / 2;
 
         for (int i = 0; i <= mid; i++) {
-            swap(chars, begin + i, end - i);
+            swap(ary, begin + i, end - i);
         }
     }
 
-    private void swap(char[] chars, int i, int j) {
-        char tmp = chars[i];
-        chars[i] = chars[j];
-        chars[j] = tmp;
-    }
-
-    private void sort(char[] chars, int begin, int end) {
+    private void sort(char[] ary, char[] merged, int begin, int end) {
         if (begin >= end) return;
+        int mid = begin + (end - begin) / 2;
 
+        sort(ary, merged, begin, mid);
+        sort(ary, merged, mid + 1, end);
+        merge(ary, merged, begin, mid, end);
+    }
+
+    private void merge(char[] ary, char[] merged, int begin, int mid, int end) {
         int i = begin;
-        int j = end;
-        char item = chars[i];
+        int j = mid + 1;
+        int mergedIndex = begin;
 
-        while (i < j) {
-            while (i < j && chars[j] > item) {
-                j--;
-            }
-
-            if (i < j) {
-                chars[i++] = chars[j];
-            }
-
-            while (i < j && chars[i] < item) {
-                i++;
-            }
-
-            if (i < j) {
-                chars[j--] = chars[i];
+        while (i <= mid && j <= end) {
+            if (ary[i] <= ary[j]) {
+                merged[mergedIndex++] = ary[i++];
+            } else {
+                merged[mergedIndex++] = ary[j++];
             }
         }
-        chars[i] = item;
-        sort(chars, begin, i - 1);
-        sort(chars, i + 1, end);
+
+        while (i <= mid) {
+            merged[mergedIndex++] = ary[i++];
+        }
+
+        while (j <= end) {
+            merged[mergedIndex++] = ary[j++];
+        }
+
+        for (mergedIndex = begin; mergedIndex <= end; mergedIndex++) {
+            ary[mergedIndex] = merged[mergedIndex];
+        }
     }
 }

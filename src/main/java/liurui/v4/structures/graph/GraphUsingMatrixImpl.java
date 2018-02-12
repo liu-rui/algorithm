@@ -1,18 +1,17 @@
 package liurui.v4.structures.graph;
 
-import liurui.defines.sorts.MergeSort;
 import liurui.defines.structures.graph.GraphUsingMatrix;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
  * 图，使用邻接矩阵表示
  */
 public class GraphUsingMatrixImpl implements GraphUsingMatrix {
-    int[][] matrix;
-    HashMap<String, Integer> hashByKey = new HashMap<>();
-    HashMap<Integer, String> hashByIndex = new HashMap<>();
-
+    int[][] matric;
+    HashMap<String, Integer> hashMapByKey = new HashMap<>();
+    HashMap<Integer, String> hashMapByIndex = new HashMap<>();
 
     /**
      * 使用顶点初始化图
@@ -21,14 +20,11 @@ public class GraphUsingMatrixImpl implements GraphUsingMatrix {
      */
     @Override
     public void init(String[] vertices) {
-        if (vertices == null || vertices.length == 0) {
-            throw new IllegalArgumentException();
-        }
-        matrix = new int[vertices.length][vertices.length];
+        matric = new int[vertices.length][vertices.length];
 
         for (int i = 0; i < vertices.length; i++) {
-            hashByKey.put(vertices[i], i);
-            hashByIndex.put(i, vertices[i]);
+            hashMapByKey.put(vertices[i], i);
+            hashMapByIndex.put(i, vertices[i]);
         }
     }
 
@@ -52,10 +48,11 @@ public class GraphUsingMatrixImpl implements GraphUsingMatrix {
      */
     @Override
     public void addEdge(String start, String end, int value) {
-        if (!hashByKey.containsKey(start) || !hashByKey.containsKey(end)) {
+        if (!hashMapByKey.containsKey(start) || !hashMapByKey.containsKey(end)) {
             throw new IllegalArgumentException();
         }
-        matrix[hashByKey.get(start)][hashByKey.get(end)] = value;
+
+        matric[hashMapByKey.get(start)][hashMapByKey.get(end)] = value;
     }
 
     /**
@@ -79,10 +76,11 @@ public class GraphUsingMatrixImpl implements GraphUsingMatrix {
      */
     @Override
     public void removeEdge(String start, String end) {
-        if (!hashByKey.containsKey(start) || !hashByKey.containsKey(end)) {
+        if (!hashMapByKey.containsKey(start) || !hashMapByKey.containsKey(end)) {
             throw new IllegalArgumentException();
         }
-        matrix[hashByKey.get(start)][hashByKey.get(end)] = 0;
+
+        matric[hashMapByKey.get(start)][hashMapByKey.get(end)] = 0;
     }
 
     /**
@@ -98,11 +96,12 @@ public class GraphUsingMatrixImpl implements GraphUsingMatrix {
     public String[] printEdges() {
         ArrayList<String> ret = new ArrayList<>();
 
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix.length; j++) {
-                if (matrix[i][j] > 0) {
-                    ret.add(String.format("%s -> %s", hashByIndex.get(i), hashByIndex.get(j)));
+        for (int i = 0; i < hashMapByKey.size(); i++) {
+            for (int j = 0; j < hashMapByKey.size(); j++) {
+                if (matric[i][j] == 0) {
+                    continue;
                 }
+                ret.add(String.format("%s -> %s", hashMapByIndex.get(i), hashMapByIndex.get(j)));
             }
         }
         return ret.toArray(new String[0]);
@@ -116,33 +115,33 @@ public class GraphUsingMatrixImpl implements GraphUsingMatrix {
     @Override
     public String printDepthFirstSearch() {
         StringBuilder sb = new StringBuilder();
-        ArrayDeque<Integer> stack = new ArrayDeque<>();
-        HashSet<Integer> visibled = new HashSet<>();
+        Deque<Integer> stack = new ArrayDeque<>();
+        boolean[] visited = new boolean[hashMapByKey.size()];
 
         stack.push(0);
-        visibled.add(0);
-        sb.append(hashByIndex.get(0));
+        visited[0] = true;
+        sb.append(hashMapByIndex.get(0));
         sb.append(',');
 
         while (!stack.isEmpty()) {
-            Integer index = stack.peek();
+            Integer curIndex = stack.peek();
             boolean found = false;
 
-            for (int i = 0; i < matrix.length; i++) {
-                if (!visibled.contains(i) && matrix[index][i] > 0) {
+            for (int i = 0; i < hashMapByIndex.size(); i++) {
+                if (curIndex != i && !visited[i] && matric[curIndex][i] != 0) {
                     stack.push(i);
-                    visibled.add(i);
-                    sb.append(hashByIndex.get(i));
+                    visited[i] = true;
+                    sb.append(hashMapByIndex.get(i));
                     sb.append(',');
                     found = true;
                     break;
                 }
             }
+
             if (!found) {
                 stack.pop();
             }
         }
-
 
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
@@ -156,22 +155,22 @@ public class GraphUsingMatrixImpl implements GraphUsingMatrix {
     @Override
     public String printBreadthFirstSearch() {
         StringBuilder sb = new StringBuilder();
-        ArrayDeque<Integer> queue = new ArrayDeque<>();
-        HashSet<Integer> visibled = new HashSet<>();
+        Deque<Integer> queue = new ArrayDeque<>();
+        boolean[] visited = new boolean[hashMapByKey.size()];
 
         queue.add(0);
-        visibled.add(0);
-        sb.append(hashByIndex.get(0));
+        visited[0] = true;
+        sb.append(hashMapByIndex.get(0));
         sb.append(',');
 
         while (!queue.isEmpty()) {
-            Integer index = queue.poll();
+            Integer curIndex = queue.poll();
 
-            for (int i = 0; i < matrix.length; i++) {
-                if (!visibled.contains(i) && matrix[index][i] > 0) {
+            for (int i = 0; i < hashMapByIndex.size(); i++) {
+                if (curIndex != i && !visited[i] && matric[curIndex][i] != 0) {
                     queue.add(i);
-                    visibled.add(i);
-                    sb.append(hashByIndex.get(i));
+                    visited[i] = true;
+                    sb.append(hashMapByIndex.get(i));
                     sb.append(',');
                 }
             }
@@ -192,47 +191,50 @@ public class GraphUsingMatrixImpl implements GraphUsingMatrix {
      */
     @Override
     public String[] printShortestPathUsingDijkstra() {
-        int[][] map = genericMap();
-        HashSet<Integer> visibled = new HashSet<>();
+        int[][] map = copyMatric();
         ArrayList<String> ret = new ArrayList<>();
+        HashSet<Integer> visited = new HashSet<>();
 
-        visibled.add(0);
+        visited.add(0);
 
         for (int i = 1; i < map.length; i++) {
-            int minDistance = Integer.MAX_VALUE;
-            int minIndex = -1;
+            int curIndex = -1;
+            int minValue = Integer.MAX_VALUE;
 
-            for (int j = 0; j < map.length; j++) {
-                if (!visibled.contains(j) && map[0][j] != 0 && map[0][j] < minDistance) {
-                    minDistance = map[0][j];
-                    minIndex = j;
+
+            for (int j = 1; j < map.length; j++) {
+                if (map[0][j] > 0 && !visited.contains(j) && map[0][j] < minValue) {
+                    curIndex = j;
+                    minValue = map[0][j];
                 }
             }
 
-            if (minIndex == -1) {
+            if (curIndex == -1) {
                 break;
             }
-            visibled.add(minIndex);
-            ret.add(String.format("%s -> %s %d", hashByIndex.get(0), hashByIndex.get(minIndex), minDistance));
 
-            for (int j = 0; j < map.length; j++) {
-                if (!visibled.contains(j) && map[minIndex][j] != 0 && (map[0][j] == 0 || map[minIndex][j] + minDistance < map[0][j])) {
-                    map[0][j] = map[minIndex][j] + minDistance;
+            visited.add(curIndex);
+            ret.add(String.format("%s -> %s %d", hashMapByIndex.get(0), hashMapByIndex.get(curIndex), minValue));
+
+
+            for (int j = 1; j < map.length; j++) {
+                if (!visited.contains(j) && map[curIndex][j] > 0 && (map[0][j] <= 0 || minValue + map[curIndex][j] < map[0][j])) {
+                    map[0][j] = minValue + map[curIndex][j];
                 }
             }
         }
-        return ret.toArray(new String[0]);
+        return ret.toArray(new String[ret.size()]);
     }
 
-    private int[][] genericMap() {
-        int[][] map = new int[matrix.length][matrix.length];
+    private int[][] copyMatric() {
+        int[][] ret = new int[matric.length][matric.length];
 
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix.length; j++) {
-                map[i][j] = matrix[i][j];
+        for (int i = 0; i < matric.length; i++) {
+            for (int j = 0; j < matric.length; j++) {
+                ret[i][j] = matric[i][j];
             }
         }
-        return map;
+        return ret;
     }
 
     /**
@@ -246,44 +248,45 @@ public class GraphUsingMatrixImpl implements GraphUsingMatrix {
      */
     @Override
     public String[] printShortestPathUsingFloyd() {
-        int[][] map = genericMap();
+        int[][] map = copyMatric();
 
         for (int k = 0; k < map.length; k++) {
             for (int i = 0; i < map.length; i++) {
                 for (int j = 0; j < map.length; j++) {
                     map[i][j] = map[i][k] == 0 || map[k][j] == 0
                             ? map[i][j]
-                            : (map[i][j] == 0 || map[i][k] + map[k][j] < map[i][j] ? map[i][k] + map[k][j] : map[i][j]);
+                            : (map[i][j] == 0 || map[i][k] + map[k][j] < map[i][j]) ? map[i][k] + map[k][j] : map[i][j];
                 }
             }
         }
 
-        PriorityQueue<Item> queue = new PriorityQueue<>();
+        PriorityQueue<Node> queue = new PriorityQueue<>();
+
         for (int i = 1; i < map.length; i++) {
-            queue.add(new Item(i, map[0][i]));
+            queue.add(new Node(i, map[0][i]));
         }
+        ArrayList<String> ret = new ArrayList<>();
+        int i = 0;
 
-        String[] ret = new String[queue.size()];
-
-        for (int i = 0; i < ret.length; i++) {
-            Item item = queue.poll();
-            ret[i] = String.format("%s -> %s %d", hashByIndex.get(0), hashByIndex.get(item.index), item.distance);
+        while (!queue.isEmpty()) {
+            Node node = queue.poll();
+            ret.add(String.format("%s -> %s %d", hashMapByIndex.get(0), hashMapByIndex.get(node.index), node.height));
         }
-        return ret;
+        return ret.toArray(new String[ret.size()]);
     }
 
-    private static class Item implements Comparable<Item> {
+    private static class Node implements Comparable<Node> {
         private int index;
-        private int distance;
+        private int height;
 
-        public Item(int index, int distance) {
+        public Node(int index, int height) {
             this.index = index;
-            this.distance = distance;
+            this.height = height;
         }
 
         @Override
-        public int compareTo(Item o) {
-            return Integer.compare(distance, o.distance);
+        public int compareTo(Node o) {
+            return Integer.compare(height, o.height);
         }
     }
 }

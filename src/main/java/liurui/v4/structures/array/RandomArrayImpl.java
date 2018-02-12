@@ -26,19 +26,18 @@ public class RandomArrayImpl implements RandomArray {
      */
     @Override
     public int[] random(int[] ary) {
+        Random random = new Random();
         for (int i = 0; i < ary.length; i++) {
-            int newIndex = new Random().nextInt(ary.length - i) + i;
+            int newIndex = random.nextInt(ary.length - i) + i;
             int tmp = ary[i];
 
             ary[i] = ary[newIndex];
             ary[newIndex] = tmp;
         }
-
         return ary;
     }
 
     public static void main(String[] args) {
-
         RandomArrayImpl array = new RandomArrayImpl();
 
         System.out.println(Arrays.toString(array.random(new int[]{1, 2, 3, 4, 5, 6})));

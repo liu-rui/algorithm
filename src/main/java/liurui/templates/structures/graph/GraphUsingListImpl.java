@@ -88,9 +88,9 @@ public class GraphUsingListImpl implements GraphUsingList {
     }
 
     /**
-     * 打印深度优先搜索(DFS)结果
+     * 打印广度优先搜索(BFS)结果
      *
-     * @return 深度优先遍历结果，用","隔开
+     * @return 广先遍历结果，用","隔开
      */
     @Override
     public String printBreadthFirstSearch() {

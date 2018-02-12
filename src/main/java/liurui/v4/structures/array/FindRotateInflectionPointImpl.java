@@ -2,6 +2,8 @@ package liurui.v4.structures.array;
 
 import liurui.defines.structures.array.FindRotateInflectionPoint;
 
+import java.awt.event.MouseWheelListener;
+
 /**
  * 寻找旋转数组的拐点
  * 原数组1,2,3,4,5,6,7旋转后得到4,5,6,7,1,2,3;我们将新得到的数组为原数组
@@ -17,23 +19,23 @@ public class FindRotateInflectionPointImpl implements FindRotateInflectionPoint 
      */
     @Override
     public int find(int[] ary) {
-        int begin = 0;
-        int end = ary.length - 1;
+        int i = 0;
+        int j = ary.length - 1;
 
-        while (begin <= end) {
-            if (end - begin == 1) {
-                if (ary[begin] > ary[0]) {
-                    return ary[end];
+        while (i <= j) {
+            if (j - i == 1) {
+                if (ary[i] > ary[0]) {
+                    return ary[j];
                 } else {
-                    return ary[begin];
+                    return ary[i];
                 }
             }
-            int mid = begin + (end - begin) / 2;
+            int mid = i + (j - i) / 2;
 
             if (ary[mid] > ary[0]) {
-                begin = mid;
+                i = mid;
             } else {
-                end = mid;
+                j = mid;
             }
         }
         return -1;

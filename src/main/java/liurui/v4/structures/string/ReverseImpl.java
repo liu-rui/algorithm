@@ -16,8 +16,8 @@ public class ReverseImpl implements Reverse {
      */
     @Override
     public String reverse(String str, int begin, int end) {
-        char[] chars = str.toCharArray();
         int mid = (end - begin) / 2;
+        char[] chars = str.toCharArray();
 
         for (int i = 0; i <= mid; i++) {
             swap(chars, begin + i, end - i);
@@ -25,10 +25,10 @@ public class ReverseImpl implements Reverse {
         return String.valueOf(chars);
     }
 
-    private void swap(char[] chars, int i, int j) {
-        char tmp = chars[i];
+    private void swap(char[] ary, int a, int b) {
+        char tmp = ary[a];
 
-        chars[i] = chars[j];
-        chars[j] = tmp;
+        ary[a] = ary[b];
+        ary[b] = tmp;
     }
 }

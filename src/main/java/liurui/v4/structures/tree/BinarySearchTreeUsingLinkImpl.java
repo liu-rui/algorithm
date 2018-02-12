@@ -6,20 +6,20 @@ import liurui.defines.structures.tree.BinaryTreeNode;
 public class BinarySearchTreeUsingLinkImpl<K extends Comparable<K>, V> implements BinarySearchTreeUsingLink<K, V> {
     BinaryTreeNode<K, V> root;
 
+
     @Override
     public void add(K key, V data) {
         root = add(root, key, data);
     }
 
     private BinaryTreeNode<K, V> add(BinaryTreeNode<K, V> node, K key, V data) {
-        if (node == null) return new BinaryTreeNode<>(key, data);
+        if (node == null) {
+            return new BinaryTreeNode<>(key, data);
+        }
 
         int compare = node.getKey().compareTo(key);
 
         switch (compare) {
-            case 0:
-                node.setData(data);
-                break;
             case 1:
                 node.setLeft(add(node.getLeft(), key, data));
                 break;
@@ -32,27 +32,27 @@ public class BinarySearchTreeUsingLinkImpl<K extends Comparable<K>, V> implement
 
     @Override
     public boolean contains(K key) {
-        if (root == null) {
+        return contains(root, key);
+    }
+
+    private boolean contains(BinaryTreeNode<K, V> node, K key) {
+        if (node == null) {
             return false;
         }
-        BinaryTreeNode<K, V> item = root;
 
-        while (item != null) {
-            int compare = item.getKey().compareTo(key);
+        int compare = node.getKey().compareTo(key);
 
-            switch (compare) {
-                case 0:
-                    return true;
-                case 1:
-                    item = item.getLeft();
-                    break;
-                case -1:
-                    item = item.getRight();
-                    break;
-            }
+        switch (compare) {
+            case 0:
+                return true;
+            case 1:
+                return contains(node.getLeft(), key);
+            case -1:
+                return contains(node.getRight(), key);
         }
         return false;
     }
+
 
     @Override
     public void remove(K key) {
@@ -63,22 +63,24 @@ public class BinarySearchTreeUsingLinkImpl<K extends Comparable<K>, V> implement
         if (node == null) {
             return null;
         }
+
         int compare = node.getKey().compareTo(key);
 
         switch (compare) {
             case 0:
-                if (node.getLeft() == null) {
-                    return node.getRight();
-                } else if (node.getRight() == null) {
+                if (node.getLeft() == null && node.getRight() == null) {
+                    return null;
+                } else if (node.getLeft() != null && node.getRight() == null) {
                     return node.getLeft();
+                } else if (node.getLeft() == null && node.getRight() != null) {
+                    return node.getRight();
                 } else {
-                    BinaryTreeNode<K, V> newNode = min(node.getRight());
+                    BinaryTreeNode<K, V> firstNode = getLeftNode(node.getRight());
 
-                    newNode.setRight(deleteMin(node.getRight()));
-                    newNode.setLeft(node.getLeft());
-                    node = newNode;
+                    firstNode.setRight(removeLeftNode(node.getRight()));
+                    firstNode.setLeft(node.getLeft());
+                    node = firstNode;
                 }
-                break;
             case 1:
                 node.setLeft(remove(node.getLeft(), key));
                 break;
@@ -86,19 +88,22 @@ public class BinarySearchTreeUsingLinkImpl<K extends Comparable<K>, V> implement
                 node.setRight(remove(node.getRight(), key));
                 break;
         }
+
         return node;
     }
 
-    private BinaryTreeNode<K, V> min(BinaryTreeNode<K, V> node) {
-        if (node.getLeft() == null) return node;
-        return min(node.getLeft());
+    private BinaryTreeNode<K, V> getLeftNode(BinaryTreeNode<K, V> node) {
+        if (node.getLeft() == null) {
+            return node;
+        }
+        return getLeftNode(node.getLeft());
     }
 
-    private BinaryTreeNode<K, V> deleteMin(BinaryTreeNode<K, V> node) {
+    private BinaryTreeNode<K, V> removeLeftNode(BinaryTreeNode<K, V> node) {
         if (node.getLeft() == null) {
             return node.getRight();
         }
-        node.setLeft(deleteMin(node.getLeft()));
+        node.setLeft(removeLeftNode(node.getLeft()));
         return node;
     }
 
@@ -107,37 +112,39 @@ public class BinarySearchTreeUsingLinkImpl<K extends Comparable<K>, V> implement
     public String printInOrder() {
         StringBuilder sb = new StringBuilder();
 
-        printInOrder(root, sb);
+        printInOrder(sb, root);
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
     }
 
-    private void printInOrder(BinaryTreeNode<K, V> node, StringBuilder sb) {
+    private void printInOrder(StringBuilder container, BinaryTreeNode<K, V> node) {
         if (node == null) {
             return;
         }
-        printInOrder(node.getLeft(), sb);
-        sb.append(node.getText());
-        sb.append(',');
-        printInOrder(node.getRight(), sb);
+
+        printInOrder(container, node.getLeft());
+        container.append(node.getText());
+        container.append(',');
+        printInOrder(container, node.getRight());
     }
 
     @Override
     public String printPostOrder() {
         StringBuilder sb = new StringBuilder();
 
-        printPostOrder(root, sb);
+        printPostOrder(sb, root);
         sb.deleteCharAt(sb.length() - 1);
         return sb.toString();
     }
 
-    private void printPostOrder(BinaryTreeNode<K, V> node, StringBuilder sb) {
+    private void printPostOrder(StringBuilder container, BinaryTreeNode<K, V> node) {
         if (node == null) {
             return;
         }
-        printPostOrder(node.getLeft(), sb);
-        printPostOrder(node.getRight(), sb);
-        sb.append(node.getText());
-        sb.append(',');
+
+        printPostOrder(container, node.getLeft());
+        printPostOrder(container, node.getRight());
+        container.append(node.getText());
+        container.append(',');
     }
 }

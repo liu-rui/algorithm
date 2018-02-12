@@ -24,17 +24,20 @@ public class FindMaxSumSubArrayUsingExhaustiveImpl implements FindMaxSumSubArray
 
         for (int i = 0; i < ary.length; i++) {
             for (int j = i; j < ary.length; j++) {
-                int sum = 0;
+                int tmp = 0;
+
                 for (int k = i; k <= j; k++) {
-                    sum += ary[k];
+                    tmp += ary[k];
                 }
-                if (sum > max) {
-                    max = sum;
+
+                if (tmp > max) {
+                    max = tmp;
                     begin = i;
                     end = j;
                 }
             }
         }
+
 
         return Arrays.copyOfRange(ary, begin, end + 1);
     }

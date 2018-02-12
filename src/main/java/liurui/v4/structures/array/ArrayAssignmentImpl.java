@@ -20,6 +20,7 @@ public class ArrayAssignmentImpl implements ArrayAssignment {
      */
     @Override
     public int[] get(int[] a) {
+        if (a == null || a.length == 0) return null;
         int[] b = new int[a.length];
 
         b[0] = 1;
@@ -31,12 +32,12 @@ public class ArrayAssignmentImpl implements ArrayAssignment {
 
         b[0] = 1;
 
-        for (int i = a.length - 2; i > 0; i--) {
-            b[0] *= a[i+1];
+        for (int i = a.length - 2; i >= 1; i--) {
+            b[0] *= a[i + 1];
             b[i] *= b[0];
-
         }
-b[0]*=a[1];
+
+        b[0] *= a[1];
         return b;
     }
 }
