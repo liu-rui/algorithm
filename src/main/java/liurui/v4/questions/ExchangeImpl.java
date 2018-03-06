@@ -15,9 +15,6 @@ public class ExchangeImpl implements Exchange {
      */
     @Override
     public int[] exec(int[] ary) {
-        ary[0] ^= ary[1];
-        ary[1] ^= ary[0];
-        ary[0] ^= ary[1];
-        return ary;
+        return new int[0];
     }
 }
